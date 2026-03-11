@@ -1,0 +1,254 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1450" viewBox="0 0 1600 1450">
+  <defs>
+    <style><![CDATA[
+      .title { font: 700 28px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .section { font: 700 18px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .label { font: 700 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .body { font: 400 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .small { font: 400 12px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .tiny { font: 400 11px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .mono { font: 600 13px 'JetBrains Mono','Fira Code','SFMono-Regular',monospace; fill: #0f172a; }
+      .mono-small { font: 600 12px 'JetBrains Mono','Fira Code','SFMono-Regular',monospace; fill: #0f172a; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .dashed { stroke-dasharray: 7 6; }
+      .note { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.2; }
+      .lane-bg { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1; }
+      .arrow-slate { stroke: #475569; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-slate); }
+      .arrow-blue { stroke: #2563eb; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-blue); }
+      .arrow-orange { stroke: #ea580c; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-orange); }
+      .arrow-purple { stroke: #7c3aed; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-purple); }
+      .arrow-green { stroke: #16a34a; stroke-width: 2.8; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-green); }
+      .arrow-red { stroke: #dc2626; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-red); }
+      .arrow-dashed { stroke-dasharray: 7 6; }
+      .shadow { filter: drop-shadow(0 6px 18px rgba(15,23,42,0.08)); }
+    ]]></style>
+    <marker id="arrow-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ea580c"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1600" height="1450" fill="#f8fafc"/>
+<text x="40" y="58" class="title" text-anchor="start">
+  <tspan x="40" dy="0">React 一次 setState 到 render / commit 全链路</tspan>
+</text>
+<text x="40" y="84" class="subtitle" text-anchor="start">
+  <tspan x="40" dy="0">时序图：说明 setState 为什么不是立刻改页面、为什么更新必须走到 root、以及 render 与 commit 如何接力。</tspan>
+</text>
+<rect x="1300" y="34" width="250" height="28" rx="14.0" fill="#fed7aa" stroke="none"/>
+<text x="1425.0" y="52.0" class="small" text-anchor="middle">P1 · 动态过程图（M3 + M4）</text>
+<rect x="40" y="118" width="260" height="1110" rx="18" fill="#fff7ed" stroke="#cbd5e1" stroke-width="1.2" />
+<rect x="56" y="136" width="228" height="52" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+<text x="170.0" y="168" class="label" text-anchor="middle">
+  <tspan x="170.0" dy="0">组件实例</tspan>
+</text>
+<rect x="330" y="118" width="260" height="1110" rx="18" fill="#fff7ed" stroke="#cbd5e1" stroke-width="1.2" />
+<rect x="346" y="136" width="228" height="52" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+<text x="460.0" y="168" class="label" text-anchor="middle">
+  <tspan x="460.0" dy="0">当前 Fiber</tspan>
+</text>
+<rect x="620" y="118" width="260" height="1110" rx="18" fill="#eff6ff" stroke="#cbd5e1" stroke-width="1.2" />
+<rect x="636" y="136" width="228" height="52" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+<text x="750.0" y="168" class="label" text-anchor="middle">
+  <tspan x="750.0" dy="0">Root</tspan>
+</text>
+<rect x="910" y="118" width="260" height="1110" rx="18" fill="#f5f3ff" stroke="#cbd5e1" stroke-width="1.2" />
+<rect x="926" y="136" width="228" height="52" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+<text x="1040.0" y="168" class="label" text-anchor="middle">
+  <tspan x="1040.0" dy="0">Render（workInProgress）</tspan>
+</text>
+<rect x="1200" y="118" width="260" height="1110" rx="18" fill="#f0fdf4" stroke="#cbd5e1" stroke-width="1.2" />
+<rect x="1216" y="136" width="228" height="52" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+<text x="1330.0" y="168" class="label" text-anchor="middle">
+  <tspan x="1330.0" dy="0">Commit</tspan>
+</text>
+<rect x="646" y="198" width="208" height="28" rx="14.0" fill="#dbeafe" stroke="none"/>
+<text x="750.0" y="216.0" class="small" text-anchor="middle">Root 是 render / commit 的总入口</text>
+<rect x="62" y="220" width="240" height="52" rx="14" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" />
+<text x="182" y="252" class="small" text-anchor="middle">
+  <tspan x="182" dy="0">边界提示：setState ≠ 立刻改页面</tspan>
+</text>
+<rect x="70" y="290" width="200" height="86" rx="16" fill="#fff7ed" stroke="#ea580c" stroke-width="2" />
+<circle cx="92" cy="314" r="16" fill="#ea580c" stroke="none"/>
+<text x="92" y="319" class="label" text-anchor="middle" fill="#ffffff">1</text>
+<text x="120" y="320" class="label" text-anchor="start">
+  <tspan x="120" dy="0">this.setState(payload)</tspan>
+</text>
+<text x="120" y="352" class="small" text-anchor="start">
+  <tspan x="120" dy="0">发起一次更新请求，不是立刻改页面</tspan>
+</text>
+<rect x="350" y="402" width="220" height="112" rx="16" fill="#fff7ed" stroke="#ea580c" stroke-width="2" />
+<circle cx="372" cy="426" r="16" fill="#ea580c" stroke="none"/>
+<text x="372" y="431" class="label" text-anchor="middle" fill="#ffffff">2</text>
+<text x="400" y="432" class="label" text-anchor="start">
+  <tspan x="400" dy="0">enqueueSetState</tspan>
+</text>
+<text x="400" y="458" class="mono-small" text-anchor="start">
+  <tspan x="400" dy="0">createUpdate(lane, payload)</tspan>
+  <tspan x="400" dy="18">enqueueUpdate(fiber, update)</tspan>
+</text>
+<text x="400" y="490" class="small" text-anchor="start">
+  <tspan x="400" dy="0">先登记 update，再等待后续处理</tspan>
+</text>
+<rect x="350" y="552" width="220" height="112" rx="16" fill="#fff7ed" stroke="#ea580c" stroke-width="2" />
+<circle cx="372" cy="576" r="16" fill="#ea580c" stroke="none"/>
+<text x="372" y="581" class="label" text-anchor="middle" fill="#ffffff">3</text>
+<text x="400" y="582" class="label" text-anchor="start">
+  <tspan x="400" dy="0">沿父链找到 root</tspan>
+</text>
+<text x="400" y="608" class="mono-small" text-anchor="start">
+  <tspan x="400" dy="0">markUpdateLaneFromFiberToRoot(...)</tspan>
+  <tspan x="400" dy="18">沿 return 向上</tspan>
+</text>
+<text x="400" y="640" class="small" text-anchor="start">
+  <tspan x="400" dy="0">组件级更新会被提升为 root 级工作</tspan>
+</text>
+<rect x="640" y="568" width="220" height="80" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="2" />
+<text x="690" y="598" class="label" text-anchor="start">
+  <tspan x="690" dy="0">到达 HostRoot / 拿到 FiberRoot</tspan>
+</text>
+<text x="690" y="624" class="small" text-anchor="start">
+  <tspan x="690" dy="0">从组件级动作进入 root 级工作</tspan>
+</text>
+<rect x="640" y="712" width="220" height="106" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="2" />
+<circle cx="662" cy="736" r="16" fill="#2563eb" stroke="none"/>
+<text x="662" y="741" class="label" text-anchor="middle" fill="#ffffff">4</text>
+<text x="690" y="742" class="label" text-anchor="start">
+  <tspan x="690" dy="0">scheduleUpdateOnFiber(...)</tspan>
+</text>
+<text x="690" y="768" class="mono-small" text-anchor="start">
+  <tspan x="690" dy="0">markRootUpdated(root, lane, ...)</tspan>
+</text>
+<text x="690" y="794" class="small" text-anchor="start">
+  <tspan x="690" dy="0">这里是调度，不是提交</tspan>
+</text>
+<rect x="930" y="850" width="220" height="98" rx="16" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2" />
+<circle cx="952" cy="874" r="16" fill="#7c3aed" stroke="none"/>
+<text x="952" y="879" class="label" text-anchor="middle" fill="#ffffff">5</text>
+<text x="980" y="880" class="label" text-anchor="start">
+  <tspan x="980" dy="0">prepareFreshStack(root, lanes)</tspan>
+</text>
+<text x="980" y="906" class="mono-small" text-anchor="start">
+  <tspan x="980" dy="0">createWorkInProgress(root.current, null)</tspan>
+</text>
+<text x="980" y="924" class="small" text-anchor="start">
+  <tspan x="980" dy="0">render 不在 current 上硬改，</tspan>
+  <tspan x="980" dy="18">而是在 WIP 树上准备下一版</tspan>
+</text>
+<rect x="930" y="986" width="220" height="134" rx="16" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2" />
+<circle cx="952" cy="1010" r="16" fill="#7c3aed" stroke="none"/>
+<text x="952" y="1015" class="label" text-anchor="middle" fill="#ffffff">6</text>
+<text x="980" y="1016" class="label" text-anchor="start">
+  <tspan x="980" dy="0">processUpdateQueue(...)</tspan>
+</text>
+<text x="980" y="1042" class="mono-small" text-anchor="start">
+  <tspan x="980" dy="0">从 update queue 算出新的 state</tspan>
+  <tspan x="980" dy="18">beginWork / completeWork</tspan>
+</text>
+<text x="980" y="1078" class="small" text-anchor="start">
+  <tspan x="980" dy="0">新 state 不是在 setState 调用点算出来</tspan>
+  <tspan x="980" dy="18">而是在 render 阶段处理队列时得出</tspan>
+</text>
+<rect x="930" y="1160" width="220" height="94" rx="16" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2" />
+<circle cx="952" cy="1184" r="16" fill="#7c3aed" stroke="none"/>
+<text x="952" y="1189" class="label" text-anchor="middle" fill="#ffffff">7</text>
+<text x="980" y="1190" class="label" text-anchor="start">
+  <tspan x="980" dy="0">render 产出 finishedWork</tspan>
+</text>
+<text x="980" y="1216" class="mono-small" text-anchor="start">
+  <tspan x="980" dy="0">finishedWork = root.current.alternate</tspan>
+</text>
+<text x="980" y="1240" class="small" text-anchor="start">
+  <tspan x="980" dy="0">同一棵 WIP 树进入待提交状态</tspan>
+</text>
+<rect x="640" y="1164" width="220" height="86" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="2" />
+<text x="690" y="1190" class="label" text-anchor="start">
+  <tspan x="690" dy="0">Root 暂存结果</tspan>
+</text>
+<text x="690" y="1214" class="mono-small" text-anchor="start">
+  <tspan x="690" dy="0">root.finishedWork = finishedWork</tspan>
+  <tspan x="690" dy="18">root.finishedLanes = lanes</tspan>
+</text>
+<text x="690" y="1240" class="small" text-anchor="start">
+  <tspan x="690" dy="0">finishedWork 先挂到 root，再交给 commit</tspan>
+</text>
+<rect x="1218" y="1270" width="224" height="108" rx="16" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" />
+<circle cx="1240" cy="1294" r="16" fill="#16a34a" stroke="none"/>
+<text x="1240" y="1299" class="label" text-anchor="middle" fill="#ffffff">8</text>
+<text x="1268" y="1300" class="label" text-anchor="start">
+  <tspan x="1268" dy="0">commitRoot(...)</tspan>
+</text>
+<text x="1268" y="1326" class="mono-small" text-anchor="start">
+  <tspan x="1268" dy="0">finishedWork = root.finishedWork</tspan>
+  <tspan x="1268" dy="18">root.current = finishedWork</tspan>
+</text>
+<text x="1268" y="1354" class="small" text-anchor="start">
+  <tspan x="1268" dy="0">这次更新到这里才真正生效</tspan>
+</text>
+<path d="M 270 334 C 315 334, 315 458, 350 458" class="arrow-orange"/>
+<path d="M 460 514 L 460 552" class="arrow-orange"/>
+<path d="M 570 608 L 640 608" class="arrow-blue"/>
+<path d="M 750 648 L 750 712" class="arrow-blue"/>
+<path d="M 860 765 L 930 899" class="arrow-purple"/>
+<path d="M 1040 948 L 1040 986" class="arrow-purple"/>
+<path d="M 1040 1120 L 1040 1160" class="arrow-purple"/>
+<path d="M 930 1207 L 860 1207" class="arrow-blue"/>
+<path d="M 860 1207 C 1032 1207, 1032 1324, 1218 1324" class="arrow-green"/>
+<text x="545" y="596" class="small" text-anchor="middle">
+  <tspan x="545" dy="0">沿 return 父链</tspan>
+</text>
+<text x="810" y="798" class="small" text-anchor="middle">
+  <tspan x="810" dy="0">root 安排这轮工作</tspan>
+</text>
+<text x="1052" y="1195" class="small" text-anchor="middle">
+  <tspan x="1052" dy="0">finishedWork → root</tspan>
+</text>
+<rect x="1186" y="1010" width="344" height="72" rx="16" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.4" />
+<text x="1206" y="1040" class="small" text-anchor="start">
+  <tspan x="1206" dy="0">关键口径：新 state 不是在 setState 调用点算出来，</tspan>
+  <tspan x="1206" dy="18">而是在 render 阶段处理 update queue 时得出。</tspan>
+</text>
+<rect x="1186" y="1388" width="344" height="50" rx="16" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6" />
+<text x="1358" y="1418" class="small" text-anchor="middle">
+  <tspan x="1358" dy="0">生效时刻：root.current = finishedWork</tspan>
+</text>
+<rect x="40" y="1246" width="1520" height="178" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" class="shadow"/>
+<text x="64" y="1278" class="section" text-anchor="start">
+  <tspan x="64" dy="0">最小闭环总结</tspan>
+</text>
+<rect x="96" y="1312" width="420" height="76" rx="16" fill="#fff7ed" stroke="#ea580c" stroke-width="2" />
+<rect x="592" y="1312" width="420" height="76" rx="16" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2" />
+<rect x="1088" y="1312" width="420" height="76" rx="16" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" />
+<text x="306" y="1340" class="label" text-anchor="middle">
+  <tspan x="306" dy="0">setState：登记 update</tspan>
+</text>
+<text x="306" y="1366" class="small" text-anchor="middle">
+  <tspan x="306" dy="0">先挂到 Fiber，再等待 root 接手</tspan>
+</text>
+<text x="802" y="1340" class="label" text-anchor="middle">
+  <tspan x="802" dy="0">render：计算下一版结果</tspan>
+</text>
+<text x="802" y="1366" class="small" text-anchor="middle">
+  <tspan x="802" dy="0">在 workInProgress 树上处理 update queue</tspan>
+</text>
+<text x="1298" y="1340" class="label" text-anchor="middle">
+  <tspan x="1298" dy="0">commit：让结果真正生效</tspan>
+</text>
+<text x="1298" y="1366" class="small" text-anchor="middle">
+  <tspan x="1298" dy="0">root.current = finishedWork</tspan>
+</text>
+</svg>

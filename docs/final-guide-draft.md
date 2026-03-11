@@ -134,6 +134,7 @@ M3 最核心的结论不是“有两棵树”，而是：
 - `docs/modules/m3-evidence-notes.md`
 - `docs/modules/m3-source-entry-points.md`
 - `docs/modules/m3-compare-diagram-note.md`
+- `docs/diagrams/react-current-wip-commit.svg`
 
 ---
 
@@ -169,6 +170,7 @@ M4 选取的是一个最小但典型的例子：类组件中的一次 `this.setS
 - `docs/modules/m4-one-setstate-trace-draft.md`
 - `docs/modules/m4-evidence-notes.md`
 - `docs/modules/m4-source-entry-points.md`
+- `docs/diagrams/react-setstate-full-path.svg`
 
 ---
 

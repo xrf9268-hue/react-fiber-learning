@@ -49,12 +49,14 @@
 - 证据：`modules/m3-evidence-notes.md`
 - 最小源码入口：`modules/m3-source-entry-points.md`
 - 图示说明补充：`modules/m3-compare-diagram-note.md`
+- 配套 SVG：`diagrams/react-current-wip-commit.svg`
 - 作用：理解双树模型与 render / commit 分工
 
 ### M4｜一次 `setState` 全链路
 - 正文：`modules/m4-one-setstate-trace-draft.md`
 - 证据：`modules/m4-evidence-notes.md`
 - 最小源码入口：`modules/m4-source-entry-points.md`
+- 配套 SVG：`diagrams/react-setstate-full-path.svg`
 - 作用：把前面的静态结构第一次串成动态过程
 
 ### M5｜lanes / priority / scheduler / transition
