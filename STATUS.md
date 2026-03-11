@@ -17,7 +17,7 @@
 - M4 one `setState` traced end to end — COMPLETE IN FOURTH LOCAL MILESTONE COMMIT (`87f8066`)
 - M5 lanes / priority / scheduler / transition — COMPLETE IN FIFTH LOCAL MILESTONE COMMIT (`415ca82`)
 - M6 Suspense / Offscreen / React 19 deltas — COMPLETE IN SIXTH LOCAL MILESTONE COMMIT (`0fdf7de`)
-- M7 final guide / diagrams / polish — COMPLETE IN SEVENTH LOCAL MILESTONE COMMIT (`ddfbf34`) for the text-deliverable baseline (stable entry kept as `docs/final-guide-draft.md`; optional rendered diagrams remain deferred)
+- M7 final guide / diagrams / polish — COMPLETE IN SEVENTH LOCAL MILESTONE COMMIT (`e5cb0ac`) for the text-deliverable baseline (stable entry kept as `docs/final-guide-draft.md`; optional rendered diagrams remain deferred)
 
 ## Quality Gates
 1. Each module must have a clear success definition.
@@ -33,7 +33,7 @@
 - Whether a later public-facing cleanup should rename `docs/final-guide-draft.md`; for the current repo-safe closeout, this file is kept as the stable entry path.
 
 ## Next Checkpoint
-- Final local milestone commit now exists: `ddfbf34` (`finalize repo guide, index, and release readiness`).
+- Final local milestone commit now exists: `e5cb0ac` (`finalize repo guide, index, and release readiness`).
 - `docs/final-guide-draft.md` remains the current stable final-guide entry path, avoiding a last-minute rename that would add link churn.
 - Entry documents (`README.md`, `docs/index.md`, `STATUS.md`, `docs/final-commit-readiness.md`, checkpoint) have received a lightweight real-path consistency pass; only actual path issues were corrected.
 - Remaining optional work should stay narrow: rendered SVG/PNG diagrams, plus any later cosmetic rename for public-facing packaging.

@@ -89,7 +89,7 @@
 
 ## 建议的下一步
 
-当前最终本地里程碑提交已经创建：`ddfbf34`（`finalize repo guide, index, and release readiness`）。
+当前最终本地里程碑提交已经创建：`e5cb0ac`（`finalize repo guide, index, and release readiness`）。
 
 如果后续还要继续提高展示完成度，则应单开一个小工作包，仅做：
 - 图示 SVG 化，或
