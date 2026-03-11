@@ -1,0 +1,334 @@
+# M4｜一次 `setState` 是怎样从组件一路走到提交的（草稿）
+
+## 先说结论
+
+在 React 18 里，类组件里调用一次 `this.setState(...)`，并不会直接修改页面。
+
+更准确地说，它会经历这样一条主线：
+
+1. 在当前组件对应的 Fiber 上创建一条 update
+2. 把这条 update 放进更新队列
+3. 沿 Fiber 的父链一路向上找到所属 root
+4. 由 root 安排一轮 render
+5. 在 render 过程中真正计算新的 state
+6. render 产出 `finishedWork`
+7. commit 接手 `finishedWork`，让这次更新真正生效
+
+如果把它压成一句话，就是：
+
+> `setState` 先登记更新，再由 root 发起 render，最后通过 commit 生效。
+
+这就是本模块最重要的认识。
+
+---
+
+## 一、为什么 `setState` 不是“立刻改 state”
+
+很多初学者会把 `setState` 理解成“我一调用，组件状态就已经被直接改掉了”。
+
+这个说法不够准确。
+
+从 React 18.2.0 的类组件入口可以看到，`setState` 首先进入的是 `classComponentUpdater.enqueueSetState`。在这个函数里，React 做的关键事情不是“立刻把新 state 写回组件”，而是：
+
+- 先找到当前实例对应的 Fiber
+- 再为这次更新分配一个 lane
+- 接着创建一条 update 对象
+- 然后把它放进更新队列
+- 最后把这件事交给 root 去调度
+
+也就是说，`setState` 调用时首先发生的是**登记更新**，不是**完成更新**。
+
+这一点非常关键，因为它直接决定了后面整条链路的理解方式：
+
+- 如果你把 `setState` 理解成“立刻改值”，后面就会不明白为什么还需要 render 和 commit。
+- 如果你把 `setState` 理解成“提交一条更新请求”，后面的流程就顺了。
+
+---
+
+## 二、这条 update 会先挂到哪里
+
+React 不会把一次 `setState` 当成一条转瞬即逝的消息，而是会把它包装成一条 update 记录。
+
+在 `createUpdate(...)` 里，这条记录至少会带上：
+
+- 发生时间 `eventTime`
+- 本次更新所在的 `lane`
+- 更新类型 `tag`
+- 更新内容 `payload`
+- 回调 `callback`
+- 指向下一条更新的 `next`
+
+这说明，React 不是把 `setState` 当成“现在立刻执行的动作”，而是把它先保存成一条可追踪、可排队、可后续处理的更新记录。
+
+随后，`enqueueUpdate(...)` 会把它放进当前 fiber 的 update queue。
+
+因此，对类组件来说，更贴切的描述是：
+
+- `setState` 并不直接生成最终 state
+- 它先生成一条 update，并把它挂到对应 Fiber 的更新队列上
+
+这一步相当于告诉 React：
+
+> 这里有一条待处理更新，后面 render 时请来消费它。
+
+---
+
+## 三、为什么一个组件里的更新，最后会变成 root 级工作
+
+这是 M4 的核心问题。
+
+表面上看，调用 `setState` 的只是某个具体组件；但 React 并不会让这个组件“私下偷偷重算自己”。
+
+React 的 render 和 commit 都是以 root 为总入口推进的，所以组件上的更新必须先被提升为 root 级工作。
+
+这个过程的关键证据，在 `markUpdateLaneFromFiberToRoot(...)`。
+
+这个函数做了两件事：
+
+1. 先把 lane 标到当前 Fiber 以及它的 alternate 上
+2. 再沿着 `return` 指针不断向上走，把 `childLanes` 标到每一层祖先上
+
+这条向上的链，就是 Fiber 树里的父链。
+
+一直走到最上层，如果遇到的是 `HostRoot`，就可以通过 `node.stateNode` 取到对应的 `FiberRoot`。
+
+这一步说明了两件非常重要的事：
+
+### 1. React 不把更新只看成“局部组件自己的事”
+
+虽然更新起点在组件，但它必须沿着树结构往上汇总，最后交给 root。
+
+### 2. root 才是整轮 render/commit 的调度入口
+
+只有拿到了 root，React 才能把“某个组件上有更新”升级为“这棵树要开始一轮新工作”。
+
+所以，一次 `setState` 看起来像是组件级动作，本质上却会被提升为 root 级任务。
+
+---
+
+## 四、root 接到更新后，做的不是“直接改页面”，而是安排 render
+
+当 `enqueueUpdate(...)` 返回 root 之后，类组件更新入口会继续调用：
+
+```js
+scheduleUpdateOnFiber(root, fiber, lane, eventTime)
+```
+
+这个名字已经很能说明问题了：它不是 `applyUpdateNow`，而是 `scheduleUpdateOnFiber`。
+
+也就是说，React 此时做的是**调度**，不是**立即提交结果**。
+
+在 `scheduleUpdateOnFiber(...)` 里，最先能看到的关键动作是：
+
+```js
+markRootUpdated(root, lane, eventTime)
+```
+
+它表达的意思很直接：
+
+> 这个 root 上现在有一条待处理更新了。
+
+到这里，问题已经发生了一个层级转换：
+
+- 一开始是“某个组件调用了 `setState`”
+- 现在变成了“某个 root 有一轮工作要开始了”
+
+这就是为什么我们说，React 的调度入口是 root，而不是单个组件。
+
+---
+
+## 五、render 仍然发生在 `workInProgress` 树上
+
+root 被标记有更新之后，并不意味着 React 会直接在当前界面对应的那棵树上原地修改。
+
+M3 已经讲过，React 在 render 阶段会使用 `workInProgress` 树准备下一版结果。M4 只是把这个模型接回更新触发链中。
+
+在 `prepareFreshStack(root, lanes)` 里，可以看到这样一个关键动作：
+
+```js
+const rootWorkInProgress = createWorkInProgress(root.current, null)
+```
+
+这说明：
+
+- 当前树仍然是 `root.current`
+- render 要处理的，是从 `root.current` 派生出来的 `workInProgress`
+
+而 `renderRootSync(root, lanes)` 在真正开始这轮同步 render 之前，会先确保这套新的工作栈已经准备好。
+
+所以，M3 与 M4 拼起来后，完整认识应该是：
+
+- M3 回答的是：render 和 commit 之间，两棵树怎样交接
+- M4 回答的是：是谁点燃了这次新的 render
+
+答案就是：**组件上的 update 先冒泡到 root，再由 root 创建并推进这轮 workInProgress 工作树。**
+
+---
+
+## 六、新 state 不是在调用点算出来的，而是在 render 中处理 update queue 时算出来的
+
+前面我们已经知道，`setState` 只是把 update 放进队列。
+
+那么，新的 state 到底在什么时候算出来？
+
+答案是：**在 render 过程中，由 `processUpdateQueue(...)` 处理 update queue 时算出来。**
+
+在类组件更新路径里，React 会先拿到旧的 `memoizedState`，然后调用：
+
+```js
+processUpdateQueue(workInProgress, newProps, instance, renderLanes)
+```
+
+调用之后，再从 `workInProgress.memoizedState` 读出新的 state。
+
+这一步非常值得单独强调，因为它正好纠正了一个常见误解：
+
+### 常见误解
+`setState` 一调用，新的 state 就已经当场写好了。
+
+### 更准确的说法
+`setState` 调用时只是把 update 登记到队列里；真正把这些 update 计算成新的 state，是 render 阶段的工作。
+
+这样理解后，很多现象都会变得更自然：
+
+- 为什么多次 `setState` 需要合并理解
+- 为什么更新不是简单的“同步赋值”
+- 为什么 render 仍然是 React 更新流程的核心阶段
+
+本模块不展开这些更复杂的问题，但至少要把这个基本顺序讲清。
+
+---
+
+## 七、render 结束后，结果会先写回 `root.finishedWork`，再交给 commit
+
+render 完成后，React 不会说“好了，任务到此结束”。
+
+render 只是把下一版结果准备出来，而这份结果会先挂到 root 上，等 commit 来接手。
+
+这一点可以直接从 `ReactFiberWorkLoop.old.js` 看到：同步 render 完成后，React 会先得到
+
+```js
+const finishedWork = root.current.alternate
+```
+
+随后立刻执行：
+
+```js
+root.finishedWork = finishedWork
+root.finishedLanes = lanes
+commitRoot(...)
+```
+
+并发路径在拿到一致树后，也会先把结果写回：
+
+```js
+root.finishedWork = finishedWork
+root.finishedLanes = lanes
+```
+
+然后再进入后续提交流程。
+
+到了 `commitRootImpl(...)`，React 才会读取：
+
+```js
+const finishedWork = root.finishedWork
+```
+
+这就把链条钉得更牢了：**`finishedWork` 不是 commit 临时现算出来的，而是 render 完成后先写回 root，再由 commit 消费。**
+
+所以，`finishedWork` 可以理解成：
+
+> 这轮 render 已经完成、已经挂到 root、等待提交的那棵树。
+
+这也顺便说明了一件事：
+
+- commit 不是重新算树
+- commit 是消费 render 的产物
+
+因此，render 与 commit 的分工是清楚的：
+
+- render：准备下一版结果
+- commit：让这版结果真正生效
+
+---
+
+## 八、一次 `setState` 真正生效的关键瞬间，是 `root.current = finishedWork`
+
+commit 阶段会根据 render 时留下的 flags 执行对应工作。
+
+对 M4 来说，不需要把所有 flags 细节都展开，只需要抓住最小事实：
+
+- mutation 相关工作会先执行
+- 然后 React 会把 `finishedWork` 扶正为新的 current
+- 再执行 layout 相关效果
+
+最关键的切换点是：
+
+```js
+root.current = finishedWork
+```
+
+这句代码的意义非常大。
+
+它意味着：
+
+- 原来那棵 current 树，已经不再代表最新界面
+- 刚刚 render 完成的那棵树，现在正式成为新的 current
+
+因此，如果要问“一次 `setState` 到底什么时候才算真正完成”，最稳妥的回答不是“调用 API 的时候”，而是：
+
+> 当 render 产出 `finishedWork`，并在 commit 中被切换为新的 `current` 时，这次更新才真正完成。
+
+---
+
+## 九、把整条链压成一个最小模型
+
+现在可以把一次 class 组件 `setState` 的主线压缩成八步：
+
+1. 组件调用 `this.setState(...)`
+2. `enqueueSetState` 创建 update
+3. `enqueueUpdate` 把 update 放进当前 fiber 的更新队列
+4. `markUpdateLaneFromFiberToRoot` 沿父链向上找到 root
+5. `scheduleUpdateOnFiber` 让 root 知道有一轮新工作
+6. render 在 `workInProgress` 树上处理 update queue，并算出新的 state
+7. render 结束后得到 `finishedWork`
+8. commit 通过 `root.current = finishedWork` 让结果生效
+
+如果必须再压缩成一句话，那就是：
+
+> 一次 `setState` 不是组件自己当场改完，而是先在 Fiber 上登记 update，再交给 root 发起 render，最后由 commit 完成生效。
+
+---
+
+## 十、本模块到这里为止，已经讲清了什么
+
+到这里，M4 已经足够回答三个核心问题：
+
+### 问题 1：为什么 `setState` 不是直接改页面
+因为它首先只是创建 update、入队、调度，而不是直接提交界面结果。
+
+### 问题 2：为什么组件里的更新最后会走到 root
+因为 React 会沿 Fiber 的 `return` 链向上标记，直到拿到 `FiberRoot`。
+
+### 问题 3：为什么最后还要经过 render 和 commit
+因为新 state 要在 render 中通过 update queue 计算出来，而真正让结果生效，要等 commit 把 `finishedWork` 切成新的 `current`。
+
+---
+
+## 暂时不要扩出去的内容
+
+为了保证 M4 边界清楚，这里刻意不展开：
+
+- hooks 的 `dispatchSetState`
+- 更完整的 lanes 体系
+- scheduler 如何决定时机
+- 并发打断、恢复与 transition
+- DOM 细粒度变更算法
+
+这些问题当然重要，但它们不属于本模块的核心任务。
+
+M4 的任务只有一个：
+
+> 把“一次组件内的 `setState` 为什么会变成一次 root 级 render，并最终 commit 生效”这条主线讲顺。
+
+只要这条线已经成立，后面的优先级、并发与调度系统，就有了可以安放的骨架。
