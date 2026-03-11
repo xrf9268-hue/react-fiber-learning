@@ -7,13 +7,13 @@
 - Baseline repo: local only
 
 ## Current Work Package
-- WP-03: finish M1 polish, compare notes, and first local milestone commit readiness
+- WP-05: close the M2 package and prepare the handoff into M3 (current / workInProgress / render / commit)
 
 ## Module Tracker
 - M0 project framing and study map — COMPLETE
-- M1 why Fiber exists — READY FOR LOCAL MILESTONE COMMIT
-- M2 Fiber node and tree traversal — TODO
-- M3 current / workInProgress / render / commit — TODO
+- M1 why Fiber exists — COMPLETE IN FIRST LOCAL MILESTONE COMMIT (`dc2a3a6`)
+- M2 Fiber node and tree traversal — DRAFT COMPLETE, EVIDENCE + SELF-REVIEW + READINESS DONE
+- M3 current / workInProgress / render / commit — NEXT
 - M4 one `setState` traced end to end — TODO
 - M5 lanes / priority / scheduler / transition — TODO
 - M6 Suspense / Offscreen / React 19 deltas — TODO
@@ -32,4 +32,5 @@
 - Whether to keep module docs only, or also produce a single condensed handbook.
 
 ## Next Checkpoint
-- Review `docs/modules/m1-commit-readiness.md`, then create the first local milestone commit for M0 + M1 if no further wording tweaks are needed.
+- Treat M2 as ready for the next local milestone commit.
+- Start M3 around `current / workInProgress / finishedWork` and the render → commit connection, without reopening M2 scope unless a diagram-specific gap appears.

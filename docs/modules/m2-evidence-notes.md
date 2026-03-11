@@ -1,0 +1,372 @@
+# M2｜官方证据笔记：Fiber 节点与树遍历
+
+## 使用原则
+
+- 本文件只记录 **M2 所需的最小官方证据**。
+- 主基线：**React v18.2.0 reconciler 源码**。
+- 主目标：回答两件事：**Fiber 节点是什么**，以及 **render 阶段怎样沿 Fiber 树推进工作**。
+- 本轮只抓节点骨架与遍历骨架，不展开 lanes、scheduler 策略、commit 副作用细节。
+
+---
+
+## 核心结论（供 M2 正文引用）
+
+1. **Fiber 不是单纯的 UI 描述对象，而是 React 的工作节点。** 官方类型定义直接写明：Fiber 是“需要做或已经做过的组件工作”。
+2. **一个 Fiber 同时保存树链接、输入、缓存状态、更新队列、副作用标记和优先级信息。** 这说明它不只是“长什么样”，还记录“接下来要做什么”。
+3. **`return / child / sibling` 把树改写成可显式控制的链式遍历结构。** 其中 `return` 像当前工作帧的返回地址，`child` 用于向下，`sibling` 用于横向。
+4. **render 阶段以单个 Fiber 为单位推进。** `workLoopSync` / `workLoopConcurrent` 都是在循环里反复调用 `performUnitOfWork(workInProgress)`。
+5. **`beginWork` 决定是否继续向下进入子节点；若没有子节点可进，就转入 complete / 回退路径。**
+6. **`completeUnitOfWork` 的骨架是：先完成当前节点，再尝试兄弟节点；没有兄弟就沿 `return` 回退。**
+7. **`alternate` 说明同一个逻辑节点通常有 current 与 workInProgress 两份对应体。** 但在 M2 只需建立基础认识，不展开整套双缓冲切换。
+
+---
+
+## 证据 1：Fiber 的官方类型定义直接把它定性为“工作”
+
+### 来源
+- React v18.2.0
+- `packages/react-reconciler/src/ReactInternalTypes.js`
+
+### 关键原话
+
+> A Fiber is work on a Component that needs to be done or was done. There can be more than one per component.
+
+### 对 M2 的可用结论
+
+- 这是 M2 最重要的定锚句。
+- 官方没有把 Fiber 定义成“虚拟 DOM 节点快照”，而是直接把它定义成 **组件上的工作**。
+- 同一句里还点出：**同一个组件可以对应不止一个 Fiber**，这为 `alternate` 的存在埋下基础。
+
+### 对正文的一句话支撑
+
+> Fiber 的核心身份不是“描述 UI 的对象”，而是 React 用来承载和推进组件工作的内部节点。
+
+---
+
+## 证据 2：Fiber 节点字段同时覆盖树关系、输入、缓存和副作用
+
+### 来源
+- React v18.2.0
+- `packages/react-reconciler/src/ReactInternalTypes.js`
+- `packages/react-reconciler/src/ReactFiber.old.js`
+
+### 关键字段与注释
+
+在 `ReactInternalTypes.js` 中，Fiber 定义包含以下关键字段：
+
+- 树链接：`return`、`child`、`sibling`、`index`
+- 输入与缓存：`pendingProps`、`memoizedProps`、`memoizedState`
+- 更新：`updateQueue`
+- 副作用：`flags`、`subtreeFlags`、`deletions`
+- 优先级：`lanes`、`childLanes`
+- 配对关系：`alternate`
+
+其中几句最关键的官方注释是：
+
+> The Fiber to return to after finishing processing this one.
+
+> It is conceptually the same as the return address of a stack frame.
+
+> Singly Linked List Tree Structure.
+
+> Input is the data coming into process this fiber. Arguments. Props.
+
+> A queue of state updates and callbacks.
+
+> This is a pooled version of a Fiber. Every fiber that gets updated will eventually have a pair.
+
+在 `ReactFiber.old.js` 的 `FiberNode(...)` 构造函数里，这些字段被初始化为节点骨架，例如：
+
+- `this.return = null`
+- `this.child = null`
+- `this.sibling = null`
+- `this.pendingProps = pendingProps`
+- `this.memoizedProps = null`
+- `this.updateQueue = null`
+- `this.memoizedState = null`
+- `this.flags = NoFlags`
+- `this.subtreeFlags = NoFlags`
+- `this.lanes = NoLanes`
+- `this.childLanes = NoLanes`
+- `this.alternate = null`
+
+### 对 M2 的可用结论
+
+- Fiber 节点的字段设计，本身就证明它是 **工作结构**，而不是只存一份 UI 结构描述。
+- `return / child / sibling` 负责遍历路线。
+- `pendingProps / memoizedProps / memoizedState / updateQueue` 负责“本轮输入与上轮结果”的工作上下文。
+- `flags / subtreeFlags` 表明节点和子树会在 render 中累积后续需要处理的结果。
+- `lanes / childLanes` 说明 Fiber 天然兼容优先级工作系统，但这部分在 M2 只点到为止。
+
+---
+
+## 证据 3：`alternate` 体现 current / workInProgress 的配对关系
+
+### 来源
+- React v18.2.0
+- `packages/react-reconciler/src/ReactInternalTypes.js`
+- `packages/react-reconciler/src/ReactFiber.old.js`
+
+### 关键原话
+
+在类型定义中：
+
+> This is a pooled version of a Fiber. Every fiber that gets updated will eventually have a pair.
+
+在 `createWorkInProgress(current, pendingProps)` 中：
+
+> We use a double buffering pooling technique because we know that we'll only ever need at most two versions of a tree.
+
+以及关键代码：
+
+- `let workInProgress = current.alternate;`
+- 若为空则创建新 Fiber
+- `workInProgress.alternate = current;`
+- `current.alternate = workInProgress;`
+
+### 对 M2 的可用结论
+
+- M2 至少可以确定：**同一个逻辑节点通常会有两份互相指向的 Fiber**。
+- 这解释了为什么在 work loop 里，当前工作单元常常通过 `unitOfWork.alternate` 找到“已提交的那一份”。
+- 但 M2 不需要继续展开整套 current / workInProgress / finishedWork 的切换时机，那是 M3 的主场。
+
+### M2 的安全表述边界
+
+> 在 M2 里，只需要把 `alternate` 理解成“当前树节点和正在准备的新节点之间的配对链接”。
+
+---
+
+## 证据 4：render work loop 以“单个 Fiber 单元”反复推进
+
+### 来源
+- React v18.2.0
+- `packages/react-reconciler/src/ReactFiberWorkLoop.old.js`
+
+### 关键代码
+
+`workLoopSync()`：
+
+> while (workInProgress !== null) {
+>   performUnitOfWork(workInProgress);
+> }
+
+`workLoopConcurrent()`：
+
+> while (workInProgress !== null && !shouldYield()) {
+>   performUnitOfWork(workInProgress);
+> }
+
+### 对 M2 的可用结论
+
+- 无论同步模式还是并发模式，render 主循环的最小推进单位都是 **当前这一个 Fiber**。
+- 差别不在“有没有工作单元”，而在于并发模式会在循环里检查 `shouldYield()`，允许把大任务切开。
+- 因而 M2 可以把 Fiber 理解为 React 在 render 阶段真正逐个处理的工作单元。
+
+### 对正文的一句话支撑
+
+> React 不是一口气“把整棵树递归完”才想下一步，而是持续围绕当前 `workInProgress` Fiber，逐单元推进整个 render。
+
+---
+
+## 证据 5：`performUnitOfWork` 的骨架是 begin，若无下一子节点就 complete
+
+### 来源
+- React v18.2.0
+- `packages/react-reconciler/src/ReactFiberWorkLoop.old.js`
+
+### 关键代码
+
+> const current = unitOfWork.alternate;
+> next = beginWork(current, unitOfWork, subtreeRenderLanes);
+> unitOfWork.memoizedProps = unitOfWork.pendingProps;
+> if (next === null) {
+>   completeUnitOfWork(unitOfWork);
+> } else {
+>   workInProgress = next;
+> }
+
+### 对 M2 的可用结论
+
+- `performUnitOfWork` 的结构非常适合教学：
+  1. 先拿到当前节点对应的 `current`（也就是 `alternate`）
+  2. 调 `beginWork(...)`
+  3. 若 begin 返回下一个 Fiber，就继续向下
+  4. 若返回 `null`，说明没有新的向下入口，转入 complete / 回退阶段
+- 这证明 render 不是“先完整 begin 一遍再完整 complete 一遍”的两次遍历，而是在同一推进流程里不断切换 begin 与 complete。
+
+---
+
+## 证据 6：`beginWork` 常以 `return workInProgress.child` 表达“继续向下”
+
+### 来源
+- React v18.2.0
+- `packages/react-reconciler/src/ReactFiberBeginWork.old.js`
+
+### 关键代码
+
+在常见更新路径中：
+
+> reconcileChildren(current, workInProgress, nextChildren, renderLanes);
+> return workInProgress.child;
+
+在另一些路径中会直接：
+
+> return null;
+
+### 对 M2 的可用结论
+
+- M2 不需要讲完所有 begin 分支，只要抓住返回值语义：
+  - **返回 `workInProgress.child`**：说明下一步继续处理子节点。
+  - **返回 `null`**：说明当前节点没有新的向下工作入口，接下来要走 complete / 回退逻辑。
+- 这正是“向下进入树”和“开始往回收”的切换点。
+
+### 对正文的一句话支撑
+
+> begin 阶段最关键的不是它内部所有分支，而是它最终通过返回值告诉 work loop：下一步是继续下探子节点，还是停止下探并开始回退。
+
+---
+
+## 证据 7：`completeUnitOfWork` 的骨架就是“完成当前 → 找兄弟 → 再回父级”
+
+### 来源
+- React v18.2.0
+- `packages/react-reconciler/src/ReactFiberWorkLoop.old.js`
+- `packages/react-reconciler/src/ReactFiberCompleteWork.old.js`
+
+### 关键原话与代码
+
+`completeUnitOfWork` 的官方注释直接写明：
+
+> Attempt to complete the current unit of work, then move to the next sibling. If there are no more siblings, return to the parent fiber.
+
+关键代码：
+
+> const returnFiber = completedWork.return;
+
+> next = completeWork(current, completedWork, subtreeRenderLanes);
+
+若 complete 期间又产生新工作：
+
+> if (next !== null) {
+>   workInProgress = next;
+>   return;
+> }
+
+否则按兄弟 / 父级继续：
+
+> const siblingFiber = completedWork.sibling;
+> if (siblingFiber !== null) {
+>   workInProgress = siblingFiber;
+>   return;
+> }
+> completedWork = returnFiber;
+> workInProgress = completedWork;
+
+而 `completeWork(...)` 自身在很多分支里会完成当前节点后：
+
+> bubbleProperties(workInProgress);
+> return null;
+
+### 对 M2 的可用结论
+
+- `completeUnitOfWork` 是 M2 讲清“回退路径”的核心证据。
+- 当某节点没有 child 可继续时，React 不是立刻结束，而是：
+  1. complete 当前节点
+  2. 若有 sibling，转去 sibling
+  3. 若没有 sibling，沿 `return` 回退到父节点
+  4. 重复上述过程，直到找到下一份工作或回到根
+- 这就是 `child / sibling / return` 三个链接如何共同支撑整棵树遍历的最直接官方证据。
+
+---
+
+## 证据 8：`tag` 说明不同 Fiber 表示不同种类的工作节点
+
+### 来源
+- React v18.2.0
+- `packages/react-reconciler/src/ReactWorkTags.js`
+
+### 关键代码
+
+`WorkTag` 枚举包括：
+
+- `FunctionComponent = 0`
+- `ClassComponent = 1`
+- `HostRoot = 3`
+- `HostComponent = 5`
+- `HostText = 6`
+- `Fragment = 7`
+- `ContextProvider = 10`
+- `SuspenseComponent = 13`
+- `MemoComponent = 14`
+- `OffscreenComponent = 22`
+
+### 对 M2 的可用结论
+
+- Fiber 不是“所有节点都一个样，只是数据不同”。
+- `tag` 明确告诉我们：同样是 Fiber，可能代表函数组件、类组件、宿主节点、根节点、Suspense 边界等不同工作类型。
+- 这解释了为什么 `beginWork` / `completeWork` 会按 `tag` 分发到不同处理路径。
+- 但 M2 不需要展开每一种 tag 的细节，只要让读者知道：**Fiber 是统一工作模型，不同 tag 是不同工作分支。**
+
+---
+
+## 可直接落到 M2 正文的论点映射
+
+### 论点 A：Fiber 是“工作节点”，不是“虚拟 DOM 快照”
+- 主证据：`ReactInternalTypes.js`
+- 支撑原话：
+  - “A Fiber is work on a Component that needs to be done or was done.”
+
+### 论点 B：`child / sibling / return` 共同表示显式遍历路线
+- 主证据：`ReactInternalTypes.js`、`ReactFiberWorkLoop.old.js`
+- 支撑原话：
+  - “The Fiber to return to after finishing processing this one.”
+  - “It is conceptually the same as the return address of a stack frame.”
+  - “Singly Linked List Tree Structure.”
+  - “then move to the next sibling ... return to the parent fiber”
+
+### 论点 C：render 以单个 Fiber 单元推进，而不是黑箱递归
+- 主证据：`ReactFiberWorkLoop.old.js`
+- 支撑代码：
+  - `while (workInProgress !== null) { performUnitOfWork(workInProgress); }`
+  - `while (workInProgress !== null && !shouldYield()) { performUnitOfWork(workInProgress); }`
+
+### 论点 D：begin 决定向下，complete 决定回退与横移
+- 主证据：`ReactFiberWorkLoop.old.js`、`ReactFiberBeginWork.old.js`
+- 支撑代码：
+  - `next = beginWork(...)`
+  - `if (next === null) { completeUnitOfWork(unitOfWork); }`
+  - `return workInProgress.child;`
+  - `return null;`
+
+### 论点 E：`alternate` 只需在 M2 建立“双份对应体”的基础认识
+- 主证据：`ReactInternalTypes.js`、`ReactFiber.old.js`
+- 支撑原话：
+  - “Every fiber that gets updated will eventually have a pair.”
+  - “double buffering pooling technique”
+
+---
+
+## M2 写作时应避免的失真表述
+
+1. **不要写成 `child / sibling / return` 只是普通树结构字段。**
+   - 更准确：它们是 React 显式控制向下、横向、回退路线的工作链接。
+
+2. **不要把 Fiber 树遍历讲成“和普通递归完全一样，只是换了名字”。**
+   - 更准确：教学上可类比深度优先，但 React 把“下一步去哪”显式化成了 work loop + 节点链接。
+
+3. **不要在 M2 把 `alternate` 讲成完整双缓冲实现课。**
+   - 更准确：先让读者知道 Fiber 可能成对出现，完整 current / workInProgress / commit 切换留到 M3。
+
+4. **不要提前把 lanes、Scheduler、commit effect 细节塞进主线。**
+   - 更准确：本模块只建立“节点是什么、树怎么走”的骨架理解。
+
+---
+
+## M2 建议引用顺序
+
+1. **先用 `ReactInternalTypes.js` 定义 Fiber 的身份与字段类别。**
+2. **再用 `ReactFiber.old.js` 补节点初始化和 `alternate` / workInProgress 的基本事实。**
+3. **然后用 `ReactFiberWorkLoop.old.js` 讲 render 的单元推进骨架。**
+4. **最后用 `ReactFiberBeginWork.old.js` 和 `ReactFiberCompleteWork.old.js` 补 begin 向下、complete 回退的语义。**
+
+这样主线最稳，也最不容易提前透支 M3/M4。
