@@ -38,6 +38,10 @@ M1 到 M6，分别是在把这句话拆开讲清楚。
 
 这条链的重点不是模块数量，而是因果关系：
 
+配套图示入口见：`docs/diagrams/index.md`。
+
+学习路线总图见：`docs/diagrams/react-learning-roadmap.svg`。
+
 - 先有旧模型的控制力问题；
 - 才需要一种新的工作节点与树结构；
 - 有了工作节点，才谈得上双树准备与统一提交；
@@ -72,6 +76,7 @@ M1 最重要的结论可以压成一句话：
 - `docs/modules/m1-why-fiber-exists-draft.md`
 - `docs/modules/m1-evidence-notes.md`
 - `docs/modules/m1-compare-notes.md`
+- `docs/diagrams/react-old-sync-vs-fiber-capabilities.svg`
 
 ---
 

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980">
+  <defs>
+    <style><![CDATA[
+      .title { font: 700 30px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .section { font: 700 18px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .label { font: 700 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .body { font: 400 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .small { font: 400 12px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .mono { font: 600 13px 'JetBrains Mono','Fira Code','SFMono-Regular',monospace; fill: #0f172a; }
+      .shadow { filter: drop-shadow(0 6px 18px rgba(15,23,42,0.08)); }
+      .arrow-blue { stroke: #2563eb; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-blue); }
+      .arrow-orange { stroke: #ea580c; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-orange); }
+      .arrow-slate { stroke: #475569; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-slate); }
+    ]]></style>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ea580c"/>
+    </marker>
+    <marker id="arrow-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="980" fill="#f8fafc"/>
+  <text x="44" y="60" class="title">Fiber 节点结构与遍历骨架图</text>
+  <text x="44" y="88" class="subtitle">说明 Fiber 不只是“描述 UI 的节点”，而是承载树链接、输入缓存、副作用与双树配对的工作节点。</text>
+
+  <rect x="1320" y="34" width="230" height="28" rx="14" fill="#dbeafe"/>
+  <text x="1435" y="53" class="small" text-anchor="middle">M2 核心图 · P1</text>
+
+  <rect x="48" y="140" width="560" height="760" rx="24" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" class="shadow"/>
+  <text x="80" y="188" class="section">① 单个 Fiber 节点：它身上至少装了什么</text>
+
+  <rect x="88" y="220" width="480" height="620" rx="22" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.8"/>
+  <text x="112" y="256" class="label">Fiber</text>
+  <text x="112" y="280" class="small">A Fiber is work on a component that needs to be done or was done.</text>
+
+  <rect x="120" y="320" width="416" height="110" rx="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="144" y="352" class="label">树链接</text>
+  <text x="144" y="382" class="mono">child / sibling / return</text>
+  <text x="144" y="408" class="small">显式记录向下、向右、回到父节点的路线，不只依赖 JS 调用栈。</text>
+
+  <rect x="120" y="456" width="416" height="110" rx="18" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="144" y="488" class="label">输入与缓存</text>
+  <text x="144" y="518" class="mono">pendingProps / memoizedProps / memoizedState</text>
+  <text x="144" y="544" class="small">这次输入是什么、上次真正记住了什么，都挂在 Fiber 上。</text>
+
+  <rect x="120" y="592" width="416" height="98" rx="18" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="144" y="624" class="label">工作标记</text>
+  <text x="144" y="654" class="mono">flags / subtreeFlags</text>
+  <text x="144" y="678" class="small">render 不只“走树”，还会沿路记录后续要处理的结果。</text>
+
+  <rect x="120" y="716" width="416" height="96" rx="18" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="144" y="748" class="label">双树配对</text>
+  <text x="144" y="778" class="mono">alternate</text>
+  <text x="144" y="802" class="small">同一逻辑节点往往有 current / workInProgress 两份互相关联的 Fiber。</text>
+
+  <rect x="648" y="140" width="904" height="760" rx="24" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" class="shadow"/>
+  <text x="680" y="188" class="section">② 树关系与 work loop：React 如何沿 Fiber 树推进、回退工作</text>
+
+  <rect x="692" y="228" width="820" height="390" rx="22" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+
+  <circle cx="1102" cy="292" r="34" fill="#ffffff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="1102" y="298" class="label" text-anchor="middle">A</text>
+  <text x="1102" y="330" class="small" text-anchor="middle">HostRoot / Parent</text>
+
+  <circle cx="930" cy="418" r="30" fill="#ffffff" stroke="#2563eb" stroke-width="2.2"/>
+  <text x="930" y="424" class="label" text-anchor="middle">B</text>
+  <circle cx="1102" cy="418" r="30" fill="#ffffff" stroke="#2563eb" stroke-width="2.2"/>
+  <text x="1102" y="424" class="label" text-anchor="middle">C</text>
+  <circle cx="1274" cy="418" r="30" fill="#ffffff" stroke="#2563eb" stroke-width="2.2"/>
+  <text x="1274" y="424" class="label" text-anchor="middle">D</text>
+
+  <circle cx="858" cy="534" r="26" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="858" y="540" class="label" text-anchor="middle">E</text>
+  <circle cx="1002" cy="534" r="26" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="1002" y="540" class="label" text-anchor="middle">F</text>
+  <circle cx="1274" cy="534" r="26" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="1274" y="540" class="label" text-anchor="middle">G</text>
+
+  <path d="M 1102 326 L 946 396" class="arrow-blue"/>
+  <path d="M 1102 326 L 1102 388" class="arrow-blue"/>
+  <path d="M 1102 326 L 1258 396" class="arrow-blue"/>
+  <path d="M 930 448 L 870 512" class="arrow-blue"/>
+  <path d="M 930 448 L 990 512" class="arrow-blue"/>
+  <path d="M 1274 448 L 1274 504" class="arrow-blue"/>
+
+  <path d="M 960 418 L 1072 418" class="arrow-slate"/>
+  <path d="M 1132 418 L 1244 418" class="arrow-slate"/>
+  <path d="M 888 534 L 972 534" class="arrow-slate"/>
+
+  <path d="M 930 388 C 930 344, 1040 344, 1086 314" class="arrow-orange"/>
+  <path d="M 1102 388 C 1102 350, 1102 336, 1102 326" class="arrow-orange"/>
+  <path d="M 1274 388 C 1274 344, 1164 344, 1118 314" class="arrow-orange"/>
+  <path d="M 858 508 C 858 468, 904 468, 918 444" class="arrow-orange"/>
+  <path d="M 1002 508 C 1002 468, 956 468, 942 444" class="arrow-orange"/>
+  <path d="M 1274 508 C 1274 470, 1274 470, 1274 444" class="arrow-orange"/>
+
+  <text x="1118" y="372" class="small">child：向下进入子节点</text>
+  <text x="1180" y="402" class="small">sibling：同层向右</text>
+  <text x="1258" y="286" class="small">return：做完后回到父节点</text>
+
+  <rect x="720" y="650" width="360" height="180" rx="20" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="746" y="686" class="label">beginWork：向下推进</text>
+  <text x="746" y="718" class="mono">while (workInProgress !== null) {</text>
+  <text x="770" y="742" class="mono">performUnitOfWork(workInProgress)</text>
+  <text x="746" y="766" class="mono">}</text>
+  <text x="746" y="798" class="small">若 beginWork 返回 child，就继续向下；</text>
+  <text x="746" y="818" class="small">最小工作单元是当前 Fiber，而不是整棵树。</text>
+
+  <rect x="1110" y="650" width="360" height="180" rx="20" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="1136" y="686" class="label">completeWork：向上回退</text>
+  <text x="1136" y="718" class="small">如果没有 child 可继续，</text>
+  <text x="1136" y="742" class="small">就沿 return 回退，并收束当前节点与子树结果。</text>
+  <text x="1136" y="780" class="small">这让 React 能显式控制“往下走”与“往上收束”，</text>
+  <text x="1136" y="800" class="small">而不是把整套遍历完全交给隐式递归栈。</text>
+
+  <rect x="48" y="916" width="1504" height="40" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="800" y="942" class="small" text-anchor="middle">一句话总结：Fiber 既是树节点，也是工作节点；显式三指针让 render 能按“当前 Fiber”这个最小单位推进和回退。</text>
+</svg>

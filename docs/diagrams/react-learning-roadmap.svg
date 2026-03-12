@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <style><![CDATA[
+      .title { font: 700 30px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .section { font: 700 18px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .label { font: 700 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .body { font: 400 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .small { font: 400 12px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .arrow { stroke: #334155; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 8 8; }
+      .shadow { filter: drop-shadow(0 6px 18px rgba(15,23,42,0.08)); }
+    ]]></style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="#f8fafc"/>
+  <text x="48" y="60" class="title">React Fiber 学习路线总图</text>
+  <text x="48" y="88" class="subtitle">把 M1-M6 放进同一条认知链：不是六个并列目录，而是一条逐步加骨架的解释路径。</text>
+
+  <rect x="1328" y="34" width="220" height="28" rx="14" fill="#dbeafe"/>
+  <text x="1438" y="53" class="small" text-anchor="middle">仓库总览级图示 · P1</text>
+
+  <path d="M 200 360 C 250 360, 255 360, 300 360" class="arrow"/>
+  <path d="M 452 360 C 502 360, 507 360, 552 360" class="arrow"/>
+  <path d="M 704 360 C 754 360, 759 360, 804 360" class="arrow"/>
+  <path d="M 956 360 C 1006 360, 1011 360, 1056 360" class="arrow"/>
+  <path d="M 1208 360 C 1258 360, 1263 360, 1308 360" class="arrow"/>
+
+  <rect x="48" y="180" width="210" height="360" rx="22" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" class="shadow"/>
+  <text x="72" y="220" class="label">M1</text>
+  <text x="72" y="252" class="section">为什么需要 Fiber</text>
+  <text x="72" y="294" class="body">
+    <tspan x="72" dy="0">问题：旧同步渲染为什么不够？</tspan>
+    <tspan x="72" dy="24">结论：把渲染改造成</tspan>
+    <tspan x="72" dy="24">可调度的工作系统。</tspan>
+  </text>
+  <rect x="72" y="364" width="162" height="70" rx="16" fill="#ffffff" stroke="#06b6d4" stroke-width="1.5"/>
+  <text x="153" y="392" class="small" text-anchor="middle">为后面所有模块</text>
+  <text x="153" y="412" class="small" text-anchor="middle">建立问题意识</text>
+  <text x="72" y="486" class="small">关键词：可中断 / 可恢复 / 可分优先级</text>
+
+  <rect x="300" y="180" width="210" height="360" rx="22" fill="#eff6ff" stroke="#2563eb" stroke-width="2" class="shadow"/>
+  <text x="324" y="220" class="label">M2</text>
+  <text x="324" y="252" class="section">Fiber 节点与遍历</text>
+  <text x="324" y="294" class="body">
+    <tspan x="324" dy="0">问题：工作单元长什么样？</tspan>
+    <tspan x="324" dy="24">结论：用 child / sibling / return</tspan>
+    <tspan x="324" dy="24">把树拆成显式工作节点。</tspan>
+  </text>
+  <rect x="324" y="364" width="162" height="70" rx="16" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="405" y="392" class="small" text-anchor="middle">render 的最小单位</text>
+  <text x="405" y="412" class="small" text-anchor="middle">是当前 Fiber</text>
+  <text x="324" y="486" class="small">关键词：beginWork / completeWork</text>
+
+  <rect x="552" y="180" width="210" height="360" rx="22" fill="#fff7ed" stroke="#ea580c" stroke-width="2" class="shadow"/>
+  <text x="576" y="220" class="label">M3</text>
+  <text x="576" y="252" class="section">双树与 render / commit</text>
+  <text x="576" y="294" class="body">
+    <tspan x="576" dy="0">问题：如何一边准备下一版，</tspan>
+    <tspan x="576" dy="24">一边保持当前界面稳定？</tspan>
+    <tspan x="576" dy="24">结论：current 与 WIP 分工。</tspan>
+  </text>
+  <rect x="576" y="364" width="162" height="70" rx="16" fill="#ffffff" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="657" y="392" class="small" text-anchor="middle">prepare 先发生在</text>
+  <text x="657" y="412" class="small" text-anchor="middle">另一棵树上</text>
+  <text x="576" y="486" class="small">关键词：finishedWork 不是第三棵树</text>
+
+  <rect x="804" y="180" width="210" height="360" rx="22" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2" class="shadow"/>
+  <text x="828" y="220" class="label">M4</text>
+  <text x="828" y="252" class="section">一次更新全链路</text>
+  <text x="828" y="294" class="body">
+    <tspan x="828" dy="0">问题：setState 怎样一路走到 root</tspan>
+    <tspan x="828" dy="24">再进入 render / commit？</tspan>
+    <tspan x="828" dy="24">结论：先登记，再调度，再提交。</tspan>
+  </text>
+  <rect x="828" y="364" width="162" height="70" rx="16" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="909" y="392" class="small" text-anchor="middle">把 M2、M3 的静态结构</text>
+  <text x="909" y="412" class="small" text-anchor="middle">第一次串成动态过程</text>
+  <text x="828" y="486" class="small">关键词：update → root → render → commit</text>
+
+  <rect x="1056" y="180" width="210" height="360" rx="22" fill="#ecfccb" stroke="#65a30d" stroke-width="2" class="shadow"/>
+  <text x="1080" y="220" class="label">M5</text>
+  <text x="1080" y="252" class="section">lanes 与 scheduler</text>
+  <text x="1080" y="294" class="body">
+    <tspan x="1080" dy="0">问题：同时有多批更新时，</tspan>
+    <tspan x="1080" dy="24">到底先做什么？</tspan>
+    <tspan x="1080" dy="24">结论：lane 归类，root 选批次。</tspan>
+  </text>
+  <rect x="1080" y="364" width="162" height="70" rx="16" fill="#ffffff" stroke="#65a30d" stroke-width="1.5"/>
+  <text x="1161" y="392" class="small" text-anchor="middle">scheduler 给执行机会，</text>
+  <text x="1161" y="412" class="small" text-anchor="middle">不替代 root 决策</text>
+  <text x="1080" y="486" class="small">关键词：pending / suspended / pinged / expired</text>
+
+  <rect x="1308" y="180" width="210" height="360" rx="22" fill="#fee2e2" stroke="#dc2626" stroke-width="2" class="shadow"/>
+  <text x="1332" y="220" class="label">M6</text>
+  <text x="1332" y="252" class="section">Suspense 与 Offscreen</text>
+  <text x="1332" y="294" class="body">
+    <tspan x="1332" dy="0">问题：主内容暂时做不下去时，</tspan>
+    <tspan x="1332" dy="24">系统如何回退、隐藏与重试？</tspan>
+    <tspan x="1332" dy="24">结论：suspend → ping → retry。</tspan>
+  </text>
+  <rect x="1332" y="364" width="162" height="70" rx="16" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="1413" y="392" class="small" text-anchor="middle">M6 建立在 M5 的</text>
+  <text x="1413" y="412" class="small" text-anchor="middle">调度账本之上</text>
+  <text x="1332" y="486" class="small">关键词：fallback / hidden Offscreen / ping / retry</text>
+
+  <rect x="76" y="620" width="1448" height="210" rx="24" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" class="shadow"/>
+  <text x="104" y="656" class="section">这条链里最需要记住的关系</text>
+  <text x="104" y="700" class="body">
+    <tspan x="104" dy="0">1. M1 不是背景介绍，而是整条主线的出发点：先有控制力问题，才有后续所有结构。</tspan>
+    <tspan x="104" dy="28">2. M2 建结构骨架；M3 建双树与提交边界；M4 把前两者动态化。</tspan>
+    <tspan x="104" dy="28">3. M5 讲“当更新不止一条时怎么取舍”；M6 讲“当工作中途做不下去时怎么恢复”。</tspan>
+    <tspan x="104" dy="28">4. 因此 M1-M6 不是六个并列主题，而是一条从问题意识到阻塞恢复机制的连续解释链。</tspan>
+  </text>
+
+  <path d="M 908 540 L 908 598" stroke="#94a3b8" stroke-width="2" stroke-dasharray="8 8" fill="none"/>
+  <text x="908" y="618" class="small" text-anchor="middle">先看总线，再进模块正文，再回查 evidence</text>
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980">
+  <defs>
+    <style><![CDATA[
+      .title { font: 700 30px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .section { font: 700 18px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .label { font: 700 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .body { font: 400 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .small { font: 400 12px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .mono { font: 600 13px 'JetBrains Mono','Fira Code','SFMono-Regular',monospace; fill: #0f172a; }
+      .shadow { filter: drop-shadow(0 6px 18px rgba(15,23,42,0.08)); }
+      .arrow-blue { stroke: #2563eb; stroke-width: 2.8; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-blue); }
+      .arrow-orange { stroke: #ea580c; stroke-width: 2.8; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-orange); }
+      .arrow-purple { stroke: #7c3aed; stroke-width: 2.8; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-purple); }
+      .arrow-green { stroke: #16a34a; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-green); }
+      .arrow-red { stroke: #dc2626; stroke-width: 2.8; fill: none; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-red); }
+    ]]></style>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ea580c"/></marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7c3aed"/></marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/></marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/></marker>
+  </defs>
+  <rect width="1600" height="980" fill="#f8fafc"/>
+  <text x="42" y="60" class="title">Suspense / Offscreen / ping / retry 主线图</text>
+  <text x="42" y="88" class="subtitle">说明 render 卡住时，React 如何让 fallback 出场、把主内容转入 hidden Offscreen，并在 wakeable resolve 后重新进入 root 调度体系。</text>
+
+  <rect x="1290" y="34" width="258" height="28" rx="14" fill="#fee2e2"/>
+  <text x="1419" y="53" class="small" text-anchor="middle">M6 核心图 · 阻塞与恢复闭环</text>
+
+  <rect x="54" y="158" width="1490" height="720" rx="28" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" class="shadow"/>
+
+  <rect x="98" y="258" width="190" height="116" rx="22" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="124" y="292" class="label">1. 尝试 render 主内容</text>
+  <text x="124" y="320" class="small">沿 workInProgress</text>
+  <text x="124" y="340" class="small">继续当前子树</text>
+
+  <rect x="332" y="258" width="200" height="116" rx="22" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="358" y="292" class="label">2. 子树 suspend</text>
+  <text x="358" y="320" class="small">throw wakeable / thenable</text>
+  <text x="358" y="340" class="small">当前路径暂时做不下去</text>
+
+  <rect x="578" y="258" width="214" height="116" rx="22" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="604" y="292" class="label">3. 最近 Suspense boundary 捕获</text>
+  <text x="604" y="320" class="small">mark boundary should capture</text>
+  <text x="604" y="340" class="small">把控制流切到 fallback 路径</text>
+
+  <rect x="842" y="220" width="210" height="116" rx="22" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/>
+  <text x="868" y="254" class="label">4. fallback 出场</text>
+  <text x="868" y="282" class="small">当前可提交结果改为</text>
+  <text x="868" y="302" class="small">边界的 fallback 分支</text>
+
+  <rect x="842" y="392" width="210" height="116" rx="22" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="868" y="426" class="label">5. 主内容进入 hidden Offscreen</text>
+  <text x="868" y="454" class="small">不是简单删除，而是</text>
+  <text x="868" y="474" class="small">隐藏但保留的子树模式</text>
+
+  <rect x="1098" y="258" width="210" height="116" rx="22" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="1124" y="292" class="label">6. root 记录 suspendedLanes</text>
+  <text x="1124" y="320" class="small">这批工作先别当成</text>
+  <text x="1124" y="340" class="small">“现在就能推进”的候选</text>
+
+  <rect x="1346" y="258" width="150" height="116" rx="22" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="1421" y="292" class="label" text-anchor="middle">7. wakeable</text>
+  <text x="1421" y="316" class="label" text-anchor="middle">resolve</text>
+  <text x="1421" y="340" class="small" text-anchor="middle">条件满足</text>
+
+  <rect x="1128" y="566" width="220" height="116" rx="22" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="1154" y="600" class="label">8. pingSuspendedRoot</text>
+  <text x="1154" y="628" class="small">markRootPinged(root, lanes)</text>
+  <text x="1154" y="648" class="small">把恢复中的工作送回候选集</text>
+
+  <rect x="850" y="566" width="224" height="116" rx="22" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="876" y="600" class="label">9. ensureRootIsScheduled</text>
+  <text x="876" y="628" class="small">重新给 root 安排</text>
+  <text x="876" y="648" class="small">一次执行机会</text>
+
+  <rect x="578" y="566" width="214" height="116" rx="22" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="604" y="600" class="label">10. retry 主内容 render</text>
+  <text x="604" y="628" class="small">退出 fallback，重新尝试</text>
+  <text x="604" y="648" class="small">主内容那条工作链</text>
+
+  <path d="M 288 316 L 332 316" class="arrow-blue"/>
+  <path d="M 532 316 L 578 316" class="arrow-red"/>
+  <path d="M 792 316 L 842 278" class="arrow-orange"/>
+  <path d="M 792 316 L 842 450" class="arrow-green"/>
+  <path d="M 1052 278 L 1098 316" class="arrow-purple"/>
+  <path d="M 1308 316 L 1346 316" class="arrow-purple"/>
+  <path d="M 1421 374 C 1421 462, 1250 462, 1238 566" class="arrow-orange"/>
+  <path d="M 1128 624 L 1074 624" class="arrow-orange"/>
+  <path d="M 850 624 L 792 624" class="arrow-blue"/>
+  <path d="M 578 624 C 438 624, 438 316, 98 316" class="arrow-green"/>
+
+  <rect x="100" y="720" width="1396" height="116" rx="24" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="130" y="756" class="section">图中最关键的三条口径</text>
+  <text x="130" y="790" class="body">
+    <tspan x="130" dy="0">1. fallback 出现时，主内容往往不是直接消失，而是进入 hidden Offscreen：隐藏，但保留。</tspan>
+    <tspan x="130" dy="26">2. ping / retry 不是魔法恢复；它们会重新回到 lanes + root scheduler 体系，由 root 再次安排下一轮工作。</tspan>
+    <tspan x="130" dy="26">3. Suspense 首先是 render 协调与恢复机制，不只是“显示 loading 的组件 API”。</tspan>
+  </text>
+
+  <rect x="58" y="906" width="1484" height="40" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="800" y="932" class="small" text-anchor="middle">一句话总结：主内容挂起时，边界先让 fallback 稳定出场；条件恢复后，再把原工作重新送回 root 的调度闭环。</text>
+</svg>

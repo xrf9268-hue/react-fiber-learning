@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1450" viewBox="0 0 1600 1450">
   <defs>
     <style><![CDATA[
-      .title { font: 700 28px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .title { font: 700 30px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
       .subtitle { font: 400 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
       .section { font: 700 18px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
       .label { font: 700 14px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }

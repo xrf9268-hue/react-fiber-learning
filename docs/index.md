@@ -10,8 +10,9 @@
 
 ### 首次阅读
 1. `final-guide-draft.md` — 当前稳定总入口；先建立整条学习主线
-2. 对应模块正文 — 再展开理解局部机制
-3. evidence notes / source entry points — 最后回查官方证据
+2. `diagrams/index.md` — 图示总览入口；先决定该看哪张图
+3. 对应模块正文 — 再展开理解局部机制
+4. evidence notes / source entry points — 最后回查官方证据
 
 ### 仓库级辅助文档
 - `../README.md` — 仓库目标、边界、推荐读法
@@ -20,6 +21,7 @@
 - `final-polish-checklist.md` — 最终收尾检查清单
 - `final-commit-readiness.md` — 前一轮收尾时记录的剩余缺口
 - `final-release-readiness.md` — 当前是否已具备最终本地里程碑提交条件的总结
+- `diagrams/index.md` — 图示总览入口
 - `diagrams/diagram-specs.md` — 图示的文字规格与优先级
 
 ## 学习路径
@@ -27,6 +29,8 @@
 整套仓库的主线是：
 
 **为什么需要 Fiber → Fiber 节点与遍历 → 双树与 render/commit → 一次更新全链路 → lanes 与 scheduler → Suspense / Offscreen / retry**
+
+配套学习路线总图：`diagrams/react-learning-roadmap.svg`
 
 这不是六个并列主题，而是一条逐步加骨架的解释路径。
 
@@ -36,12 +40,14 @@
 - 正文：`modules/m1-why-fiber-exists-draft.md`
 - 证据：`modules/m1-evidence-notes.md`
 - 对比补充：`modules/m1-compare-notes.md`
+- 配套 SVG：`diagrams/react-old-sync-vs-fiber-capabilities.svg`
 - 作用：建立“为什么旧同步渲染模型不够用”的问题意识
 
 ### M2｜Fiber 节点与树遍历
 - 正文：`modules/m2-fiber-node-and-traversal-draft.md`
 - 证据：`modules/m2-evidence-notes.md`
 - 最小源码入口：`modules/m2-source-entry-points.md`
+- 配套 SVG：`diagrams/react-fiber-node-traversal.svg`
 - 作用：建立 Fiber 作为工作单元与树遍历骨架的认识
 
 ### M3｜current / workInProgress / render / commit
@@ -64,6 +70,7 @@
 - 证据：`modules/m5-evidence-notes.md`
 - 最小源码入口：`modules/m5-source-entry-points.md`
 - 图示说明补充：`modules/m5-compare-diagram-note.md`
+- 配套 SVG：`diagrams/react-lanes-root-scheduler.svg`
 - 作用：理解“当更新不止一条时，React 怎样决定先做什么”
 
 ### M6｜Suspense / Offscreen / React 19 轻量对照
@@ -71,6 +78,7 @@
 - 证据：`modules/m6-evidence-notes.md`
 - 最小源码入口：`modules/m6-source-entry-points.md`
 - 图示说明补充：`modules/m6-compare-diagram-note.md`
+- 配套 SVG：`diagrams/react-suspense-offscreen-ping-retry.svg`
 - 作用：理解工作卡住时的回退、隐藏、恢复与重试机制
 
 ## M7 收尾相关文档
