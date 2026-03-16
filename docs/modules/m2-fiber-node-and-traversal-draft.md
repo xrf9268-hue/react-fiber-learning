@@ -431,3 +431,25 @@ M2 不展开 scheduler 和 lanes，但这里已经能看出它们为什么会有
 > Fiber 的关键不在于“它也是一棵树”，而在于 React 把这棵树里的每个节点都变成了可链接、可携带状态、可逐单元推进的工作对象；于是 render 阶段不再只是黑箱递归，而是一套由 `beginWork`、`completeWork` 和 `child / sibling / return` 显式驱动的工作流。
 
 这就是 M2 最核心的认识。
+
+---
+
+## 延伸阅读
+
+**下一模块：M3｜从 current 到 workInProgress：render 如何把结果交给 commit**
+
+M2 建立了 Fiber 作为工作节点和树遍历骨架的基础认识，但有一个问题被有意搁置了：React 一边在 `workInProgress` 树上准备新结果，一边又怎样保证当前界面不被打断？
+
+M3 正是回答这个问题的地方。它的核心是**双树模型**：
+
+- `current`：当前已提交、对外生效的树
+- `workInProgress`：基于 `current` 准备中的下一版树
+
+M2 里提到的 `alternate` 字段，正是连接这两棵树的桥梁。M3 会展开讲清楚：
+- `prepareFreshStack` 如何基于 `current` 创建 `workInProgress`
+- render 结束后 `finishedWork` 是什么、放在哪里
+- `commitRoot` 如何把 `finishedWork` 切换成新的 `current`
+
+读完 M3，M2 里那些"节点 + 遍历"的结构认识，才会真正与"render 和 commit 的分工"连成一条完整理解链。
+
+参考文件：`docs/modules/m3-current-wip-render-commit-draft.md`
