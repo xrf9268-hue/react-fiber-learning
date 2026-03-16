@@ -332,3 +332,24 @@ M4 的任务只有一个：
 > 把“一次组件内的 `setState` 为什么会变成一次 root 级 render，并最终 commit 生效”这条主线讲顺。
 
 只要这条线已经成立，后面的优先级、并发与调度系统，就有了可以安放的骨架。
+
+---
+
+## 延伸阅读
+
+**下一模块：M5｜lanes、优先级、scheduler 协作与 transition**
+
+M4 追踪的是"单次更新如何跑完整条链路"，但真实应用中更新从来不是孤立的——用户可能同时触发多个交互，网络请求、动画、表单输入同时在进行。
+
+M5 就回答这个更真实的问题：**当系统里同时存在多批更新时，React 怎样决定先做哪个？**
+
+M4 里的 `ensureRootIsScheduled` 是这道门的入口——它不只是"通知 scheduler 有工作要做"，还负责基于 lanes 选出当前最值得处理的一批工作，再向 scheduler 申请执行机会。M5 会把这个过程展开：
+
+- **lanes 是什么**：每条更新都被编码进一个优先级位字段，root 上同时记录所有 pending / suspended / expired lanes
+- **`getNextLanes` 如何选出下一批**：从 root 的 lanes 集合中挑出当前最高优先级的一批
+- **scheduler 的角色**：scheduler 负责"在合适的时机给 React 一次执行机会"，而不是代替 React 做渲染决策
+- **`startTransition` 意味着什么**：把这类更新标记为可让位（Transition lane），让更紧急的工作优先
+
+读完 M5，M4 里那条"root 安排调度"的步骤，才会从一行结论变成一套可解释的决策系统。
+
+参考文件：`docs/modules/m5-lanes-priority-scheduler-transition-draft.md`
