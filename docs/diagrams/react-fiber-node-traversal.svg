@@ -102,6 +102,9 @@
   <text x="1180" y="402" class="small">sibling：同层向右</text>
   <text x="1258" y="286" class="small">return：做完后回到父节点</text>
 
+  <path d="M 858 560 L 858 650" class="arrow-blue"/>
+  <path d="M 1274 560 L 1274 650" class="arrow-orange"/>
+
   <rect x="720" y="650" width="360" height="180" rx="20" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
   <text x="746" y="686" class="label">beginWork：向下推进</text>
   <text x="746" y="718" class="mono">while (workInProgress !== null) {</text>
