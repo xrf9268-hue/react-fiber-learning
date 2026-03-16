@@ -349,3 +349,25 @@ M4 会把视角从“树的状态流转”进一步推进到“一次具体更�
 ## 本模块一句话总结
 
 **React 会在 `current` 之外构建一棵 `workInProgress` 树；render 负责把它准备完成，形成 `finishedWork`；随后 commit 再把它真正生效，并把 `root.current` 切换到这棵新树。**
+
+---
+
+## 延伸阅读
+
+**下一模块：M4｜一次 `setState` 是怎样从组件一路走到提交的**
+
+M3 解答了"两棵树如何交接"，但留下了一个自然的悬念：**是谁触发了这轮 render，更新又是怎样一路到达 root 的？**
+
+M4 正是从这个问题出发，选取最小典型案例——类组件的一次 `this.setState(...)`——把整条动态链路完整追踪一遍：
+
+1. `enqueueSetState` 把 update 写入当前 Fiber 的 update queue
+2. `markUpdateLaneFromFiberToRoot` 沿 `return` 父链向上标记 lane，找到所属 root
+3. `ensureRootIsScheduled` 让 root 纳入调度
+4. render 阶段在 `workInProgress` 上消费 update queue，算出新 state
+5. `commitRoot` 接手 `finishedWork`，使更新生效
+
+M3 里的双树模型是这条链路的"中间结构"：update 进来之前树的状态是 `current`，render 产出的是 `workInProgress / finishedWork`，commit 之后 `current` 完成切换。
+
+读完 M4，M3 的双树模型才会从"静态结构"变成"动态过程中的一个环节"。
+
+参考文件：`docs/modules/m4-one-setstate-trace-draft.md`
