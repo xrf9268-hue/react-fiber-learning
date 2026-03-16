@@ -23,11 +23,11 @@
   <rect x="1328" y="34" width="220" height="28" rx="14" fill="#dbeafe"/>
   <text x="1438" y="53" class="small" text-anchor="middle">仓库总览级图示 · P1</text>
 
-  <path d="M 200 360 C 250 360, 255 360, 300 360" class="arrow"/>
-  <path d="M 452 360 C 502 360, 507 360, 552 360" class="arrow"/>
-  <path d="M 704 360 C 754 360, 759 360, 804 360" class="arrow"/>
-  <path d="M 956 360 C 1006 360, 1011 360, 1056 360" class="arrow"/>
-  <path d="M 1208 360 C 1258 360, 1263 360, 1308 360" class="arrow"/>
+  <path d="M 258 360 C 268 360, 290 360, 300 360" class="arrow"/>
+  <path d="M 510 360 C 520 360, 542 360, 552 360" class="arrow"/>
+  <path d="M 762 360 C 772 360, 794 360, 804 360" class="arrow"/>
+  <path d="M 1014 360 C 1024 360, 1046 360, 1056 360" class="arrow"/>
+  <path d="M 1266 360 C 1276 360, 1298 360, 1308 360" class="arrow"/>
 
   <rect x="48" y="180" width="210" height="360" rx="22" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" class="shadow"/>
   <text x="72" y="220" class="label">M1</text>
