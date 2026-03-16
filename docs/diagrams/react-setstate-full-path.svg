@@ -217,14 +217,14 @@
 <text x="1052" y="1195" class="small" text-anchor="middle">
   <tspan x="1052" dy="0">finishedWork → root</tspan>
 </text>
-<rect x="1186" y="1010" width="344" height="72" rx="16" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.4" />
-<text x="1206" y="1040" class="small" text-anchor="start">
-  <tspan x="1206" dy="0">关键口径：新 state 不是在 setState 调用点算出来，</tspan>
-  <tspan x="1206" dy="18">而是在 render 阶段处理 update queue 时得出。</tspan>
+<rect x="1216" y="1010" width="344" height="72" rx="16" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.4" />
+<text x="1236" y="1040" class="small" text-anchor="start">
+  <tspan x="1236" dy="0">关键口径：新 state 不是在 setState 调用点算出来，</tspan>
+  <tspan x="1236" dy="18">而是在 render 阶段处理 update queue 时得出。</tspan>
 </text>
-<rect x="1186" y="1388" width="344" height="50" rx="16" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6" />
-<text x="1358" y="1418" class="small" text-anchor="middle">
-  <tspan x="1358" dy="0">生效时刻：root.current = finishedWork</tspan>
+<rect x="1216" y="1388" width="344" height="50" rx="16" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6" />
+<text x="1388" y="1418" class="small" text-anchor="middle">
+  <tspan x="1388" dy="0">生效时刻：root.current = finishedWork</tspan>
 </text>
 <rect x="40" y="1246" width="1520" height="178" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" class="shadow"/>
 <text x="64" y="1278" class="section" text-anchor="start">
