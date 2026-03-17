@@ -623,3 +623,27 @@ M5 最重要的不是记住多少函数名，而是建立下面这套判断框�
   - `entangleTransitions`
 - `CHANGELOG.md`
   - React 18 对 urgent / non-urgent / interruptible 的官方表述
+
+---
+
+## 延伸阅读
+
+**下一模块：M6｜Suspense、Offscreen 与 React 19 的轻量变化**
+
+M5 建立了"React 按 lanes 决定先做哪批工作"的系统观，但还有一个边界情形没有覆盖：**如果某段 render 中途做不下去怎么办？**
+
+比如一个子树在 render 阶段抛出了 Promise——还没有数据可以渲染。React 不能让整棵树卡在这里，也不能把半成品 commit 出去。
+
+M6 回答的正是这个问题，主线是：
+
+- **`throwException`**：捕获被抛出的 wakeable，把当前 Fiber 标记为 suspended
+- **边界捕获**：最近的 Suspense boundary 通过 `markSuspenseBoundaryShouldCapture` 接管
+- **fallback 出场**：boundary 切换到 fallback 分支，主内容以 hidden Offscreen 形式保留
+- **`attachPingListener`**：把 wakeable resolve 事件与 root 的重调度挂钩（ping 机制）
+- **retry**：wakeable resolve 后通过 `retryDehydratedSuspenseBoundary` 等入口，把"重新尝试主内容"作为新的 lane 送回 root
+
+M5 里的 `suspendedLanes` 字段正是 M6 的衔接点：Suspense 挂起时，root 会把相关 lanes 记入 `suspendedLanes`，等 ping 来临后再把它们移回可调度状态。
+
+读完 M6，M1-M6 的整条主线就完整了。
+
+参考文件：`docs/modules/m6-suspense-offscreen-react19-draft.md`
