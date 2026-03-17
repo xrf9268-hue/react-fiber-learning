@@ -4,15 +4,16 @@
 
 在 React 18 里，类组件里调用一次 `this.setState(...)`，并不会直接修改页面。
 
-更准确地说，它会经历这样一条主线：
+更准确地说，它会经历这样一条主线（共八步）：
 
-1. 在当前组件对应的 Fiber 上创建一条 update
-2. 把这条 update 放进更新队列
-3. 沿 Fiber 的父链一路向上找到所属 root
-4. 由 root 安排一轮 render
-5. 在 render 过程中真正计算新的 state
-6. render 产出 `finishedWork`
-7. commit 接手 `finishedWork`，让这次更新真正生效
+1. 组件调用 `this.setState(...)`
+2. `enqueueSetState` 创建 update
+3. `enqueueUpdate` 把 update 放进当前 Fiber 的更新队列
+4. `markUpdateLaneFromFiberToRoot` 沿 Fiber 的父链一路向上找到所属 root
+5. `scheduleUpdateOnFiber` 让 root 知道有一轮新工作
+6. render 在 `workInProgress` 树上处理 update queue，并算出新的 state
+7. render 结束后得到 `finishedWork`
+8. commit 通过 `root.current = finishedWork` 让结果生效
 
 如果把它压成一句话，就是：
 
