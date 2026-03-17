@@ -99,6 +99,20 @@
     <tspan x="130" dy="26">3. Suspense 首先是 render 协调与恢复机制，不只是“显示 loading 的组件 API”。</tspan>
   </text>
 
+  <rect x="100" y="840" width="1396" height="58" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="114" y="855" class="small" font-weight="700">图例</text>
+  <circle cx="160" cy="853" r="5" fill="#2563eb"/>
+  <text x="170" y="857" class="small">主渲染流程</text>
+  <circle cx="306" cy="853" r="5" fill="#dc2626"/>
+  <text x="316" y="857" class="small">挂起路径（throw wakeable）</text>
+  <circle cx="544" cy="853" r="5" fill="#ea580c"/>
+  <text x="554" y="857" class="small">fallback / ping 路径</text>
+  <circle cx="714" cy="853" r="5" fill="#16a34a"/>
+  <text x="724" y="857" class="small">Offscreen 与恢复</text>
+  <circle cx="874" cy="853" r="5" fill="#7c3aed"/>
+  <text x="884" y="857" class="small">suspendedLanes 记录</text>
+  <text x="114" y="885" class="small">蓝：正常推进路径 ｜ 红：throw/suspend ｜ 橙：fallback + ping 回调 ｜ 绿：hidden Offscreen + retry ｜ 紫：root 暂停账本</text>
+
   <rect x="58" y="906" width="1484" height="40" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
   <text x="800" y="932" class="small" text-anchor="middle">一句话总结：主内容挂起时，边界先让 fallback 稳定出场；条件恢复后，再把原工作重新送回 root 的调度闭环。</text>
 </svg>

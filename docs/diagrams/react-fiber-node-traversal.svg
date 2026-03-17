@@ -120,6 +120,15 @@
   <text x="1136" y="780" class="small">这让 React 能显式控制“往下走”与“往上收束”，</text>
   <text x="1136" y="800" class="small">而不是把整套遍历完全交给隐式递归栈。</text>
 
+  <rect x="68" y="830" width="216" height="74" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="80" y="845" class="small" font-weight="700">图例</text>
+  <circle cx="86" cy="860" r="6" fill="#2563eb"/>
+  <text x="98" y="864" class="small">child 指针（向下进入子节点）</text>
+  <circle cx="86" cy="876" r="6" fill="#ea580c"/>
+  <text x="98" y="880" class="small">return 指针（向上回到父节点）</text>
+  <circle cx="86" cy="892" r="6" fill="#475569"/>
+  <text x="98" y="896" class="small">sibling 指针（横向同层）</text>
+
   <rect x="48" y="916" width="1504" height="40" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
   <text x="800" y="942" class="small" text-anchor="middle">一句话总结：Fiber 既是树节点，也是工作节点；显式三指针让 render 能按“当前 Fiber”这个最小单位推进和回退。</text>
 </svg>

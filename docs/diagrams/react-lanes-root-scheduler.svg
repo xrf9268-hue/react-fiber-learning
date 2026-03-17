@@ -127,6 +127,21 @@
     <tspan x="1156" dy="26">4. 并发的关键是可中断、可恢复、可让位，不是多线程并行执行。</tspan>
   </text>
 
+  <rect x="1340" y="656" width="222" height="170" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="1352" y="671" class="small" font-weight="700">图例</text>
+  <circle cx="1358" cy="686" r="6" fill="#dc2626"/>
+  <text x="1370" y="690" class="small">Sync/Input 更新（最紧急）</text>
+  <circle cx="1358" cy="702" r="6" fill="#2563eb"/>
+  <text x="1370" y="706" class="small">Default 更新（普通 setState）</text>
+  <circle cx="1358" cy="718" r="6" fill="#7c3aed"/>
+  <text x="1370" y="722" class="small">Transition 更新（可让位）</text>
+  <circle cx="1358" cy="734" r="6" fill="#ea580c"/>
+  <text x="1370" y="738" class="small">Retry/Pinged 更新（恢复候选）</text>
+  <circle cx="1358" cy="750" r="6" fill="#475569"/>
+  <text x="1370" y="754" class="small">getNextLanes → Scheduler</text>
+  <circle cx="1358" cy="766" r="6" fill="#16a34a"/>
+  <text x="1370" y="770" class="small">Scheduler → RenderWorkLoop</text>
+
   <rect x="52" y="842" width="1496" height="88" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" class="shadow"/>
   <text x="800" y="878" class="section" text-anchor="middle">一句话总结：lane 负责给更新归类，root 负责从总账里选下一批工作，scheduler 负责给这批工作安排执行机会。</text>
   <text x="800" y="906" class="small" text-anchor="middle">因此 React 的“并发”首先是一种调度与取舍能力，而不是“开更多线程”。</text>

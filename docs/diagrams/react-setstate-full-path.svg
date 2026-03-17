@@ -76,6 +76,16 @@
 <text x="1330.0" y="168" class="label" text-anchor="middle">
   <tspan x="1330.0" dy="0">Commit</tspan>
 </text>
+  <rect x="1220" y="202" width="218" height="90" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="1232" y="217" class="small" font-weight="700">图例</text>
+  <circle cx="1238" cy="232" r="6" fill="#ea580c"/>
+  <text x="1250" y="236" class="small">组件→Fiber（登记 update）</text>
+  <circle cx="1238" cy="248" r="6" fill="#2563eb"/>
+  <text x="1250" y="252" class="small">Fiber→Root（提升至 root）</text>
+  <circle cx="1238" cy="264" r="6" fill="#7c3aed"/>
+  <text x="1250" y="268" class="small">render 阶段（WIP 推进）</text>
+  <circle cx="1238" cy="280" r="6" fill="#16a34a"/>
+  <text x="1250" y="284" class="small">commit 阶段（生效）</text>
 <rect x="646" y="198" width="208" height="28" rx="14.0" fill="#dbeafe" stroke="none"/>
 <text x="750.0" y="216.0" class="small" text-anchor="middle">Root 是 render / commit 的总入口</text>
 <rect x="62" y="220" width="240" height="52" rx="14" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" />
