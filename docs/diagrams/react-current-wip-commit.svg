@@ -147,30 +147,6 @@
     <text x="846" y="434" class="hint">beginWork / completeWork 沿 WIP 推进，计算 flags / subtreeFlags。render = 准备结果，不等于页面已更新。</text>
   </g>
 
-  <!-- ============== Transition arrows between cells ============== -->
-
-  <!-- ①→② Arrow: 派生 WIP (horizontal, between col1 and col2, row1) -->
-  <path d="M 778 280 L 822 280" stroke="#ea580c" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
-  <rect x="778" y="254" width="66" height="22" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1"/>
-  <text x="811" y="269" class="hint" text-anchor="middle" fill="#ea580c">派生 WIP</text>
-
-  <!-- ①→③ is implied by ②→③, skip -->
-
-  <!-- ②→③ Arrow: render 完成 (vertical, between row1 and row2, col2) -->
-  <path d="M 1187 450 L 1187 480" stroke="#ea580c" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
-  <rect x="1134" y="452" width="80" height="22" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1"/>
-  <text x="1174" y="467" class="hint" text-anchor="middle" fill="#ea580c">render 完成</text>
-
-  <!-- ①→② vertical connector is not needed; ②→③ done above -->
-
-  <!-- ③→④ Arrow: 切成新 current (horizontal, between col1 and col2, row2) -->
-  <path d="M 778 640 L 822 640" stroke="#16a34a" stroke-width="2.4" fill="none" marker-end="url(#arr-green)"/>
-  <rect x="760" y="614" width="100" height="22" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1"/>
-  <text x="810" y="629" class="hint" text-anchor="middle" fill="#16a34a">切成新 current</text>
-
-  <!-- ①→③ Arrow: (vertical, between row1 and row2, col1) -->
-  <path d="M 413 450 L 413 480" stroke="#ea580c" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
-
   <!-- ======================== CELL 3 ======================== -->
   <!-- Panel: render 完成 - WIP 以 finishedWork 身份挂到 root      -->
   <g id="cell-3">
@@ -188,7 +164,7 @@
     <text x="88" y="578" class="mono">root.finishedWork = finishedWork</text>
 
     <!-- Current tree (blue, faded) -->
-    <g id="cell3-current-tree" transform="translate(220, 650)" opacity="0.45">
+    <g id="cell3-current-tree" transform="translate(240, 670)" opacity="0.45">
       <line x1="0" y1="0" x2="-50" y2="50" stroke="#2563eb" stroke-width="2"/>
       <line x1="0" y1="0" x2="50" y2="50" stroke="#2563eb" stroke-width="2"/>
       <line x1="-50" y1="50" x2="-80" y2="100" stroke="#2563eb" stroke-width="2"/>
@@ -203,10 +179,10 @@
       <circle cx="20" cy="100" r="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
       <circle cx="80" cy="100" r="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
     </g>
-    <text x="220" y="636" class="hint" text-anchor="middle" fill="#2563eb" opacity="0.5">Current（淡化）</text>
+    <text x="240" y="652" class="hint" text-anchor="middle" fill="#2563eb" opacity="0.5">Current（淡化）</text>
 
     <!-- WIP tree (orange) with green pill -->
-    <g id="cell3-wip-tree" transform="translate(540, 650)">
+    <g id="cell3-wip-tree" transform="translate(540, 670)">
       <line x1="0" y1="0" x2="-50" y2="50" stroke="#ea580c" stroke-width="2"/>
       <line x1="0" y1="0" x2="50" y2="50" stroke="#ea580c" stroke-width="2"/>
       <line x1="-50" y1="50" x2="-80" y2="100" stroke="#ea580c" stroke-width="2"/>
@@ -221,10 +197,10 @@
       <circle cx="20" cy="100" r="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
       <circle cx="80" cy="100" r="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
     </g>
-    <text x="540" y="636" class="label" text-anchor="middle" fill="#ea580c">WIP（已完成）</text>
+    <text x="540" y="652" class="label" text-anchor="middle" fill="#ea580c">WIP（已完成）</text>
     <!-- Green pill label -->
-    <rect x="442" y="600" width="196" height="24" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
-    <text x="540" y="616" class="hint" text-anchor="middle" fill="#16a34a" font-weight="600">finishedWork 不是第三棵树</text>
+    <rect x="442" y="610" width="196" height="24" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+    <text x="540" y="626" class="hint" text-anchor="middle" fill="#16a34a" font-weight="600">finishedWork 不是第三棵树</text>
 
     <!-- Bottom note -->
     <text x="72" y="804" class="hint">render 完成后 WIP 改名 finishedWork 挂到 root，同一棵树进入待提交状态。</text>
@@ -252,7 +228,7 @@
     <text x="1290" y="560" class="hint" text-anchor="middle" fill="#16a34a" font-weight="600">commit 边界</text>
 
     <!-- New current tree (GREEN, full opacity) -->
-    <g id="cell4-new-current-tree" transform="translate(1100, 660)">
+    <g id="cell4-new-current-tree" transform="translate(1100, 680)">
       <line x1="0" y1="0" x2="-50" y2="50" stroke="#16a34a" stroke-width="2"/>
       <line x1="0" y1="0" x2="50" y2="50" stroke="#16a34a" stroke-width="2"/>
       <line x1="-50" y1="50" x2="-80" y2="100" stroke="#16a34a" stroke-width="2"/>
@@ -267,13 +243,34 @@
       <circle cx="20" cy="100" r="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
       <circle cx="80" cy="100" r="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
     </g>
-    <text x="1100" y="640" class="label" text-anchor="middle" fill="#16a34a">新的 Current Tree</text>
-    <text x="1100" y="655" class="hint" text-anchor="middle">按 flags 执行 DOM 操作，切换为新生效版本</text>
+    <text x="1100" y="636" class="label" text-anchor="middle" fill="#16a34a">新的 Current Tree</text>
+    <text x="1100" y="652" class="hint" text-anchor="middle">按 flags 执行 DOM 操作，切换为新生效版本</text>
 
     <!-- Note about old current -->
-    <rect x="846" y="778" width="320" height="28" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="862" y="796" class="hint">旧 current 退场，刚完成的结果树成为新 current</text>
+    <rect x="846" y="788" width="320" height="26" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="862" y="805" class="hint">旧 current 退场，刚完成的结果树成为新 current</text>
   </g>
+
+  <!-- ============== Transition arrows between cells ============== -->
+  <!-- Drawn after all cells to ensure correct z-order              -->
+
+  <!-- ①→② Arrow: 派生 WIP (horizontal, between col1 and col2, row1) -->
+  <path d="M 778 280 L 822 280" stroke="#ea580c" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
+  <rect x="769" y="254" width="66" height="22" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1"/>
+  <text x="802" y="269" class="hint" text-anchor="middle" fill="#ea580c">派生 WIP</text>
+
+  <!-- ②→③ Arrow: render 完成 (vertical, between row1 and row2, col2) -->
+  <path d="M 1187 450 L 1187 480" stroke="#ea580c" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
+  <rect x="1147" y="452" width="80" height="22" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1"/>
+  <text x="1187" y="467" class="hint" text-anchor="middle" fill="#ea580c">render 完成</text>
+
+  <!-- ③→④ Arrow: 切成新 current (horizontal, between col1 and col2, row2) -->
+  <path d="M 778 660 L 822 660" stroke="#16a34a" stroke-width="2.4" fill="none" marker-end="url(#arr-green)"/>
+  <rect x="752" y="634" width="100" height="22" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1"/>
+  <text x="802" y="649" class="hint" text-anchor="middle" fill="#16a34a">切成新 current</text>
+
+  <!-- ①→③ Arrow: (vertical, between row1 and row2, col1) -->
+  <path d="M 413 450 L 413 480" stroke="#ea580c" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
 
   <!-- ============================================================ -->
   <!-- Bottom section: alternate pairing + legend + summary         -->
