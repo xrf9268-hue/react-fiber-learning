@@ -106,11 +106,11 @@
   <!-- Arrow 5->6: purple, going left -->
   <path d="M1000 425 L900 425" stroke="#7c3aed" stroke-width="2.4" fill="none" marker-end="url(#arr-purple)"/>
 
-  <!-- Annotation: async wait between step 6 and step 7 -->
-  <line x1="900" y1="425" x2="1340" y2="425" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6 4"/>
-  <rect x="1040" y="412" width="180" height="22" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
-  <text x="1130" y="427" class="hint" text-anchor="middle" style="fill:#94a3b8; font-weight:600">异步等待 (wakeable pending)</text>
-  <text x="1440" y="360" class="hint" text-anchor="middle" style="fill:#16a34a; font-weight:600">async trigger</text>
+  <!-- Annotation: async wait gap between step 5/6 and step 7 -->
+  <!-- Compact vertical marker in the 60px gap (x=1280..1340) between step 5 and step 7 -->
+  <line x1="1310" y1="395" x2="1310" y2="460" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <text x="1310" y="385" class="hint" text-anchor="middle" style="fill:#94a3b8; font-weight:600">异步等待</text>
+  <text x="1310" y="475" class="hint" text-anchor="middle" style="fill:#94a3b8; font-size:9px">(wakeable)</text>
 
   <!-- ================================================================ -->
   <!-- ROW 3  y=560   right -> left, then loop back                     -->

@@ -155,7 +155,7 @@ Spec 定义了 5 个泳道（Component / Current Fiber / Root / Render / Commit�
 
 | 文件 | 修复内容 |
 |------|----------|
-| `react-current-wip-commit.svg` | ①→③ 箭头补标签 "current 保持" |
-| `react-setstate-full-path.svg` | "回流 Root" → "结果返回 Root" |
-| `react-fiber-node-traversal.svg` | 补 completeWork return 自循环箭头 |
-| `react-suspense-offscreen-ping-retry.svg` | Step 6→7 补异步等待虚线标注 |
+| `react-current-wip-commit.svg` | ①→③ 箭头补标签 "current 保持"；Cell 2 "派生" 箭头居中对齐 |
+| `react-setstate-full-path.svg` | "回流 Root" → "结果返回 Root"（含底部摘要文字） |
+| `react-fiber-node-traversal.svg` | 补 completeWork "return ↑" 自循环虚线箭头（位于框内，避免溢出） |
+| `react-suspense-offscreen-ping-retry.svg` | Step 5/7 间隙补紧凑 "异步等待" 垂直标注（不穿透 step 5 框体） |

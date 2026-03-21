@@ -241,8 +241,8 @@
   <text x="778" y="1018" class="hint">sibling</text>
 
   <!-- completeWork self-loop: "沿 return 向上" -->
-  <path d="M 1552,960 C 1580,960 1580,1020 1552,1020" stroke="#ea580c" stroke-width="2.4" fill="none" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
-  <text x="1564" y="996" class="hint" fill="#ea580c">return ↑</text>
+  <path d="M 1480,955 C 1512,955 1512,1025 1480,1025" stroke="#ea580c" stroke-width="2.4" fill="none" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="1470" y="996" class="hint" text-anchor="end" fill="#ea580c">return ↑</text>
 
   <!-- ================================================================
        BOTTOM: Legend + Summary

@@ -121,9 +121,9 @@
     </g>
     <text x="990" y="260" class="hint" text-anchor="middle" fill="#2563eb" opacity="0.5">Current（淡化）</text>
 
-    <!-- Arrow: current 派生 -->
-    <path d="M 1060 310 L 1140 310" stroke="#ea580c" stroke-width="2" fill="none" marker-end="url(#arr-orange)"/>
-    <text x="1100" y="302" class="hint" text-anchor="middle" fill="#ea580c">派生</text>
+    <!-- Arrow: current 派生 (centered between two trees: blue root x=990, orange root x=1280) -->
+    <path d="M 1095 310 L 1175 310" stroke="#ea580c" stroke-width="2" fill="none" marker-end="url(#arr-orange)"/>
+    <text x="1135" y="302" class="hint" text-anchor="middle" fill="#ea580c">派生</text>
 
     <!-- WIP tree (orange, full opacity) -->
     <g id="cell2-wip-tree" transform="translate(1280, 280)">
