@@ -108,7 +108,7 @@
   <circle cx="1132" cy="780" r="16" fill="#16a34a"/>
   <text x="1132" y="785" class="label" text-anchor="middle" fill="#fff">9</text>
   <text x="1158" y="776" class="label">commitRoot</text>
-  <text x="1158" y="793" class="mono">commitMutationEffects(finishedWork)</text>
+  <text x="1158" y="793" class="mono">commitMutationEffects()</text>
   <text x="1158" y="808" class="hint">按 flags 执行 DOM 操作</text>
 
   <!-- STEP 10  (Lane 4, y~920) -->
@@ -136,10 +136,10 @@
   <!-- Cross-swimlane horizontal arrows                             -->
   <!-- ============================================================ -->
   <!-- 3->4  orange, right  (y=420, Lane1 -> Lane2) -->
-  <path d="M 370 420 L 424 420 C 434 420 434 260 434 240 L 434 216"
+  <path d="M 370 420 L 396 420 C 416 420 416 300 416 250 L 430 216"
         stroke="#ea580c" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"
         marker-end="url(#arr-orange)"/>
-  <text x="400" y="310" class="hint" text-anchor="middle">沿 return</text>
+  <text x="404" y="310" class="hint" text-anchor="middle">沿 return</text>
 
   <!-- 5->6  purple, right  (y=340, Lane2 -> Lane3) -->
   <path d="M 690 340 L 700 340 C 720 340 730 440 740 480 L 752 496"
@@ -163,16 +163,16 @@
   <!-- ============================================================ -->
   <!-- Legend box (top-right)                                       -->
   <!-- ============================================================ -->
-  <rect x="1230" y="108" width="156" height="120" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="1.2"/>
-  <text x="1244" y="128" class="label">箭头图例</text>
-  <line x1="1244" y1="145" x2="1290" y2="145" stroke="#ea580c" stroke-width="2.4" marker-end="url(#arr-orange)"/>
-  <text x="1300" y="149" class="hint">组件->Fiber 登记</text>
-  <line x1="1244" y1="165" x2="1290" y2="165" stroke="#2563eb" stroke-width="2.4" marker-end="url(#arr-blue)"/>
-  <text x="1300" y="169" class="hint">Root 调度/回收</text>
-  <line x1="1244" y1="185" x2="1290" y2="185" stroke="#7c3aed" stroke-width="2.4" marker-end="url(#arr-purple)"/>
-  <text x="1300" y="189" class="hint">Render 阶段</text>
-  <line x1="1244" y1="205" x2="1290" y2="205" stroke="#16a34a" stroke-width="2.4" marker-end="url(#arr-green)"/>
-  <text x="1300" y="209" class="hint">Commit 阶段</text>
+  <rect x="1420" y="108" width="156" height="120" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="1434" y="128" class="label">箭头图例</text>
+  <line x1="1434" y1="145" x2="1480" y2="145" stroke="#ea580c" stroke-width="2.4" marker-end="url(#arr-orange)"/>
+  <text x="1490" y="149" class="hint">组件->Fiber 登记</text>
+  <line x1="1434" y1="165" x2="1480" y2="165" stroke="#2563eb" stroke-width="2.4" marker-end="url(#arr-blue)"/>
+  <text x="1490" y="169" class="hint">Root 调度/回收</text>
+  <line x1="1434" y1="185" x2="1480" y2="185" stroke="#7c3aed" stroke-width="2.4" marker-end="url(#arr-purple)"/>
+  <text x="1490" y="189" class="hint">Render 阶段</text>
+  <line x1="1434" y1="205" x2="1480" y2="205" stroke="#16a34a" stroke-width="2.4" marker-end="url(#arr-green)"/>
+  <text x="1490" y="209" class="hint">Commit 阶段</text>
 
   <!-- ============================================================ -->
   <!-- Bottom summary area (y~1080-1350)                            -->
