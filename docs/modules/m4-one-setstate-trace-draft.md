@@ -4,16 +4,15 @@
 
 在 React 18 里，类组件里调用一次 `this.setState(...)`，并不会直接修改页面。
 
-更准确地说，它会经历这样一条主线（共十步）：
+更准确地说，它会经历这样一条主线（共八步）：
 
 1. 组件调用 `this.setState(...)`
 2. `enqueueSetState` 创建 update
-3. `enqueueUpdate` 把 update 放进当前 Fiber 的更新队列
-4. `markUpdateLaneFromFiberToRoot` 沿 Fiber 的父链一路向上找到所属 root
-5. `scheduleUpdateOnFiber` 让 root 知道有一轮新工作
-6. render 在 `workInProgress` 树上处理 update queue，并算出新的 state
-7. render 结束后得到 `finishedWork`
-8. commit 通过 `root.current = finishedWork` 让结果生效
+3. `enqueueUpdate` 把 update 放进当前 Fiber 的更新队列，同时内部通过 `markUpdateLaneFromFiberToRoot` 沿父链向上标记 lanes 并返回所属 root
+4. `scheduleUpdateOnFiber` 在 root 上登记更新（`markRootUpdated`），并通过 `ensureRootIsScheduled` 安排 render 执行
+5. render 在 `workInProgress` 树上处理 update queue，并算出新的 state
+6. render 结束后得到 `finishedWork`
+7. commit 通过 `root.current = finishedWork` 让结果生效
 
 如果把它压成一句话，就是：
 
@@ -78,20 +77,19 @@ React 不会把一次 `setState` 当成一条转瞬即逝的消息，而是会�
 
 这是 M4 的核心问题。
 
-表面上看，调用 `setState` 的只是某个具体组件；但 React 并不会让这个组件“私下偷偷重算自己”。
+表面上看，调用 `setState` 的只是某个具体组件；但 React 并不会让这个组件”私下偷偷重算自己”。
 
 React 的 render 和 commit 都是以 root 为总入口推进的，所以组件上的更新必须先被提升为 root 级工作。
 
-这个过程的关键证据，在 `markUpdateLaneFromFiberToRoot(...)`。
+入队和向上标记其实发生在同一个调用内。`enqueueUpdate` 内部会调用 `enqueueConcurrentClassUpdate`（定义在 `ReactFiberConcurrentUpdates.old.js`），后者在把 update 放入队列的同时，调用 `markUpdateLaneFromFiberToRoot` 完成向上标记并返回找到的 root。
 
-这个函数做了两件事：
+`markUpdateLaneFromFiberToRoot(...)` 做了三件事：
 
 1. 先把 lane 标到当前 Fiber 以及它的 alternate 上
-2. 再沿着 `return` 指针不断向上走，把 `childLanes` 标到每一层祖先上
+2. 再沿着 `return` 指针不断向上走，把 `childLanes` 标到每一层祖先上（同时也标记每层祖先的 alternate 的 `childLanes`，确保双树都能感知到子树有待处理的工作）
+3. 走到最上层 `HostRoot` 时，通过 `node.stateNode` 取到对应的 `FiberRoot` 并返回
 
-这条向上的链，就是 Fiber 树里的父链。
-
-一直走到最上层，如果遇到的是 `HostRoot`，就可以通过 `node.stateNode` 取到对应的 `FiberRoot`。
+`enqueueUpdate` 拿到这个返回的 root 后，再将其传给外层的 `enqueueSetState`，最终交给 `scheduleUpdateOnFiber`。
 
 这一步说明了两件非常重要的事：
 
@@ -119,7 +117,7 @@ scheduleUpdateOnFiber(root, fiber, lane, eventTime)
 
 也就是说，React 此时做的是**调度**，不是**立即提交结果**。
 
-在 `scheduleUpdateOnFiber(...)` 里，最先能看到的关键动作是：
+在 `scheduleUpdateOnFiber(...)` 里，有两个关键动作：
 
 ```js
 markRootUpdated(root, lane, eventTime)
@@ -129,10 +127,18 @@ markRootUpdated(root, lane, eventTime)
 
 > 这个 root 上现在有一条待处理更新了。
 
+紧接着：
+
+```js
+ensureRootIsScheduled(root, eventTime)
+```
+
+`ensureRootIsScheduled` 是真正触发 render 的关键环节——没有它，render 不会被调起。它的职责是：基于 root 当前的 `pendingLanes` 通过 `getNextLanes` 选出最值得处理的一批工作，然后向 Scheduler 申请执行机会（安排 `performSyncWorkOnRoot` 或 `performConcurrentWorkOnRoot` 的回调）。这一步的完整展开见 M5。
+
 到这里，问题已经发生了一个层级转换：
 
-- 一开始是“某个组件调用了 `setState`”
-- 现在变成了“某个 root 有一轮工作要开始了”
+- 一开始是”某个组件调用了 `setState`”
+- 现在变成了”某个 root 有一轮工作要开始了，并且 Scheduler 已经被通知”
 
 这就是为什么我们说，React 的调度入口是 root，而不是单个组件。
 
@@ -284,16 +290,15 @@ root.current = finishedWork
 
 ## 九、把整条链压成一个最小模型
 
-现在可以把一次 class 组件 `setState` 的主线压缩成十步：
+现在可以把一次 class 组件 `setState` 的主线压缩成八步：
 
 1. 组件调用 `this.setState(...)`
 2. `enqueueSetState` 创建 update
-3. `enqueueUpdate` 把 update 放进当前 fiber 的更新队列
-4. `markUpdateLaneFromFiberToRoot` 沿父链向上找到 root
-5. `scheduleUpdateOnFiber` 让 root 知道有一轮新工作
-6. render 在 `workInProgress` 树上处理 update queue，并算出新的 state
-7. render 结束后得到 `finishedWork`
-8. commit 通过 `root.current = finishedWork` 让结果生效
+3. `enqueueUpdate` 把 update 放进当前 Fiber 的更新队列，同时内部通过 `markUpdateLaneFromFiberToRoot` 沿父链向上标记 lanes 并返回所属 root
+4. `scheduleUpdateOnFiber` 在 root 上登记更新（`markRootUpdated`），并通过 `ensureRootIsScheduled` 安排 render 执行
+5. render 在 `workInProgress` 树上处理 update queue，并算出新的 state
+6. render 结束后得到 `finishedWork`
+7. commit 通过 `root.current = finishedWork` 让结果生效
 
 如果必须再压缩成一句话，那就是：
 
@@ -344,7 +349,7 @@ M4 追踪的是"单次更新如何跑完整条链路"，但真实应用中更新
 
 M5 就回答这个更真实的问题：**当系统里同时存在多批更新时，React 怎样决定先做哪个？**
 
-M4 里的 `ensureRootIsScheduled` 是这道门的入口——它不只是"通知 scheduler 有工作要做"，还负责基于 lanes 选出当前最值得处理的一批工作，再向 scheduler 申请执行机会。M5 会把这个过程展开：
+M4 已经提到 `ensureRootIsScheduled` 是 `scheduleUpdateOnFiber` 内部触发 render 的关键环节。M5 会把这个过程完整展开：
 
 - **lanes 是什么**：每条更新都被编码进一个优先级位字段，root 上同时记录所有 pending / suspended / expired lanes
 - **`getNextLanes` 如何选出下一批**：从 root 的 lanes 集合中挑出当前最高优先级的一批

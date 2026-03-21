@@ -261,9 +261,11 @@ M5 不要求你背全部 lane 常量。
 
 `markStarvedLanesAsExpired` 会把长期没被处理、已经饿太久的 lane 标记为 expired。
 
-一旦 lane 过期，它后续就不再只是“普通待处理工作”，而会被强制推进。
+一旦 lane 过期，它不会改变优先级排序，但会产生一个关键后果：**这批工作会禁用 time slicing，必须在一轮中同步做完，不能再被中断让位。** 具体地说，`performConcurrentWorkOnRoot` 会通过 `includesExpiredLane(root, lanes)` 检查，如果发现有过期 lane，就走 `renderRootSync` 而非 `renderRootConcurrent`。
 
-这说明 React 的目标不只是“灵活”，还包括：
+不同类型的 lane 过期时间也不同：SyncLane / InputContinuousLane 大约 250ms，DefaultLane / TransitionLanes 大约 5000ms，而 RetryLanes / IdleLane / OffscreenLane 永不过期。这解释了为什么 transition 可以被推迟较长时间但最终仍会被强制执行。
+
+这说明 React 的目标不只是”灵活”，还包括：
 
 - 不能让某些工作永远被插队饿死。
 
@@ -640,7 +642,7 @@ M6 回答的正是这个问题，主线是：
 - **边界捕获**：最近的 Suspense boundary 通过 `markSuspenseBoundaryShouldCapture` 接管
 - **fallback 出场**：boundary 切换到 fallback 分支，主内容以 hidden Offscreen 形式保留
 - **`attachPingListener`**：把 wakeable resolve 事件与 root 的重调度挂钩（ping 机制）
-- **retry**：wakeable resolve 后通过 `retryDehydratedSuspenseBoundary` 等入口，把"重新尝试主内容"作为新的 lane 送回 root
+- **retry**：wakeable resolve 后通过 `resolveRetryWakeable` → `retryTimedOutBoundary` 等入口，把"重新尝试主内容"作为新的 lane 送回 root（注意：`retryDehydratedSuspenseBoundary` 仅用于 SSR hydration 场景下的 dehydrated boundary，不是通用 retry 入口）
 
 M5 里的 `suspendedLanes` 字段正是 M6 的衔接点：Suspense 挂起时，root 会把相关 lanes 记入 `suspendedLanes`，等 ping 来临后再把它们移回可调度状态。
 

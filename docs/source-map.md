@@ -8,10 +8,12 @@ This is the minimal source-reading map for learning Fiber from the official Reac
 - **Delta comparison target:** `main` (React 19 era ongoing work)
 - **Rule:** learn the stable skeleton first, then compare newer extensions.
 
+> **注意**：React 18.2.0 的 reconciler 核心文件采用 fork 机制，同时存在 `.old.js` 和 `.new.js` 两个版本（内容几乎相同）。本文档统一引用 `.old.js` 版本。
+
 ## Phase A — vocabulary and data structures
 
 ### 1. Fiber node shape
-- `packages/react-reconciler/src/ReactFiber.js`
+- `packages/react-reconciler/src/ReactFiber.old.js`
 - `packages/react-reconciler/src/ReactInternalTypes.js`
 
 **Questions to answer**
@@ -22,7 +24,7 @@ This is the minimal source-reading map for learning Fiber from the official Reac
 ### 2. Enums / tags / flags / lanes
 - `packages/react-reconciler/src/ReactWorkTags.js`
 - `packages/react-reconciler/src/ReactFiberFlags.js`
-- `packages/react-reconciler/src/ReactFiberLane.js`
+- `packages/react-reconciler/src/ReactFiberLane.old.js`
 - `packages/react-reconciler/src/ReactRootTags.js`
 
 **Questions to answer**
@@ -32,30 +34,46 @@ This is the minimal source-reading map for learning Fiber from the official Reac
 
 ## Phase B — update entry and scheduling
 
-### 3. Hook update entry
-- `packages/react-reconciler/src/ReactFiberHooks.js`
+### 3. Class component update entry
+- `packages/react-reconciler/src/ReactFiberClassComponent.old.js`
+- `packages/react-reconciler/src/ReactFiberClassUpdateQueue.old.js`
+
+**Initial functions to follow**
+- `classComponentUpdater.enqueueSetState`
+- `createUpdate` / `enqueueUpdate`
+- `processUpdateQueue`
+
+### 4. Hook update entry
+- `packages/react-reconciler/src/ReactFiberHooks.old.js`
 
 **Initial functions to follow**
 - `dispatchSetState`
 - Hook update queue helpers nearby
 
-### 4. Scheduling and work loop
-- `packages/react-reconciler/src/ReactFiberWorkLoop.js`
-- `packages/react-reconciler/src/ReactFiberRootScheduler.js`
+### 5. Concurrent update helpers
+- `packages/react-reconciler/src/ReactFiberConcurrentUpdates.old.js`
+
+**Initial functions to follow**
+- `enqueueConcurrentClassUpdate`
+- `enqueueConcurrentHookUpdate`
+- `markUpdateLaneFromFiberToRoot`
+
+### 6. Scheduling and work loop
+- `packages/react-reconciler/src/ReactFiberWorkLoop.old.js`
 
 **Initial functions to follow**
 - `scheduleUpdateOnFiber`
-- `ensureRootIsScheduled`
+- `ensureRootIsScheduled`（18.2.0 中定义在 ReactFiberWorkLoop 内，React 19 才拆分到独立文件）
 - `performConcurrentWorkOnRoot`
 - `renderRootConcurrent`
 - `commitRoot`
 
 ## Phase C — render phase
 
-### 5. Begin / reconcile / complete
-- `packages/react-reconciler/src/ReactFiberBeginWork.js`
-- `packages/react-reconciler/src/ReactChildFiber.js`
-- `packages/react-reconciler/src/ReactFiberCompleteWork.js`
+### 7. Begin / reconcile / complete
+- `packages/react-reconciler/src/ReactFiberBeginWork.old.js`
+- `packages/react-reconciler/src/ReactChildFiber.old.js`
+- `packages/react-reconciler/src/ReactFiberCompleteWork.old.js`
 
 **Questions to answer**
 - How does React descend the tree?
@@ -64,10 +82,10 @@ This is the minimal source-reading map for learning Fiber from the official Reac
 
 ## Phase D — commit phase
 
-### 6. Commit effects
-- `packages/react-reconciler/src/ReactFiberCommitWork.js`
-- `packages/react-reconciler/src/ReactFiberCommitEffects.js`
-- `packages/react-reconciler/src/ReactFiberCommitHostEffects.js`
+### 8. Commit effects
+- `packages/react-reconciler/src/ReactFiberCommitWork.old.js`
+
+> 注意：18.2.0 中 commit 阶段的所有 effect 处理逻辑全部在 `ReactFiberCommitWork.old.js` 内。`ReactFiberCommitEffects.js` 和 `ReactFiberCommitHostEffects.js` 是 React 19 开发期间才拆分出来的文件，在 18.2.0 中不存在。
 
 **Questions to answer**
 - What becomes visible during commit?
@@ -75,14 +93,15 @@ This is the minimal source-reading map for learning Fiber from the official Reac
 
 ## Phase E — advanced extensions
 
-### 7. Scheduler package
+### 9. Scheduler package
 - `packages/scheduler/src/*`
 
-### 8. Suspense / thenable / offscreen
-- `packages/react-reconciler/src/ReactFiberSuspenseComponent.js`
-- `packages/react-reconciler/src/ReactFiberThrow.js`
-- `packages/react-reconciler/src/ReactFiberThenable.js`
+### 10. Suspense / offscreen
+- `packages/react-reconciler/src/ReactFiberSuspenseComponent.old.js`
+- `packages/react-reconciler/src/ReactFiberThrow.old.js`
 - `packages/react-reconciler/src/ReactFiberOffscreenComponent.js`
+
+> 注意：`ReactFiberThenable.js` 在 18.2.0 中不存在，Thenable 处理逻辑主要在 `ReactFiberThrow.old.js` 中。
 
 ## Reading Rule
 
@@ -90,6 +109,8 @@ Do not attempt to linearly read the whole repository. Always start from a questi
 
 ## First Trace
 
-The first end-to-end trace for this project is:
+The first end-to-end trace for this project is（类组件 `setState` 路径）：
 
-`dispatchSetState` → `scheduleUpdateOnFiber` → `ensureRootIsScheduled` → `performConcurrentWorkOnRoot` → `renderRootConcurrent` → `beginWork` / `completeWork` → `commitRoot`
+`this.setState` → `enqueueSetState` → `enqueueUpdate`（内部调用 `markUpdateLaneFromFiberToRoot` 向上标记并返回 root）→ `scheduleUpdateOnFiber` → `ensureRootIsScheduled` → `performConcurrentWorkOnRoot` → `renderRootConcurrent` → `beginWork` / `completeWork` → `commitRoot`
+
+函数组件 hooks 路径入口为 `dispatchSetState`，后续同样汇入 `scheduleUpdateOnFiber`。

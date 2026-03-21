@@ -281,7 +281,7 @@ return null;
 
 > 先尝试完成当前工作单元，然后转向下一个兄弟节点；如果没有更多兄弟节点，就回到父 Fiber。
 
-关键代码骨架如下：
+关键代码骨架如下（省略了错误边界的 `unwindWork` 处理路径）：
 
 ```js
 const returnFiber = completedWork.return;
@@ -361,6 +361,7 @@ render 阶段的最小路线可以概括成：
 
 在 `ReactWorkTags.js` 中，React 定义了一组 `WorkTag`，例如：
 
+- `IndeterminateComponent`（值为 2，函数组件首次渲染时的实际 tag，`beginWork` 会在此时决定它是函数组件还是类组件）
 - `FunctionComponent`
 - `ClassComponent`
 - `HostRoot`

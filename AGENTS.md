@@ -140,6 +140,45 @@ Before calling a module "ready", check:
 - **先打开预览确认再提交**：不要仅凭 viewBox 数值判断，实际渲染可能有意外问题。
 - **图表修改易连锁**：一次布局调整可能引发多处溢出/重叠，修完后全图扫一遍。
 
+## Source Accuracy Rules (Lessons from 2026-03-20 Review)
+
+本项目曾因以下问题导致多处严重/中等错误，后续涉及源码引用时务必遵守：
+
+### 1. React 18.2.0 的 fork 机制
+
+reconciler 核心文件采用 `.old.js` / `.new.js` 双版本 fork 机制。**不存在**无后缀的 `.js` 版本。
+- 正确：`ReactFiberWorkLoop.old.js`
+- 错误：`ReactFiberWorkLoop.js`
+- 本项目统一引用 `.old.js` 版本
+
+以下文件**没有** fork 后缀（直接使用 `.js`）：`ReactInternalTypes.js`、`ReactWorkTags.js`、`ReactFiberFlags.js`、`ReactRootTags.js`、`ReactFiberOffscreenComponent.js`
+
+### 2. 版本差异：18.2.0 vs React 19
+
+以下文件/结构**仅存在于 React 19 开发期间**，18.2.0 中不存在：
+- `ReactFiberRootScheduler.js`（18.2.0 中 `ensureRootIsScheduled` 在 `ReactFiberWorkLoop` 内）
+- `ReactFiberCommitEffects.js` / `ReactFiberCommitHostEffects.js`（18.2.0 中全在 `ReactFiberCommitWork` 内）
+- `ReactFiberThenable.js`（18.2.0 中逻辑在 `ReactFiberThrow` 内）
+
+引用源码路径时，必须先确认该文件在 18.2.0 中存在。
+
+### 3. Fiber 字段写入时机的常见误判
+
+| 字段 | 常见错误 | 正确时机 |
+|------|---------|---------|
+| `memoizedProps` | "completeWork 写入" | `performUnitOfWork` 中 `beginWork` 返回后立即写入 |
+| `memoizedState` | "commit 后写入" | render 阶段 `beginWork` 内部写入（`processUpdateQueue` / hooks） |
+
+### 4. 调用链描述原则
+
+描述函数调用链时，必须区分"外部顺序调用"和"内部嵌套调用"。例如：
+- `enqueueUpdate` 内部调用 `markUpdateLaneFromFiberToRoot`，不应将两者描述为独立的顺序步骤
+- 描述步骤数量时必须与实际列出的步骤数一致（如"八步"就列八步）
+
+### 5. 不要虚构 API 名称
+
+描述触发场景时，不得使用不存在的 API 名称（如 `useIdleCallback`）。如果不确定，先查证源码。
+
 ## Default Next-Step Logic
 
 When unsure what to do next, prefer this order:

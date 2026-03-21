@@ -1,7 +1,8 @@
 # Lane 常量速查表（React 18.2.0）
 
-> 本表只覆盖覆盖 95% 以上真实流量的 6 个语义代表 lane。
-> 完整 31 个 lane 定义见源码：`packages/react-reconciler/src/ReactFiberLane.new.js`
+> 本表只覆盖 95% 以上真实流量的 6 个语义代表 lane。
+> 完整 31 个 lane 定义见源码：`packages/react-reconciler/src/ReactFiberLane.old.js`
+> 注意：18.2.0 中 `.old.js` 和 `.new.js` 两个版本内容相同，本文档统一引用 `.old.js`。
 
 ---
 
@@ -14,7 +15,7 @@
 | `DefaultLane` | `0x10` | 普通 `setState` / `useState` 触发的更新 | 绝大多数组件状态更新 |
 | `TransitionLane1` | `0x40` | `startTransition` 包裹的更新 | 搜索框实时过滤（search-as-you-type） |
 | `RetryLane1` | `0x400000` | Suspense 边界在 ping 后触发的重试 | 数据请求 resolve，重新尝试渲染主内容 |
-| `IdleLane` | `0x20000000` | `useIdleCallback` 等价的低优先级任务 | 离屏预渲染、空闲期资源预取 |
+| `IdleLane` | `0x20000000` | React 内部最低优先级任务 | Offscreen 预渲染、空闲期资源预取等内部机制触发 |
 
 ---
 
@@ -44,7 +45,7 @@ SyncLane (0x1) > InputContinuousLane (0x4) > DefaultLane (0x10)
 > TransitionLane1 (0x40) > RetryLane1 (0x400000) > IdleLane (0x20000000)
 ```
 
-**数值越小，优先级越高。** `getNextLanes` 通过 `getHighestPriorityLanes` 找到最低位置 1 的 lane，即最高优先级的工作。
+**位位置越低（最低有效位），优先级越高。** 更准确地说，源码注释写道 "bits decrease in priority as you go left"。`getHighestPriorityLane(lanes)` 通过 `lanes & -lanes` 提取最低有效位（isolate lowest set bit），即最高优先级的 lane。数值越小只是这条位规则的结果。
 
 ---
 

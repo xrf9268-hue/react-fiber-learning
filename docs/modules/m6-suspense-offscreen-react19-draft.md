@@ -211,11 +211,19 @@ M6 则补上：**当工作因为 Suspense 暂时卡住时，这本账会把它�
 
 它的逻辑很朴素：
 
-1. 为这个 boundary 申请一个 retry lane；
-2. 把这个 lane 对应的更新重新挂到 root 上；
-3. 再次调用 `ensureRootIsScheduled(...)`。
+1. 为这个 boundary 申请一个 retry lane（通过 `requestRetryLane` → `claimNextRetryLane`）；
+2. 通过 `enqueueConcurrentRenderForLane` 把这个 boundary fiber 标记为需要在该 lane 上重新 render（注意这里不是创建 update 对象，而是标记 fiber 需要重新 render）；
+3. 调用 `markRootUpdated` 把这个 lane 记入 root；
+4. 再次调用 `ensureRootIsScheduled(...)`。
 
-换句话说，retry 并不是绕开 lanes/scheduler 的特殊捷径，而是把“退出 fallback、重试主内容”这件事重新翻译回 root 能继续处理的工作。
+实际上 Suspense 的 retry 有两条触发路径：
+
+- **ping 路径**：`attachPingListener` → wakeable resolve → `pingSuspendedRoot` → `markRootPinged` + `ensureRootIsScheduled`。这条路径在 render 阶段就挂上，甚至在 fallback commit 之前就可能触发。
+- **retry 路径**：`attachRetryListener`（在 commit 阶段挂上）→ wakeable resolve → `resolveRetryWakeable` → `retryTimedOutBoundary`。这条路径在 fallback 已经 commit 之后触发。
+
+两条路径解决不同时机：ping 处理”数据很快就回来了”的情况，retry 处理”fallback 已经显示一段时间后数据才回来”的情况。
+
+无论哪条路径，retry 都不是绕开 lanes/scheduler 的特殊捷径，而是把”退出 fallback、重试主内容”这件事重新翻译回 root 能继续处理的工作。
 
 这说明 retry 并不神秘，它仍然遵守和普通更新相同的总原则：
 
@@ -260,7 +268,7 @@ M6 则补上：**当工作因为 Suspense 暂时卡住时，这本账会把它�
 
 在 `updateOffscreenComponent(...)` 里，如果当前树是 `hidden`，而且这次 render 不是在 `OffscreenLane` 上做的，React 会：
 
-- 记录这次没做完的 `baseLanes`；
+- 记录这次没做完的 `baseLanes`（注意：在 18.2.0 中，源码注释标注 `baseLanes` 尚未实际启用——"TODO: This doesn't do anything, yet. It's always NoLanes."——但这个字段的设计意图是为后续版本预留的）；
 - 把当前 fiber 和 childLanes 标到 `OffscreenLane`；
 - 然后直接 bailout，等之后再恢复这棵隐藏树。
 
@@ -373,9 +381,9 @@ Suspense 要解决的是：
 
 React 19 提到：
 
-- 当某个组件 suspend 时，React 会更早提交最近 Suspense 边界的 fallback；
-- 不必等待整个 sibling tree 都 render 完；
-- fallback 提交之后，再安排一轮 render，为 suspended siblings 做“预热”。
+- 当某个组件 suspend 时，React 会立即 commit 最近 Suspense 边界的 fallback，不再等待 sibling 子树全部 render 完；
+- fallback commit 之后，React 再安排一轮后续 render，对 suspended siblings 进行”预渲染”（pre-warming）；
+- 这样用户能更快看到 fallback，同时 sibling 的预渲染结果可以加速后续恢复。
 
 这对学习路径的意义不是“要重新画一整套理论图”，而是：
 

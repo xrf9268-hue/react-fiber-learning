@@ -268,6 +268,8 @@ React 19 相关内容在这一章里只保留轻量 delta：它说明这套骨�
 - 为什么 render/commit 要分开？
 - 为什么 React 需要 lanes 与 scheduler？
 
+提示：M3 讲双树模型时会用到 M2 中的 Fiber 节点字段（如 `alternate`、`child`、`sibling`、`return`）。如果 M3 中遇到不熟悉的字段名，可以先回看 M2 的第 2 节"一个 Fiber 节点大致装了什么"。
+
 ### 第二轮：补齐结构与动态过程
 - 回读 M2
 - 再读 M4
