@@ -1,0 +1,295 @@
+/* ============================================================
+   React Fiber Learning — "Technical Blueprint" Theme
+   Domain: aixie.de
+   Aesthetic: Deep-space dark + React blue + fiber-thread motifs
+   ============================================================ */
+
+/* --- Design Tokens --- */
+:root {
+  /* Palette */
+  --fiber-bg-deep:     #060a14;
+  --fiber-bg:          #0b1121;
+  --fiber-bg-soft:     #111827;
+  --fiber-bg-mute:     #1a2332;
+  --fiber-bg-card:     #0f1729;
+  --fiber-border:      #1e2d3d;
+  --fiber-border-glow: #1a3a5c;
+
+  --fiber-blue:        #61dafb;
+  --fiber-blue-dim:    #3b8bb9;
+  --fiber-blue-glow:   rgba(97, 218, 251, 0.15);
+  --fiber-gold:        #e8d44d;
+  --fiber-green:       #4ade80;
+  --fiber-red:         #f87171;
+  --fiber-purple:      #a78bfa;
+  --fiber-orange:      #fb923c;
+
+  --fiber-text:        #e2e8f0;
+  --fiber-text-2:      #94a3b8;
+  --fiber-text-3:      #64748b;
+
+  /* Typography */
+  --fiber-font-heading: 'LXGW WenKai', 'Noto Sans SC', serif;
+  --fiber-font-body:    'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --fiber-font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Spacing & Radius */
+  --fiber-radius:      12px;
+  --fiber-radius-sm:   6px;
+}
+
+/* --- VitePress Variable Overrides (Dark Only) --- */
+.dark,
+:root {
+  --vp-c-bg:           var(--fiber-bg);
+  --vp-c-bg-soft:      var(--fiber-bg-soft);
+  --vp-c-bg-mute:      var(--fiber-bg-mute);
+  --vp-c-bg-alt:       var(--fiber-bg-deep);
+
+  --vp-c-text-1:       var(--fiber-text);
+  --vp-c-text-2:       var(--fiber-text-2);
+  --vp-c-text-3:       var(--fiber-text-3);
+
+  --vp-c-brand-1:      var(--fiber-blue);
+  --vp-c-brand-2:      var(--fiber-blue-dim);
+  --vp-c-brand-3:      var(--fiber-blue-glow);
+  --vp-c-brand-soft:   var(--fiber-blue-glow);
+
+  --vp-c-divider:      var(--fiber-border);
+  --vp-c-gutter:       var(--fiber-bg-deep);
+
+  --vp-font-family-base: var(--fiber-font-body);
+  --vp-font-family-mono: var(--fiber-font-mono);
+
+  --vp-code-color:     var(--fiber-blue);
+  --vp-code-bg:        rgba(97, 218, 251, 0.08);
+
+  --vp-c-tip-1:        var(--fiber-green);
+  --vp-c-tip-soft:     rgba(74, 222, 128, 0.08);
+  --vp-c-warning-1:    var(--fiber-gold);
+  --vp-c-warning-soft: rgba(232, 212, 77, 0.08);
+  --vp-c-danger-1:     var(--fiber-red);
+  --vp-c-danger-soft:  rgba(248, 113, 113, 0.08);
+
+  --vp-nav-bg-color:   rgba(11, 17, 33, 0.85);
+  --vp-sidebar-bg-color: var(--fiber-bg-deep);
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(135deg, var(--fiber-blue) 0%, var(--fiber-purple) 50%, var(--fiber-gold) 100%);
+
+  --vp-home-hero-image-background-image: radial-gradient(ellipse at center, var(--fiber-blue-glow) 0%, transparent 60%);
+  --vp-home-hero-image-filter: blur(40px);
+}
+
+/* Force dark mode */
+html {
+  color-scheme: dark;
+}
+html:not(.dark) {
+  --vp-c-bg: var(--fiber-bg);
+  --vp-c-bg-soft: var(--fiber-bg-soft);
+}
+
+/* --- Global Typography --- */
+h1, h2, h3, h4, h5, h6,
+.vp-doc h1, .vp-doc h2, .vp-doc h3, .vp-doc h4 {
+  font-family: var(--fiber-font-heading) !important;
+  letter-spacing: -0.01em;
+}
+
+.vp-doc h1 {
+  font-size: 2rem;
+  background: linear-gradient(135deg, var(--fiber-blue) 0%, var(--fiber-text) 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding-bottom: 0.2em;
+}
+
+.vp-doc h2 {
+  border-top: 1px solid var(--fiber-border);
+  padding-top: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+/* --- Code Blocks --- */
+.vp-doc div[class*="language-"] {
+  border: 1px solid var(--fiber-border);
+  border-radius: var(--fiber-radius-sm);
+  background: var(--fiber-bg-deep) !important;
+}
+
+.vp-doc div[class*="language-"]::before {
+  color: var(--fiber-blue-dim);
+  font-family: var(--fiber-font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.vp-doc code {
+  font-family: var(--fiber-font-mono);
+  font-size: 0.875em;
+}
+
+/* Inline code */
+.vp-doc :not(pre) > code {
+  background: rgba(97, 218, 251, 0.08);
+  border: 1px solid rgba(97, 218, 251, 0.12);
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: var(--fiber-blue);
+  font-weight: 500;
+}
+
+/* --- Navigation --- */
+.VPNav {
+  backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid var(--fiber-border) !important;
+}
+
+.VPNavBar .title {
+  font-family: var(--fiber-font-heading) !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Active sidebar link */
+.VPSidebarItem.is-active > .item > .link > .text {
+  color: var(--fiber-blue) !important;
+}
+
+/* --- Sidebar --- */
+.VPSidebar {
+  border-right: 1px solid var(--fiber-border) !important;
+  background: var(--fiber-bg-deep) !important;
+}
+
+/* --- Tables --- */
+.vp-doc table {
+  border: 1px solid var(--fiber-border);
+  border-radius: var(--fiber-radius-sm);
+  overflow: hidden;
+}
+
+.vp-doc th {
+  background: var(--fiber-bg-mute);
+  color: var(--fiber-blue);
+  font-family: var(--fiber-font-heading);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+
+.vp-doc td {
+  border-color: var(--fiber-border);
+}
+
+.vp-doc tr:hover td {
+  background: rgba(97, 218, 251, 0.03);
+}
+
+/* --- Custom Containers (tip, warning, etc.) --- */
+.vp-doc .custom-block {
+  border-radius: var(--fiber-radius-sm);
+  border-left-width: 3px;
+}
+
+.vp-doc .custom-block.tip {
+  border-left-color: var(--fiber-green);
+}
+
+.vp-doc .custom-block.warning {
+  border-left-color: var(--fiber-gold);
+}
+
+.vp-doc .custom-block.danger {
+  border-left-color: var(--fiber-red);
+}
+
+.vp-doc .custom-block.info {
+  border-left-color: var(--fiber-blue);
+  background: var(--fiber-blue-glow);
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--fiber-bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--fiber-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fiber-blue-dim);
+}
+
+/* --- Footer --- */
+.VPFooter {
+  border-top: 1px solid var(--fiber-border) !important;
+  background: var(--fiber-bg-deep) !important;
+}
+
+/* --- Background Pattern --- */
+body {
+  background-color: var(--fiber-bg);
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(97, 218, 251, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(167, 139, 250, 0.03) 0%, transparent 50%);
+}
+
+/* Grid pattern overlay for doc pages */
+.VPContent.has-sidebar .content-container {
+  position: relative;
+}
+
+/* --- SVG Diagrams --- */
+.vp-doc img[src$=".svg"] {
+  background: var(--fiber-bg-mute);
+  border: 1px solid var(--fiber-border);
+  border-radius: var(--fiber-radius);
+  padding: 1rem;
+  max-width: 100%;
+}
+
+/* --- Selection Color --- */
+::selection {
+  background: rgba(97, 218, 251, 0.25);
+  color: #fff;
+}
+
+/* --- Search --- */
+.VPLocalSearchBox .search-input {
+  font-family: var(--fiber-font-body);
+}
+
+/* --- Smooth transitions --- */
+a,
+.VPSidebarItem .link,
+.VPNavBarMenuLink {
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+/* --- Module badge styles (for use in markdown) --- */
+.module-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: var(--fiber-font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.module-badge.m1 { background: rgba(97, 218, 251, 0.12); color: var(--fiber-blue); }
+.module-badge.m2 { background: rgba(74, 222, 128, 0.12); color: var(--fiber-green); }
+.module-badge.m3 { background: rgba(167, 139, 250, 0.12); color: var(--fiber-purple); }
+.module-badge.m4 { background: rgba(251, 146, 60, 0.12); color: var(--fiber-orange); }
+.module-badge.m5 { background: rgba(232, 212, 77, 0.12); color: var(--fiber-gold); }
+.module-badge.m6 { background: rgba(248, 113, 113, 0.12); color: var(--fiber-red); }
