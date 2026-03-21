@@ -271,6 +271,8 @@
 
   <!-- ①→③ Arrow: (vertical, between row1 and row2, col1) -->
   <path d="M 413 450 L 413 480" stroke="#ea580c" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
+  <rect x="373" y="452" width="80" height="22" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1"/>
+  <text x="413" y="467" class="hint" text-anchor="middle" fill="#ea580c">current 保持</text>
 
   <!-- ============================================================ -->
   <!-- Bottom section: alternate pairing + legend + summary         -->

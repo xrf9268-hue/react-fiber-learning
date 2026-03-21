@@ -151,8 +151,8 @@
   <path d="M 752 655 L 730 670 C 700 690 660 720 560 750 L 470 780"
         stroke="#2563eb" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"
         marker-end="url(#arr-blue)"/>
-  <rect x="575" y="698" width="100" height="18" rx="4" fill="#eff6ff" opacity="0.9"/>
-  <text x="625" y="712" class="hint" text-anchor="middle" fill="#2563eb" font-weight="700">回流 Root</text>
+  <rect x="555" y="698" width="140" height="18" rx="4" fill="#eff6ff" opacity="0.9"/>
+  <text x="625" y="712" class="hint" text-anchor="middle" fill="#2563eb" font-weight="700">结果返回 Root</text>
 
   <!-- 8->9  green, right  (y=780, Lane2 -> Lane4) -->
   <line x1="700" y1="780" x2="1112" y2="780"
@@ -214,6 +214,6 @@
   <!-- Key insight callout -->
   <rect x="80" y="1296" width="1440" height="36" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
   <text x="800" y="1320" class="hint" text-anchor="middle" fill="#dc2626" font-weight="700">
-    关键：新 state 不在 setState 调用点算出，而在 render 阶段 processUpdateQueue 时得出；Step 7->8 是回流（Render -> Root）
+    关键：新 state 不在 setState 调用点算出，而在 render 阶段 processUpdateQueue 时得出；Step 7->8 结果返回 Root（Render -> Root）
   </text>
 </svg>
