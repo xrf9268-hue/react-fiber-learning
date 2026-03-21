@@ -14,11 +14,12 @@
       <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(15,23,42,0.06)"/>
     </filter>
     <marker id="arr-blue"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
-    <marker id="arr-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ea580c"/></marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
     <marker id="arr-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7c3aed"/></marker>
     <marker id="arr-green"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#16a34a"/></marker>
-    <marker id="arr-red"    viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker>
+    <marker id="arr-red"    viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#be123c"/></marker>
     <marker id="arr-slate"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker>
+    <marker id="arr-teal"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f766e"/></marker>
   </defs>
 
   <!-- Background -->
@@ -70,27 +71,27 @@
 
   <!-- Row 1 arrows: 1->2 blue, 2->3 red, 3->4 orange -->
   <path d="M360 235 L420 235" stroke="#2563eb" stroke-width="2.4" fill="none" marker-end="url(#arr-blue)"/>
-  <path d="M700 235 L760 235" stroke="#dc2626" stroke-width="2.4" fill="none" marker-end="url(#arr-red)"/>
-  <path d="M1040 235 L1100 235" stroke="#ea580c" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
+  <path d="M700 235 L760 235" stroke="#be123c" stroke-width="2.4" fill="none" marker-end="url(#arr-red)"/>
+  <path d="M1040 235 L1100 235" stroke="#b45309" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
 
   <!-- ================================================================ -->
-  <!-- ROW 2  y=370   right -> left  (5 right, 6 center-left, 7 far right) -->
+  <!-- ROW 2  y=370   left -> right  (5 left, 6 center, 7 right) -->
   <!-- ================================================================ -->
   <text x="60" y="350" class="hint" style="font-weight:700; fill:#94a3b8; letter-spacing:0.5px">ROW 2 --- offscreen / lanes / wakeable resolve</text>
 
-  <!-- Step 5: hidden Offscreen (below step 4) -->
-  <rect x="1000" y="370" width="280" height="110" rx="14" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="1020" y="400" class="label" style="fill:#16a34a">5.</text>
-  <text x="1038" y="400" class="label">hidden Offscreen</text>
-  <text x="1020" y="422" class="hint">主内容不是删除，而是隐藏保留</text>
-  <text x="1020" y="444" class="mono" style="fill:#16a34a">mode = hidden</text>
+  <!-- Step 5: hidden Offscreen -->
+  <rect x="620" y="370" width="280" height="110" rx="14" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="640" y="400" class="label" style="fill:#16a34a">5.</text>
+  <text x="658" y="400" class="label">hidden Offscreen</text>
+  <text x="640" y="422" class="hint">主内容不是删除，而是隐藏保留</text>
+  <text x="640" y="444" class="mono" style="fill:#16a34a">mode = hidden</text>
 
   <!-- Step 6: 记录 suspendedLanes -->
-  <rect x="620" y="370" width="280" height="110" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="640" y="400" class="label" style="fill:#7c3aed">6.</text>
-  <text x="658" y="400" class="label">记录 suspendedLanes</text>
-  <text x="640" y="422" class="hint">这批工作先别当成现在能推进的候选</text>
-  <text x="640" y="444" class="mono" style="fill:#7c3aed">root.suspendedLanes |= lanes</text>
+  <rect x="1000" y="370" width="280" height="110" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="1020" y="400" class="label" style="fill:#7c3aed">6.</text>
+  <text x="1038" y="400" class="label">记录 suspendedLanes</text>
+  <text x="1020" y="422" class="hint">这批工作先别当成现在能推进的候选</text>
+  <text x="1020" y="444" class="mono" style="fill:#7c3aed">root.suspendedLanes |= lanes</text>
 
   <!-- Step 7: wakeable resolve (far right, trigger point) -->
   <rect x="1340" y="370" width="200" height="110" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
@@ -99,18 +100,19 @@
   <text x="1360" y="422" class="hint">条件满足，promise settled</text>
   <text x="1360" y="444" class="mono" style="fill:#16a34a">then(ping)</text>
 
-  <!-- Arrow 4->5: green, going down-left -->
-  <path d="M1240 290 L1240 320 Q1240 340 1220 340 L1160 340 Q1140 340 1140 360 L1140 370"
+  <!-- Arrow 4->5: green, route leftward above the row and land on step 5 -->
+  <path d="M1240 290 L1240 320 Q1240 340 1220 340 L760 340 Q760 340 760 360 L760 370"
         stroke="#16a34a" stroke-width="2.4" fill="none" marker-end="url(#arr-green)"/>
 
-  <!-- Arrow 5->6: purple, going left -->
-  <path d="M1000 425 L900 425" stroke="#7c3aed" stroke-width="2.4" fill="none" marker-end="url(#arr-purple)"/>
+  <!-- Arrow 5->6: purple, going right -->
+  <path d="M900 425 L1000 425" stroke="#7c3aed" stroke-width="2.4" fill="none" marker-end="url(#arr-purple)"/>
 
   <!-- Annotation: async wait gap between step 5/6 and step 7 -->
-  <!-- Compact vertical marker in the 60px gap (x=1280..1340) between step 5 and step 7 -->
-  <line x1="1310" y1="395" x2="1310" y2="460" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="4 3"/>
-  <text x="1310" y="385" class="hint" text-anchor="middle" style="fill:#94a3b8; font-weight:600">异步等待</text>
-  <text x="1310" y="475" class="hint" text-anchor="middle" style="fill:#94a3b8; font-size:9px">(wakeable)</text>
+  <!-- Keep the label above the row so it reads as a state marker, not as step 5 content -->
+  <rect x="1258" y="344" width="104" height="22" rx="11" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <text x="1310" y="359" class="hint" text-anchor="middle" style="fill:#64748b; font-weight:600">异步等待</text>
+  <line x1="1310" y1="370" x2="1310" y2="458" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <text x="1310" y="474" class="hint" text-anchor="middle" style="fill:#94a3b8; font-size:9px">(wakeable)</text>
 
   <!-- ================================================================ -->
   <!-- ROW 3  y=560   right -> left, then loop back                     -->
@@ -138,12 +140,12 @@
   <text x="260" y="612" class="hint">退出 fallback，重新尝试主内容</text>
   <text x="260" y="634" class="mono" style="fill:#16a34a">renderRootSync/Concurrent()</text>
 
-  <!-- Arrow 7->8: orange, going down -->
-  <path d="M1440 480 L1440 520 Q1440 540 1420 540 L1290 540 Q1280 540 1280 550 L1280 560"
-        stroke="#ea580c" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
+  <!-- Arrow 7->8: orange, land on the top edge of step 8 instead of the top-right corner -->
+  <path d="M1440 480 L1440 520 Q1440 540 1420 540 L1160 540 Q1140 540 1140 550 L1140 560"
+        stroke="#b45309" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
 
   <!-- Arrow 8->9: orange, going left -->
-  <path d="M1000 615 L900 615" stroke="#ea580c" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
+  <path d="M1000 615 L900 615" stroke="#b45309" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
 
   <!-- Arrow 9->10: blue, going left -->
   <path d="M620 615 L520 615" stroke="#2563eb" stroke-width="2.4" fill="none" marker-end="url(#arr-blue)"/>
@@ -152,9 +154,9 @@
   <!-- CLOSED LOOP: 10 -> 1  green arrow up along left edge             -->
   <!-- ================================================================ -->
   <path d="M240 615 L60 615 Q46 615 46 600 L46 250 Q46 235 60 235 L80 235"
-        stroke="#16a34a" stroke-width="2.4" fill="none" stroke-dasharray="8 4" marker-end="url(#arr-green)"/>
+        stroke="#0f766e" stroke-width="2.4" fill="none" stroke-dasharray="8 4" marker-end="url(#arr-teal)"/>
   <!-- Loop label -->
-  <text x="22" y="460" class="hint" style="fill:#16a34a; font-weight:700" transform="rotate(-90,22,460)">retry loop</text>
+  <text x="22" y="460" class="hint" style="fill:#0f766e; font-weight:700" transform="rotate(-90,22,460)">retry loop</text>
 
   <!-- ================================================================ -->
   <!-- KEY TAKEAWAYS BOX  y=710                                         -->
@@ -170,25 +172,27 @@
   <!-- LEGEND + SUMMARY  y=880                                          -->
   <!-- ================================================================ -->
   <rect x="30" y="880" width="1540" height="46" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
-  <text x="52" y="900" class="hint" style="font-weight:700">图例</text>
-  <!-- Blue -->
-  <line x1="100" y1="898" x2="130" y2="898" stroke="#2563eb" stroke-width="2.4" marker-end="url(#arr-blue)"/>
-  <text x="138" y="903" class="hint">正常推进</text>
-  <!-- Red -->
-  <line x1="220" y1="898" x2="250" y2="898" stroke="#dc2626" stroke-width="2.4" marker-end="url(#arr-red)"/>
-  <text x="258" y="903" class="hint">throw / suspend</text>
-  <!-- Orange -->
-  <line x1="370" y1="898" x2="400" y2="898" stroke="#ea580c" stroke-width="2.4" marker-end="url(#arr-orange)"/>
-  <text x="408" y="903" class="hint">fallback + ping</text>
-  <!-- Green -->
-  <line x1="520" y1="898" x2="550" y2="898" stroke="#16a34a" stroke-width="2.4" marker-end="url(#arr-green)"/>
-  <text x="558" y="903" class="hint">Offscreen / retry</text>
-  <!-- Purple -->
-  <line x1="680" y1="898" x2="710" y2="898" stroke="#7c3aed" stroke-width="2.4" marker-end="url(#arr-purple)"/>
-  <text x="718" y="903" class="hint">suspendedLanes</text>
-  <!-- Dashed -->
-  <line x1="840" y1="898" x2="870" y2="898" stroke="#16a34a" stroke-width="2.4" stroke-dasharray="8 4" marker-end="url(#arr-green)"/>
-  <text x="878" y="903" class="hint">闭环回路 (retry loop)</text>
+  <g transform="translate(276 0)">
+    <text x="52" y="900" class="hint" style="font-weight:700">图例</text>
+    <!-- Blue -->
+    <line x1="100" y1="898" x2="130" y2="898" stroke="#2563eb" stroke-width="2.4" marker-end="url(#arr-blue)"/>
+    <text x="138" y="903" class="hint">正常推进</text>
+    <!-- Red -->
+    <line x1="220" y1="898" x2="250" y2="898" stroke="#be123c" stroke-width="2.4" marker-end="url(#arr-red)"/>
+    <text x="258" y="903" class="hint">throw / suspend</text>
+    <!-- Orange -->
+    <line x1="370" y1="898" x2="400" y2="898" stroke="#b45309" stroke-width="2.4" marker-end="url(#arr-orange)"/>
+    <text x="408" y="903" class="hint">fallback + ping</text>
+    <!-- Green -->
+    <line x1="520" y1="898" x2="550" y2="898" stroke="#16a34a" stroke-width="2.4" marker-end="url(#arr-green)"/>
+    <text x="558" y="903" class="hint">Offscreen / retry</text>
+    <!-- Purple -->
+    <line x1="680" y1="898" x2="710" y2="898" stroke="#7c3aed" stroke-width="2.4" marker-end="url(#arr-purple)"/>
+    <text x="718" y="903" class="hint">suspendedLanes</text>
+    <!-- Dashed -->
+    <line x1="840" y1="898" x2="870" y2="898" stroke="#0f766e" stroke-width="2.4" stroke-dasharray="8 4" marker-end="url(#arr-teal)"/>
+    <text x="878" y="903" class="hint">闭环回路 (retry loop)</text>
+  </g>
 
   <!-- One-line summary -->
   <rect x="30" y="940" width="1540" height="38" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
