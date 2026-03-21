@@ -1,4 +1,4 @@
-direction: right
+direction: down
 
 title: "旧同步渲染模型 vs Fiber 能力对比" {
   style: {
@@ -17,10 +17,10 @@ old: "旧同步渲染模型" {
     border-radius: 20
   }
 
-  a: "开始更新\n组件触发渲染后，主线程形成一整块连续工作" { class: emphasis-red }
-  b: "持续执行\n期间难以让位给更急的输入或点击" { class: emphasis-red }
-  c: "中途控制力弱\n不擅长暂停、恢复、丢弃过时工作" { class: emphasis-red }
-  d: "根本限制\n对渲染工作的控制粒度不够细" {
+  a: "开始更新\n组件触发渲染后\n主线程形成一整块连续工作" { class: emphasis-red }
+  b: "持续执行\n期间难以让位给\n更急的输入或点击" { class: emphasis-red }
+  c: "中途控制力弱\n不擅长暂停、恢复\n丢弃过时工作" { class: emphasis-red }
+  d: "根本限制\n对渲染工作的控制\n粒度不够细" {
     style: {
       fill: "#fef2f2"
       stroke: "#dc2626"
@@ -43,10 +43,10 @@ fiber: "Fiber 工作模型" {
     border-radius: 20
   }
 
-  a: "开始更新\n不是立刻做到底，先组织成可推进的工作" { class: emphasis-green }
-  b: "中途可控\n可暂停、可让位、可放弃过时工作" { class: emphasis-green }
-  c: "统一 commit\n整棵结果准备好后再一次性提交" { class: emphasis-green }
-  d: "关键边界\n可中断的是 render，不是 commit" {
+  a: "开始更新\n不是立刻做到底\n先组织成可推进的工作" { class: emphasis-green }
+  b: "中途可控\n可暂停、可让位\n可放弃过时工作" { class: emphasis-green }
+  c: "统一 commit\n整棵结果准备好后\n再一次性提交" { class: emphasis-green }
+  d: "关键边界\n可中断的是 render\n不是 commit" {
     style: {
       fill: "#f0fdf4"
       stroke: "#16a34a"
@@ -66,4 +66,8 @@ old -> fiber: "Fiber 解决了什么" {
     stroke-dash: 5
     stroke: "#475569"
   }
+}
+
+title -> old: "" {
+  style: { stroke: "#ffffff"; stroke-width: 0 }
 }

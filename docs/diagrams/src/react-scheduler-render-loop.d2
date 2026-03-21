@@ -1,4 +1,4 @@
-direction: right
+direction: down
 
 title: "scheduler 与 render work loop 协作" {
   style: {
@@ -9,45 +9,34 @@ title: "scheduler 与 render work loop 协作" {
   }
 }
 
-ensure: |md
-  **ensureRootIsScheduled**
-  调用 getNextLanes 判断本轮最该做的 lanes
-  以对应优先级向 scheduler 注册 callback
-| {
+ensure: "ensureRootIsScheduled\n调用 getNextLanes 判断\n本轮最该做的 lanes\n以对应优先级向 scheduler\n注册 callback" {
   class: emphasis-blue
 }
 
-scheduler: |md
-  **Scheduler**
-  提供 callback 执行机会
-  不决定业务优先级
-  只决定"何时再给 root 一轮执行窗口"
-| {
+scheduler: "Scheduler\n提供 callback 执行机会\n不决定业务优先级\n只决定何时再给 root\n一轮执行窗口" {
   class: emphasis-purple
 }
 
-render: |md
-  **Render Work Loop**
-  沿 workInProgress 逐 Fiber 推进
-  可让位、可继续、可放弃过时工作
-| {
+render: "Render Work Loop\n沿 workInProgress 逐 Fiber 推进\n可让位、可继续\n可放弃过时工作" {
   class: emphasis-green
 }
 
 ensure -> scheduler: "注册 callback" { style.stroke: "#475569" }
 scheduler -> render: "安排执行窗口" { style.stroke: "#16a34a" }
 
-note: |md
-  **最易误解的边界**
-
-  1. 优先级判断在 getNextLanes，不在 scheduler
-  2. 并发模式意味着 render 可被中断和恢复，但仍运行在单个主线程上
-  3. startTransition 表示"可让位"，不是独立渲染引擎
-| {
+note: "最易误解的边界\n\n1. 优先级判断在 getNextLanes\n不在 scheduler\n2. 并发模式意味着 render 可被\n中断和恢复，但仍运行在\n单个主线程上\n3. startTransition 表示可让位\n不是独立渲染引擎" {
   style: {
     fill: "#f0fdf4"
     stroke: "#16a34a"
     border-radius: 14
     font-size: 12
   }
+}
+
+render -> note: "" {
+  style: { stroke: "#ffffff"; stroke-width: 0 }
+}
+
+title -> ensure: "" {
+  style: { stroke: "#ffffff"; stroke-width: 0 }
 }

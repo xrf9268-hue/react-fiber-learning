@@ -1,4 +1,4 @@
-direction: right
+direction: down
 
 title: "更新如何进入 lanes — root 统一记账" {
   style: {
@@ -11,7 +11,7 @@ title: "更新如何进入 lanes — root 统一记账" {
 
 sources: "Update Sources" {
   style.border-radius: 20
-  input: "输入 / 点击\n离用户最近，通常更急" { class: emphasis-red }
+  input: "输入 / 点击\n离用户最近\n通常更急" { class: emphasis-red }
   setState: "普通 setState\n默认更新" { class: emphasis-blue }
   transition: "startTransition\n可让位给更急工作" { class: emphasis-purple }
 }
@@ -52,3 +52,7 @@ next: "getNextLanes(root, wipLanes)\n综合判断最该处理哪一批" {
 root.pending -> next { style.stroke: "#475569" }
 root.pinged -> next: "恢复候选\n也参与" { style.stroke: "#ea580c"; style.stroke-dash: 5 }
 root.expired -> next: "优先纳入" { style.stroke: "#ca8a04"; style.stroke-dash: 5 }
+
+title -> sources: "" {
+  style: { stroke: "#ffffff"; stroke-width: 0 }
+}
