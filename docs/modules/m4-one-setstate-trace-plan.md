@@ -198,7 +198,7 @@ M4 正文建议至少包含：
   - `commitRoot`
 
 如需配图，优先：
-1. 一次 `setState` 的九步最小链路图；
+1. 一次 `setState` 的十步最小链路图；
 2. Fiber return 链向上找到 root 的示意图；
 3. M3 双树模型与 M4 触发链的拼接图。
 

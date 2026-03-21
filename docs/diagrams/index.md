@@ -11,7 +11,7 @@
 ## 推荐先看
 
 - 学习路线总图：`react-learning-roadmap.svg`
-- M1 旧模型 vs Fiber 能力对比：`react-old-sync-vs-fiber-capabilities.svg`
+- M1 旧模型 vs Fiber 能力对比：`react-old-sync-vs-fiber.svg`
 - M3 双树与 commit 关系：`react-current-wip-commit.svg`
 - M4 一次 `setState` 全链路：`react-setstate-full-path.svg`
 
@@ -21,7 +21,7 @@
 - `react-learning-roadmap.svg` — 用一张图把 M1-M6 串成连续解释链。
 
 ### M1｜为什么需要 Fiber
-- `react-old-sync-vs-fiber-capabilities.svg` — 对比旧同步渲染模型与 Fiber 带来的控制能力变化。
+- `react-old-sync-vs-fiber.svg` — 对比旧同步渲染模型与 Fiber 带来的控制能力变化。
 
 ### M2｜Fiber 节点与遍历
 - `react-fiber-node-traversal.svg` — 说明 Fiber 节点关键字段分组、child / sibling / return 关系与 beginWork / completeWork 骨架。
@@ -33,7 +33,8 @@
 - `react-setstate-full-path.svg` — 说明一次 `setState` 如何从组件、Fiber、root 一路进入 render / commit。
 
 ### M5｜lanes / root / scheduler
-- `react-lanes-root-scheduler.svg` — 说明 lane 分配、root 统一记账与 scheduler 执行机会之间的分工。
+- `react-lanes-assignment.svg` — 更新如何归类进入 lanes，root 内部 lanes 状态流转
+- `react-scheduler-render-loop.svg` — ensureRootIsScheduled、scheduler、render work loop 的协作分工
 
 ### M6｜Suspense / Offscreen / ping / retry
 - `react-suspense-offscreen-ping-retry.svg` — 说明主内容挂起后的 fallback、hidden Offscreen 与 retry 闭环。

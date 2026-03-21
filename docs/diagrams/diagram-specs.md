@@ -101,9 +101,9 @@
   5. `scheduleUpdateOnFiber`
   6. `prepareFreshStack`
   7. render 消费 update queue
-  8. `root.finishedWork = ...`
-  9. `commitRoot`
-  10. `root.current = finishedWork`
+  8. `root.finishedWork = finishedWork`（结果挂到 root）
+  9. `commitRoot`（按 flags 执行 DOM 操作）
+  10. `root.current = finishedWork`（真正生效）
 
 ### 图中要强调的关系
 - `setState` 的第一步是登记更新，不是立刻改页面。
@@ -112,28 +112,31 @@
 
 ---
 
-## 5. lanes / root / scheduler 协作图
+## 5a. lanes 分配与 root 统一记账图（react-lanes-assignment.svg）
 
 ### 目的
-把 lane 分配、root 选批次、scheduler 安排执行机会的分工讲清，避免“并发 = 多线程”误解。
+把更新如何归类进入 lanes、root 内部 lanes 状态流转讲清。
 
 ### 回答的问题
-“当系统里同时有多批更新时，React 到底怎么决定先做什么？”
+“更新进来后怎么被分配到不同 lane，root 内部又怎么管理这些 lane 的状态？”
 
 ### 图形结构
-- 三层结构图：
-  - 第一层：Update Sources（输入、点击、切换等）
-  - 第二层：Lane Assignment
-  - 第三层：Root Ledger + `getNextLanes`
-  - 旁侧：Scheduler callback opportunity
-  - 末端：Render Work Loop
-- Root ledger 里只画关键集合：`pendingLanes`、`suspendedLanes`、`pingedLanes`、`expiredLanes`。
+- 三层从左到右：Update Sources → Lane Assignment → Root Ledger
+- Root Ledger 内部含状态机：pendingLanes → suspendedLanes → pingedLanes / expiredLanes
+- 出口：getNextLanes 综合判断最该处理哪一批
 
-### 图中要强调的关系
-- 更新先进入 lane。
-- root 统一判断“现在最该做哪一批”。
-- scheduler 提供执行机会，但不替代 root 做业务优先级决策。
-- transition 应标成“可让位的非紧急更新”。
+## 5b. scheduler 与 render work loop 协作图（react-scheduler-render-loop.svg）
+
+### 目的
+把 ensureRootIsScheduled、scheduler、render work loop 的协作分工讲清，避免”并发 = 多线程”误解。
+
+### 回答的问题
+“scheduler 和 render work loop 分别负责什么？”
+
+### 图形结构
+- 三个节点从左到右 + 注释框
+- ensureRootIsScheduled → Scheduler → Render Work Loop
+- 注释框强调：优先级判断在 getNextLanes 不在 scheduler、并发不是多线程
 
 ---
 
@@ -154,9 +157,10 @@
   4. fallback 出场
   5. 主内容进入 hidden Offscreen
   6. root 记录 `suspendedLanes`
-  7. wakeable resolve → ping
-  8. root 记录 `pingedLanes` 并重新调度
-  9. retry 主内容 render
+  7. wakeable resolve
+  8. pingSuspendedRoot — markRootPinged(root, lanes)
+  9. ensureRootIsScheduled — 重新给 root 安排执行机会
+  10. retry 主内容 render
 
 ### 图中要强调的关系
 - fallback 出现时，主内容往往不是简单删除，而是 hidden Offscreen。
@@ -168,10 +172,12 @@
 ## 图示优先级建议
 1. 学习路线总图
 2. current / workInProgress / finishedWork / commit 关系图
-3. 一次 `setState` 全链路时序图
-4. lanes / root / scheduler 协作图
-5. Suspense / Offscreen / ping / retry 主线图
-6. Fiber 节点结构与遍历骨架图
+3. 一次 `setState` 全链路时序图（10 步）
+4. lanes 分配与 root 统一记账图
+5. scheduler 与 render work loop 协作图
+6. Suspense / Offscreen / ping / retry 主线图（10 步闭环）
+7. Fiber 节点结构与遍历骨架图
+8. 旧同步渲染模型 vs Fiber 能力对比图
 
 ## 导出建议
 - 首版全部先做 SVG。

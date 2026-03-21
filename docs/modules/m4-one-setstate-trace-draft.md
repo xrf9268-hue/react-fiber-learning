@@ -4,7 +4,7 @@
 
 在 React 18 里，类组件里调用一次 `this.setState(...)`，并不会直接修改页面。
 
-更准确地说，它会经历这样一条主线（共八步）：
+更准确地说，它会经历这样一条主线（共十步）：
 
 1. 组件调用 `this.setState(...)`
 2. `enqueueSetState` 创建 update
@@ -284,7 +284,7 @@ root.current = finishedWork
 
 ## 九、把整条链压成一个最小模型
 
-现在可以把一次 class 组件 `setState` 的主线压缩成八步：
+现在可以把一次 class 组件 `setState` 的主线压缩成十步：
 
 1. 组件调用 `this.setState(...)`
 2. `enqueueSetState` 创建 update

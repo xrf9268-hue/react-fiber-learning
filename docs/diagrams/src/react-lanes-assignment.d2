@@ -1,0 +1,54 @@
+direction: right
+
+title: "更新如何进入 lanes — root 统一记账" {
+  style: {
+    font-size: 22
+    bold: true
+    fill: "#f8fafc"
+    stroke: "#f8fafc"
+  }
+}
+
+sources: "Update Sources" {
+  style.border-radius: 20
+  input: "输入 / 点击\n离用户最近，通常更急" { class: emphasis-red }
+  setState: "普通 setState\n默认更新" { class: emphasis-blue }
+  transition: "startTransition\n可让位给更急工作" { class: emphasis-purple }
+}
+
+lanes: "Lane Assignment" {
+  style.border-radius: 20
+  sync: "Sync / Input lanes" { class: emphasis-red }
+  default: "Default lanes" { class: emphasis-blue }
+  trans: "Transition lanes" { class: emphasis-purple }
+}
+
+sources.input -> lanes.sync { style.stroke: "#dc2626" }
+sources.setState -> lanes.default { style.stroke: "#2563eb" }
+sources.transition -> lanes.trans { style.stroke: "#7c3aed" }
+
+root: "Root Ledger — 所有更新统一入口" {
+  style.border-radius: 20
+
+  pending: "pendingLanes\nmarkRootUpdated(root, lane)\n所有更新都先到这里" { class: emphasis-blue }
+
+  suspended: "suspendedLanes\n暂时做不下去" { class: emphasis-red }
+  pinged: "pingedLanes\n恢复候选" { class: emphasis-orange }
+  expired: "expiredLanes\n饿死保护" { class: emphasis-yellow }
+
+  pending -> suspended: "render 中\nsuspend" { style.stroke: "#dc2626" }
+  suspended -> pinged: "wakeable\nresolve" { style.stroke: "#ea580c" }
+  pending -> expired: "超时\n未完成" { style.stroke: "#ca8a04" }
+}
+
+lanes.sync -> root.pending { style.stroke: "#475569" }
+lanes.default -> root.pending { style.stroke: "#475569" }
+lanes.trans -> root.pending { style.stroke: "#475569" }
+
+next: "getNextLanes(root, wipLanes)\n综合判断最该处理哪一批" {
+  class: card
+}
+
+root.pending -> next { style.stroke: "#475569" }
+root.pinged -> next: "恢复候选\n也参与" { style.stroke: "#ea580c"; style.stroke-dash: 5 }
+root.expired -> next: "优先纳入" { style.stroke: "#ca8a04"; style.stroke-dash: 5 }

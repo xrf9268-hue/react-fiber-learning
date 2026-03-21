@@ -40,7 +40,7 @@
 - 正文：`modules/m1-why-fiber-exists-draft.md`
 - 证据：`modules/m1-evidence-notes.md`
 - 对比补充：`modules/m1-compare-notes.md`
-- 配套 SVG：`diagrams/react-old-sync-vs-fiber-capabilities.svg`
+- 配套 SVG：`diagrams/react-old-sync-vs-fiber.svg`
 - 作用：建立“为什么旧同步渲染模型不够用”的问题意识
 
 ### M2｜Fiber 节点与树遍历
@@ -70,7 +70,7 @@
 - 证据：`modules/m5-evidence-notes.md`
 - 最小源码入口：`modules/m5-source-entry-points.md`
 - 图示说明补充：`modules/m5-compare-diagram-note.md`
-- 配套 SVG：`diagrams/react-lanes-root-scheduler.svg`
+- 配套 SVG：`diagrams/react-lanes-assignment.svg`、`diagrams/react-scheduler-render-loop.svg`
 - 作用：理解“当更新不止一条时，React 怎样决定先做什么”
 
 ### M6｜Suspense / Offscreen / React 19 轻量对照

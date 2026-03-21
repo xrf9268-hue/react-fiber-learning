@@ -76,7 +76,7 @@ M1 最重要的结论可以压成一句话：
 - `docs/modules/m1-why-fiber-exists-draft.md`
 - `docs/modules/m1-evidence-notes.md`
 - `docs/modules/m1-compare-notes.md`
-- `docs/diagrams/react-old-sync-vs-fiber-capabilities.svg`
+- `docs/diagrams/react-old-sync-vs-fiber.svg`
 
 ---
 
