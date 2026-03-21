@@ -1,4 +1,4 @@
-direction: right
+direction: down
 
 title: "React Fiber 学习路线总图" {
   style: {
@@ -9,60 +9,52 @@ title: "React Fiber 学习路线总图" {
   }
 }
 
-M1: |md
-  **M1 为什么需要 Fiber**
-  问题：旧同步渲染为什么不够？
-  结论：把渲染改造成可调度的工作系统
-| {
-  class: emphasis-cyan
+roadmap: "" {
+  grid-columns: 2
+  grid-gap: 16
+  style: {
+    fill: "#ffffff"
+    stroke: "#ffffff"
+  }
+
+  M1: "M1 为什么需要 Fiber\n问题：旧同步渲染\n为什么不够？\n结论：把渲染改造成\n可调度的工作系统" {
+    class: emphasis-cyan
+  }
+
+  M2: "M2 Fiber 节点与遍历\n问题：工作单元\n长什么样？\n结论：child/sibling/return\n拆成显式工作节点" {
+    class: emphasis-blue
+  }
+
+  M3: "M3 双树与 render/commit\n问题：如何准备下一版\n又保持界面稳定？\n结论：current 与 WIP 分工\ncommit 统一切换" {
+    class: emphasis-orange
+  }
+
+  M4: "M4 一次更新全链路\n问题：setState 怎样\n走到 render/commit？\n结论：先登记\n再调度，再提交" {
+    class: emphasis-purple
+  }
+
+  M5: "M5 lanes 与 scheduler\n问题：多批更新时\n先做什么？\n结论：lane 归类\nroot 选批次" {
+    class: emphasis-green
+  }
+
+  M6: "M6 Suspense/Offscreen\n问题：做不下去时\n怎么处理？\n结论：suspend→fallback\n→ping→retry" {
+    class: emphasis-red
+  }
 }
 
-M2: |md
-  **M2 Fiber 节点与遍历**
-  问题：工作单元长什么样？
-  结论：child / sibling / return 把树拆成显式工作节点
-| {
-  class: emphasis-blue
-}
-
-M3: |md
-  **M3 双树与 render / commit**
-  问题：如何一边准备下一版，一边保持当前界面稳定？
-  结论：current 与 WIP 分工，commit 统一切换
-| {
-  class: emphasis-orange
-}
-
-M4: |md
-  **M4 一次更新全链路**
-  问题：setState 怎样走到 root 再进入 render / commit？
-  结论：先登记，再调度，再提交
-| {
-  class: emphasis-purple
-}
-
-M5: |md
-  **M5 lanes 与 scheduler**
-  问题：同时有多批更新时，先做什么？
-  结论：lane 归类，root 选批次，scheduler 给执行机会
-| {
-  class: emphasis-green
-}
-
-M6: |md
-  **M6 Suspense 与 Offscreen**
-  问题：主内容暂时做不下去时怎么处理？
-  结论：suspend → fallback → ping → retry
-| {
-  class: emphasis-red
-}
-
-M1 -> M2: "" { style.stroke: "#475569" }
-M2 -> M3: "" { style.stroke: "#475569" }
-M3 -> M4: "" { style.stroke: "#475569" }
-M4 -> M5: "" { style.stroke: "#475569" }
-M5 -> M6: "" { style.stroke: "#475569" }
-
-hint: "M1-M6 不是并列目录，而是一条从问题意识到阻塞恢复机制的连续解释链" {
+hint: "学习顺序：M1 → M2 → M3 → M4 → M5 → M6\n从问题意识到阻塞恢复机制的连续解释链" {
   class: note
+}
+
+title -> roadmap: "" {
+  style: {
+    stroke: "#ffffff"
+    stroke-width: 0
+  }
+}
+roadmap -> hint: "" {
+  style: {
+    stroke: "#ffffff"
+    stroke-width: 0
+  }
 }
