@@ -25,7 +25,14 @@
 
 ## 学习边界
 
-明确不在本项目范围内：RSC、`use`、streaming SSR、hydration、Activity、ViewTransition 等超出 M1-M6 主线的新主题。
+以下主题明确不在本项目范围内（超出 M1-M6 主线）：
+
+- RSC（React Server Components）
+- `use` hook
+- Streaming SSR
+- Hydration
+- Activity
+- ViewTransition
 
 ## 仓库结构
 
