@@ -7,7 +7,7 @@
 - Baseline repo: local only
 
 ## Current Work Package
-- WP-18: final local milestone commit created for repo guide, index, release readiness, and M7 closeout. Remaining work is optional enhancement only.
+- WP-19: site rebuilt with Vite + React 19 + TanStack Router, deployed to `fiber.aixie.de` via Cloudflare Workers. Legacy VitePress site removed from git.
 
 ## Module Tracker
 - M0 project framing and study map — COMPLETE
@@ -17,7 +17,7 @@
 - M4 one `setState` traced end to end — COMPLETE IN FOURTH LOCAL MILESTONE COMMIT (`87f8066`)
 - M5 lanes / priority / scheduler / transition — COMPLETE IN FIFTH LOCAL MILESTONE COMMIT (`415ca82`)
 - M6 Suspense / Offscreen / React 19 deltas — COMPLETE IN SIXTH LOCAL MILESTONE COMMIT (`0fdf7de`)
-- M7 final guide / diagrams / polish — COMPLETE IN SEVENTH LOCAL MILESTONE COMMIT (`e5cb0ac`) for the text-deliverable baseline (stable entry kept as `docs/final-guide-draft.md`; optional rendered diagrams remain deferred)
+- M7 final guide / diagrams / polish — COMPLETE IN SEVENTH LOCAL MILESTONE COMMIT (`e5cb0ac`) for the text-deliverable baseline; site rebuilt with Vite + React 19 + TanStack Router and deployed to `fiber.aixie.de` (`3d4f9dc`, `0d36fec`)
 
 ## Quality Gates
 1. Each module must have a clear success definition.
@@ -32,8 +32,17 @@
 - Whether to keep module docs only, or also produce a single condensed handbook.
 - Whether a later public-facing cleanup should rename `docs/final-guide-draft.md`; for the current repo-safe closeout, this file is kept as the stable entry path.
 
+## Site Deployment
+- URL: https://fiber.aixie.de
+- Platform: Cloudflare Workers
+- Stack: Vite 8 + React 19 + TanStack Router + MDX
+- Source: `app/`
+- Deploy: `cd app && npm run deploy`
+- Config: `app/wrangler.jsonc`
+
 ## Next Checkpoint
 - Final local milestone commit now exists: `e5cb0ac` (`finalize repo guide, index, and release readiness`).
 - `docs/final-guide-draft.md` remains the current stable final-guide entry path, avoiding a last-minute rename that would add link churn.
 - Entry documents (`README.md`, `docs/index.md`, `STATUS.md`, `docs/final-commit-readiness.md`, checkpoint) have received a lightweight real-path consistency pass; only actual path issues were corrected.
-- Remaining optional work should stay narrow: rendered SVG/PNG diagrams, plus any later cosmetic rename for public-facing packaging.
+- Site deployed to `fiber.aixie.de` via Cloudflare Workers (`3d4f9dc`); legacy VitePress site removed (`0d36fec`).
+- Remaining optional work: chunk splitting optimization (857KB warning), mobile sidebar hamburger menu, rendered SVG/PNG diagrams.

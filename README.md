@@ -34,6 +34,10 @@
 - ViewTransition
 - 其他超出 M1-M6 主线的新主题
 
+## 在线阅读
+
+本项目已部署至 [fiber.aixie.de](https://fiber.aixie.de)，可直接在线浏览全部模块与图表。
+
 ## 推荐阅读顺序
 
 ### 读法一：先抓全局主线
@@ -59,7 +63,7 @@
 - M4：一次 `setState` 全链路 — 完成
 - M5：lanes / priority / scheduler / transition — 完成
 - M6：Suspense / Offscreen / React 19 轻量对照 — 完成
-- M7：最终总览 / 图示 / 仓库收尾 — 当前文本交付基线已完成（可选图示成品化仍可后续追加）
+- M7：最终总览 / 图示 / 仓库收尾 — 文本交付基线已完成，站点已构建部署至 fiber.aixie.de
 
 ## 仓库导航
 
@@ -71,6 +75,7 @@
 - 最终收尾检查清单：`docs/final-polish-checklist.md`
 - 最终提交前就绪记录：`docs/final-commit-readiness.md`
 - 最终发布就绪说明：`docs/final-release-readiness.md`
+- 站点源码：`app/`（Vite 8 + React 19 + TanStack Router + MDX）
 - 历史检查点：`checkpoints/2026-03-11-progress.md`
 
 ## 产物分层说明
@@ -91,6 +96,11 @@
 ### 4. 状态层
 - `STATUS.md`
 - `checkpoints/*.md`
+
+### 5. 站点层
+- `app/` — 基于 Vite + React 19 + TanStack Router 的 SPA 站点
+- 部署目标：Cloudflare Workers → `fiber.aixie.de`
+- 内容源：`app/src/content/` 下的 MDX 文件（从 `docs/modules/` 转写）
 
 ## 当前建议
 

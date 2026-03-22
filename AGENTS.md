@@ -13,7 +13,8 @@ Always treat these as the primary continuity objects for this project:
 1. `STATUS.md`
 2. `checkpoints/*.md`
 3. `docs/modules/*.md`
-4. Git history inside this repo
+4. `app/` — 站点源码与部署配置
+5. Git history inside this repo
 
 Do not rely on chat memory alone for project state.
 
@@ -178,6 +179,16 @@ reconciler 核心文件采用 `.old.js` / `.new.js` 双版本 fork 机制。**�
 ### 5. 不要虚构 API 名称
 
 描述触发场景时，不得使用不存在的 API 名称（如 `useIdleCallback`）。如果不确定，先查证源码。
+
+## Site / Deployment
+
+- 技术栈：Vite 8 + React 19 + TanStack Router + MDX
+- 域名：`fiber.aixie.de`（Cloudflare Workers 自定义域名）
+- 源码目录：`app/`
+- 内容源：`app/src/content/`（modules / evidence / reference / guide）
+- 构建：`cd app && npm run build`（tsc + vite，输出 `app/dist/`）
+- 部署：`cd app && npm run deploy`（wrangler deploy）
+- 配置文件：`app/wrangler.jsonc`、`app/vite.config.ts`、`app/package.json`
 
 ## Default Next-Step Logic
 
