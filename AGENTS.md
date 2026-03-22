@@ -138,6 +138,11 @@ Before calling a module "ready", check:
 ### 通用原则
 
 - **先打开预览确认再提交**：不要仅凭 viewBox 数值判断，实际渲染可能有意外问题。
+- **SVG 预览方法**：CLI 环境无法直接渲染 SVG，可用 headless Chromium 转 PNG 后通过 Read 工具查看：
+  ```bash
+  chromium --headless=new --disable-gpu --screenshot="$HOME/preview.png" --window-size=800,1000 "file:///absolute/path/to/file.svg"
+  ```
+  然后用 Read 工具读取 PNG 进行视觉检查。检查完毕后删除临时 PNG。
 - **图表修改易连锁**：一次布局调整可能引发多处溢出/重叠，修完后全图扫一遍。
 
 ## Source Accuracy Rules (Lessons from 2026-03-20 Review)
