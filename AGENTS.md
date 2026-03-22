@@ -11,10 +11,9 @@ Build a high-quality Chinese study repo for understanding React Fiber from the o
 Always treat these as the primary continuity objects for this project:
 
 1. `STATUS.md`
-2. `checkpoints/*.md`
-3. `docs/modules/*.md`
-4. `app/` — 站点源码与部署配置
-5. Git history inside this repo
+2. `docs/modules/*.md`
+3. `app/` — 站点源码与部署配置
+4. Git history inside this repo
 
 Do not rely on chat memory alone for project state.
 

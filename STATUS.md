@@ -41,8 +41,6 @@
 - Config: `app/wrangler.jsonc`
 
 ## Next Checkpoint
-- Final local milestone commit now exists: `e5cb0ac` (`finalize repo guide, index, and release readiness`).
-- `docs/final-guide-draft.md` remains the current stable final-guide entry path, avoiding a last-minute rename that would add link churn.
-- Entry documents (`README.md`, `docs/index.md`, `STATUS.md`, `docs/final-commit-readiness.md`, checkpoint) have received a lightweight real-path consistency pass; only actual path issues were corrected.
+- Final local milestone commit: `e5cb0ac` (`finalize repo guide, index, and release readiness`).
 - Site deployed to `fiber.aixie.de` via Cloudflare Workers (`3d4f9dc`); legacy VitePress site removed (`0d36fec`).
 - Remaining optional work: chunk splitting optimization (857KB warning), mobile sidebar hamburger menu, rendered SVG/PNG diagrams.

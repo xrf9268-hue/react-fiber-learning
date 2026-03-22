@@ -76,7 +76,6 @@
 - 最终提交前就绪记录：`docs/final-commit-readiness.md`
 - 最终发布就绪说明：`docs/final-release-readiness.md`
 - 站点源码：`app/`（Vite 8 + React 19 + TanStack Router + MDX）
-- 历史检查点：`checkpoints/2026-03-11-progress.md`
 
 ## 产物分层说明
 
@@ -95,7 +94,6 @@
 
 ### 4. 状态层
 - `STATUS.md`
-- `checkpoints/*.md`
 
 ### 5. 站点层
 - `app/` — 基于 Vite + React 19 + TanStack Router 的 SPA 站点
