@@ -1,0 +1,14 @@
+{
+  // React Fiber Learning — Cloudflare Workers Static Assets
+  // Domain: fiber.aixie.de
+  "name": "react-fiber-learning",
+  "routes": [
+    { "pattern": "fiber.aixie.de", "custom_domain": true }
+  ],
+  "compatibility_date": "2026-03-20",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "single-page-application"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "react-fiber-learning-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:preview": "npm run build && wrangler deploy --dry-run"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1.168.1",
+    "motion": "^12.38.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@mdx-js/rollup": "^3.1.1",
+    "@tanstack/router-plugin": "^1.167.2",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^22.19.15",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "playwright": "^1.58.2",
+    "prismjs": "^1.30.0",
+    "rehype-prism-plus": "^2.0.2",
+    "remark-gfm": "^4.0.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.1",
+    "wrangler": "^4.76.0"
+  }
+}

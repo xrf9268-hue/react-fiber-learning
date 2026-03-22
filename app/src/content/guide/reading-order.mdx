@@ -1,0 +1,35 @@
+# 推荐阅读顺序
+
+## 读法一：先抓全局主线
+
+1. [最终总览](/learn/overview) — 先建立整条学习主线
+2. 按需回看对应模块正文
+3. 需要校验时查阅证据笔记
+
+## 读法二：按模块顺读
+
+| 序号 | 模块 | 核心问题 |
+|:---:|------|----------|
+| 1 | [M1：为什么需要 Fiber](/learn/01-why-fiber) | 旧的同步渲染模型哪里不够用 |
+| 2 | [M2：Fiber 节点与树遍历](/learn/02-fiber-node) | Fiber 作为工作单元长什么样 |
+| 3 | [M3：双树与 render/commit](/learn/03-dual-tree) | render 怎样把结果交给 commit |
+| 4 | [M4：一次 setState 全链路](/learn/04-setstate-trace) | 一次更新怎样从组件走到提交 |
+| 5 | [M5：lanes / priority / scheduler](/learn/05-lanes-scheduler) | 多条更新并存时如何取舍 |
+| 6 | [M6：Suspense / Offscreen / retry](/learn/06-suspense-retry) | 工作卡住时如何回退恢复 |
+
+## 如果你只想快速复习
+
+只看这四项即可抓住最核心骨架：
+
+1. [最终总览](/learn/overview)
+2. [M3：双树与 render/commit](/learn/03-dual-tree)
+3. [M4：一次 setState 全链路](/learn/04-setstate-trace)
+4. [M5：lanes / priority / scheduler](/learn/05-lanes-scheduler)
+
+## 学习边界
+
+- 基线版本：**React v18.2.0**
+- 对照目标：**React main / React 19 相关增量**
+- 方法：**概念优先，证据导向，最小必要源码入口**
+
+明确不在范围内：RSC、`use`、streaming SSR、hydration、Activity、ViewTransition。

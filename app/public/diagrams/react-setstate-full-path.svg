@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1400" viewBox="0 0 1600 1400">
+  <defs>
+    <style><![CDATA[
+      .title   { font: 700 26px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .sub     { font: 400 13px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .heading { font: 700 16px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .label   { font: 700 13px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .body    { font: 400 13px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .hint    { font: 400 11px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .mono    { font: 600 12px 'JetBrains Mono','Fira Code','SFMono-Regular',monospace; fill: #0f172a; }
+      .shadow  { filter: url(#shadow-filter); }
+    ]]></style>
+    <filter id="shadow-filter" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(15,23,42,0.06)"/>
+    </filter>
+    <marker id="arr-blue"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ea580c"/></marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7c3aed"/></marker>
+    <marker id="arr-green"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#16a34a"/></marker>
+    <marker id="arr-slate"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1600" height="1400" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="48" y="46" class="title">React 一次 setState 到 render / commit 全链路</text>
+  <text x="48" y="70" class="sub">时序图：setState 为什么不是立刻改页面、更新必须走到 root、render 与 commit 如何接力</text>
+
+  <!-- ============================================================ -->
+  <!-- 4 Swimlane backgrounds                                       -->
+  <!-- ============================================================ -->
+  <!-- Lane 1: 组件->Fiber  x=48  w=340 -->
+  <rect x="48"   y="100" width="340"  height="940" rx="20" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.2"/>
+  <text x="218"  y="130" class="heading" text-anchor="middle">组件 -> Fiber</text>
+
+  <!-- Lane 2: Root  x=412  w=300 -->
+  <rect x="412"  y="100" width="300"  height="940" rx="20" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.2"/>
+  <text x="562"  y="130" class="heading" text-anchor="middle">Root</text>
+
+  <!-- Lane 3: Render (WIP)  x=736  w=340 -->
+  <rect x="736"  y="100" width="340"  height="940" rx="20" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.2"/>
+  <text x="906"  y="130" class="heading" text-anchor="middle">Render (WIP)</text>
+
+  <!-- Lane 4: Commit  x=1100  w=300 -->
+  <rect x="1100" y="100" width="300"  height="940" rx="20" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.2"/>
+  <text x="1250" y="130" class="heading" text-anchor="middle">Commit</text>
+
+  <!-- ============================================================ -->
+  <!-- STEP 1  (Lane 1, y~200)                                      -->
+  <!-- ============================================================ -->
+  <circle cx="80" cy="200" r="16" fill="#ea580c"/>
+  <text x="80" y="205" class="label" text-anchor="middle" fill="#fff">1</text>
+  <text x="106" y="196" class="label">setState(payload)</text>
+  <text x="106" y="213" class="mono">dispatchSetState(fiber, queue, action)</text>
+  <text x="106" y="228" class="hint">发起更新请求</text>
+
+  <!-- STEP 2  (Lane 1, y~310) -->
+  <circle cx="80" cy="310" r="16" fill="#ea580c"/>
+  <text x="80" y="315" class="label" text-anchor="middle" fill="#fff">2</text>
+  <text x="106" y="306" class="label">enqueueSetState</text>
+  <text x="106" y="323" class="mono">createUpdate + enqueueUpdate</text>
+  <text x="106" y="338" class="hint">先登记 update 对象到 fiber.updateQueue</text>
+
+  <!-- STEP 3  (Lane 1, y~420) -->
+  <circle cx="80" cy="420" r="16" fill="#ea580c"/>
+  <text x="80" y="425" class="label" text-anchor="middle" fill="#fff">3</text>
+  <text x="106" y="416" class="label">markUpdateLaneFromFiberToRoot</text>
+  <text x="106" y="433" class="mono">while (node.return) node = node.return</text>
+  <text x="106" y="448" class="hint">沿 return 父链标记 childLanes</text>
+
+  <!-- STEP 4  (Lane 2, y~200) -->
+  <circle cx="444" cy="200" r="16" fill="#2563eb"/>
+  <text x="444" y="205" class="label" text-anchor="middle" fill="#fff">4</text>
+  <text x="470" y="196" class="label">到达 HostRoot</text>
+  <text x="470" y="213" class="mono">return HostRoot.stateNode</text>
+  <text x="470" y="228" class="hint">拿到 FiberRoot</text>
+
+  <!-- STEP 5  (Lane 2, y~340) -->
+  <circle cx="444" cy="340" r="16" fill="#2563eb"/>
+  <text x="444" y="345" class="label" text-anchor="middle" fill="#fff">5</text>
+  <text x="470" y="336" class="label">scheduleUpdateOnFiber</text>
+  <text x="470" y="353" class="mono">markRootUpdated(root, lane)</text>
+  <text x="470" y="368" class="hint">在 root 上注册本次更新的 lane</text>
+
+  <!-- STEP 6  (Lane 3, y~500) -->
+  <circle cx="768" cy="500" r="16" fill="#7c3aed"/>
+  <text x="768" y="505" class="label" text-anchor="middle" fill="#fff">6</text>
+  <text x="794" y="496" class="label">prepareFreshStack</text>
+  <text x="794" y="513" class="mono">createWorkInProgress(root.current)</text>
+  <text x="794" y="528" class="hint">克隆 current 树为 WIP 树</text>
+
+  <!-- STEP 7  (Lane 3, y~640) -->
+  <circle cx="768" cy="640" r="16" fill="#7c3aed"/>
+  <text x="768" y="645" class="label" text-anchor="middle" fill="#fff">7</text>
+  <text x="794" y="636" class="label">processUpdateQueue</text>
+  <text x="794" y="653" class="mono">newState = getStateFromUpdate(...)</text>
+  <text x="794" y="668" class="hint">从 update queue 算出新 state</text>
+
+  <!-- STEP 8  (Lane 2, y~780) -->
+  <circle cx="444" cy="780" r="16" fill="#2563eb"/>
+  <text x="444" y="785" class="label" text-anchor="middle" fill="#fff">8</text>
+  <text x="470" y="770" class="label">root.finishedWork = wip</text>
+  <text x="470" y="787" class="mono">root.finishedLanes = lanes</text>
+  <text x="470" y="802" class="hint">render 完成，结果挂到 root</text>
+
+  <!-- STEP 9  (Lane 4, y~780) -->
+  <circle cx="1132" cy="780" r="16" fill="#16a34a"/>
+  <text x="1132" y="785" class="label" text-anchor="middle" fill="#fff">9</text>
+  <text x="1158" y="776" class="label">commitRoot</text>
+  <text x="1158" y="793" class="mono">commitMutationEffects()</text>
+  <text x="1158" y="808" class="hint">按 flags 执行 DOM 操作</text>
+
+  <!-- STEP 10  (Lane 4, y~920) -->
+  <circle cx="1132" cy="920" r="16" fill="#16a34a"/>
+  <text x="1132" y="925" class="label" text-anchor="middle" fill="#fff">10</text>
+  <text x="1158" y="916" class="label">root.current = finishedWork</text>
+  <text x="1158" y="933" class="mono">current 指针切换</text>
+  <text x="1158" y="948" class="hint">WIP 树变为新 current，真正生效</text>
+
+  <!-- ============================================================ -->
+  <!-- Within-swimlane vertical arrows                              -->
+  <!-- ============================================================ -->
+  <!-- 1->2 (Lane 1) -->
+  <line x1="80" y1="220" x2="80" y2="290" stroke="#ea580c" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <!-- 2->3 (Lane 1) -->
+  <line x1="80" y1="330" x2="80" y2="400" stroke="#ea580c" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <!-- 4->5 (Lane 2) -->
+  <line x1="444" y1="220" x2="444" y2="320" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- 6->7 (Lane 3) -->
+  <line x1="768" y1="520" x2="768" y2="620" stroke="#7c3aed" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <!-- 9->10 (Lane 4) -->
+  <line x1="1132" y1="800" x2="1132" y2="900" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ============================================================ -->
+  <!-- Cross-swimlane horizontal arrows                             -->
+  <!-- ============================================================ -->
+  <!-- 3->4  orange, right  (y=420, Lane1 -> Lane2) -->
+  <path d="M 370 420 L 396 420 C 416 420 416 300 416 250 L 430 216"
+        stroke="#ea580c" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"
+        marker-end="url(#arr-orange)"/>
+  <text x="404" y="310" class="hint" text-anchor="middle">沿 return</text>
+
+  <!-- 5->6  purple, right  (y=340, Lane2 -> Lane3) -->
+  <path d="M 690 340 L 700 340 C 720 340 730 440 740 480 L 752 496"
+        stroke="#7c3aed" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"
+        marker-end="url(#arr-purple)"/>
+  <text x="730" y="400" class="hint" text-anchor="middle">ensureRootIsScheduled</text>
+
+  <!-- 7->8  blue, LEFT (back-flow!  y=640..780, Lane3 -> Lane2) -->
+  <path d="M 752 655 L 730 670 C 700 690 660 720 560 750 L 470 780"
+        stroke="#2563eb" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"
+        marker-end="url(#arr-blue)"/>
+  <rect x="555" y="698" width="140" height="18" rx="4" fill="#eff6ff" opacity="0.9"/>
+  <text x="625" y="712" class="hint" text-anchor="middle" fill="#2563eb" font-weight="700">结果返回 Root</text>
+
+  <!-- 8->9  green, right  (y=780, Lane2 -> Lane4) -->
+  <line x1="700" y1="780" x2="1112" y2="780"
+        stroke="#16a34a" stroke-width="2.4" fill="none" stroke-linecap="round"
+        marker-end="url(#arr-green)"/>
+  <text x="900" y="770" class="hint" text-anchor="middle">commitRoot(root)</text>
+
+  <!-- ============================================================ -->
+  <!-- Legend box (top-right)                                       -->
+  <!-- ============================================================ -->
+  <rect x="1420" y="108" width="156" height="120" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="1434" y="128" class="label">箭头图例</text>
+  <line x1="1434" y1="145" x2="1480" y2="145" stroke="#ea580c" stroke-width="2.4" marker-end="url(#arr-orange)"/>
+  <text x="1490" y="149" class="hint">组件->Fiber 登记</text>
+  <line x1="1434" y1="165" x2="1480" y2="165" stroke="#2563eb" stroke-width="2.4" marker-end="url(#arr-blue)"/>
+  <text x="1490" y="169" class="hint">Root 调度/回收</text>
+  <line x1="1434" y1="185" x2="1480" y2="185" stroke="#7c3aed" stroke-width="2.4" marker-end="url(#arr-purple)"/>
+  <text x="1490" y="189" class="hint">Render 阶段</text>
+  <line x1="1434" y1="205" x2="1480" y2="205" stroke="#16a34a" stroke-width="2.4" marker-end="url(#arr-green)"/>
+  <text x="1490" y="209" class="hint">Commit 阶段</text>
+
+  <!-- ============================================================ -->
+  <!-- Bottom summary area (y~1080-1350)                            -->
+  <!-- ============================================================ -->
+  <rect x="48" y="1080" width="1504" height="280" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" class="shadow"/>
+  <text x="80" y="1116" class="heading">最小闭环总结</text>
+
+  <!-- 3-cell summary -->
+  <!-- Cell 1: 登记 (orange) -->
+  <rect x="80"  y="1140" width="440" height="80" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="1.8"/>
+  <text x="300" y="1168" class="label" text-anchor="middle" fill="#ea580c">登记 update (Steps 1-3)</text>
+  <text x="300" y="1188" class="hint" text-anchor="middle">setState -> enqueueUpdate -> 沿 return 到 root</text>
+  <text x="300" y="1203" class="hint" text-anchor="middle">先登记，不直接改页面</text>
+
+  <!-- Arrow between cells -->
+  <line x1="530" y1="1180" x2="570" y2="1180" stroke="#475569" stroke-width="2" marker-end="url(#arr-slate)"/>
+
+  <!-- Cell 2: 计算 (purple) -->
+  <rect x="580" y="1140" width="440" height="80" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.8"/>
+  <text x="800" y="1168" class="label" text-anchor="middle" fill="#7c3aed">计算下一版 (Steps 4-8)</text>
+  <text x="800" y="1188" class="hint" text-anchor="middle">Root 调度 -> render WIP 树 -> 新 state 挂回 root</text>
+  <text x="800" y="1203" class="hint" text-anchor="middle">render 在 WIP 上做，不动 current</text>
+
+  <!-- Arrow between cells -->
+  <line x1="1030" y1="1180" x2="1070" y2="1180" stroke="#475569" stroke-width="2" marker-end="url(#arr-slate)"/>
+
+  <!-- Cell 3: 生效 (green) -->
+  <rect x="1080" y="1140" width="440" height="80" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.8"/>
+  <text x="1300" y="1168" class="label" text-anchor="middle" fill="#16a34a">让结果生效 (Steps 9-10)</text>
+  <text x="1300" y="1188" class="hint" text-anchor="middle">commitRoot -> DOM 操作 -> root.current 切换</text>
+  <text x="1300" y="1203" class="hint" text-anchor="middle">到这里才真正可见</text>
+
+  <!-- One-line summary bar -->
+  <rect x="80" y="1240" width="1440" height="44" rx="8" fill="#f1f5f9" stroke="none"/>
+  <text x="800" y="1268" class="body" text-anchor="middle">
+    setState 只是登记 -> root 统一调度 render -> render 在 WIP 树上算出新 state -> commit 阶段执行 DOM 并切换 current 指针 -> 更新生效
+  </text>
+
+  <!-- Key insight callout -->
+  <rect x="80" y="1296" width="1440" height="36" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+  <text x="800" y="1320" class="hint" text-anchor="middle" fill="#dc2626" font-weight="700">
+    关键：新 state 不在 setState 调用点算出，而在 render 阶段 processUpdateQueue 时得出；Step 7->8 结果返回 Root（Render -> Root）
+  </text>
+</svg>

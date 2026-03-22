@@ -1,0 +1,64 @@
+:root {
+  /* 背景层次 */
+  --bg-deep:     #0c1220;
+  --bg:          #121a2d;
+  --bg-card:     #182038;
+  --border:      #1e2d3d;
+  --border-glow: #1a3a5c;
+
+  /* 主色 */
+  --accent:      #61dafb;
+  --purple:      #a78bfa;
+  --green:       #4ade80;
+  --orange:      #fb923c;
+  --gold:        #e8d44d;
+  --red:         #f87171;
+
+  /* RGB 分量 — 用于 rgba() 透明度变体 */
+  --accent-rgb:  97, 218, 251;
+  --purple-rgb:  167, 139, 250;
+  --bg-deep-rgb: 12, 18, 32;
+
+  /* 语义化透明度 */
+  --hover-bg:    rgba(var(--accent-rgb), 0.05);
+  --active-bg:   rgba(var(--accent-rgb), 0.08);
+
+  /* 文字 */
+  --text-primary: #edf1f7;
+  --text-body:    #c4ceda;
+  --text-muted:   #7a8ba0;
+  --text-dim:     #4a5568;
+
+  /* 字体 */
+  --font-heading: 'Noto Serif SC', Georgia, serif;
+  --font-body:    'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  /* 排版 */
+  --content-max-width: 680px;
+  --body-font-size:    0.9375rem; /* 15px equivalent, respects user font-size */
+  --body-line-height:  2.1;
+
+  /* 布局 */
+  --navbar-height: 64px;
+  --layout-max-width: 1200px;
+
+  /* 间距 */
+  --radius:      12px;
+  --radius-sm:   6px;
+  --radius-pill: 999px;
+  --block-spacing: 1.25rem;
+
+  /* z-index 层级体系 */
+  --z-navbar:    100;
+  --z-progress:  150;
+  --z-lightbox:  200;
+
+  /* 模块色 — 引用语义色，改一处全局生效 */
+  --m1-color: var(--accent);
+  --m2-color: var(--green);
+  --m3-color: var(--purple);
+  --m4-color: var(--orange);
+  --m5-color: var(--gold);
+  --m6-color: var(--red);
+}

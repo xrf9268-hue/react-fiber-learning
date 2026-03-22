@@ -1,0 +1,264 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1150" viewBox="0 0 1600 1150">
+  <!-- ============================================================
+       M2 · Fiber 节点结构与遍历骨架图（重写版）
+       修复：A 只有 1 条 child 指向 B，B/C/D 通过 sibling 链接
+       ============================================================ -->
+  <defs>
+    <style><![CDATA[
+      .title   { font: 700 26px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .sub     { font: 400 13px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .heading { font: 700 16px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .label   { font: 700 13px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .body    { font: 400 13px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .hint    { font: 400 11px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .mono    { font: 600 12px 'JetBrains Mono','Fira Code','SFMono-Regular',monospace; fill: #0f172a; }
+      .shadow  { filter: url(#shadow-filter); }
+    ]]></style>
+    <filter id="shadow-filter" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(15,23,42,0.06)"/>
+    </filter>
+    <marker id="arr-blue"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ea580c"/></marker>
+    <marker id="arr-slate"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="1150" fill="#f8fafc"/>
+
+  <!-- ====== Header ====== -->
+  <text x="48" y="72" class="title">Fiber 节点结构与遍历骨架图</text>
+  <text x="48" y="96" class="sub">说明 Fiber 不只是"描述 UI 的节点"，而是承载树链接、输入缓存、副作用与双树配对的工作节点。</text>
+  <rect x="1340" y="50" width="210" height="28" rx="14" fill="#dbeafe"/>
+  <text x="1445" y="69" class="hint" text-anchor="middle">M2 核心图 · P1</text>
+
+
+  <!-- ================================================================
+       UPPER LAYER: Tree structure (y=120 ~ 580)
+       ================================================================ -->
+  <rect x="48" y="120" width="1020" height="460" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" class="shadow"/>
+  <text x="80" y="156" class="heading">Fiber 树结构：三种指针关系</text>
+
+  <!-- Node A (HostRoot) - 加大圆半径以容纳 HostRoot 文本 -->
+  <circle cx="500" cy="220" r="40" fill="#ffffff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="500" y="216" class="label" text-anchor="middle">A</text>
+  <text x="500" y="234" class="hint" text-anchor="middle">HostRoot</text>
+
+  <!-- Node B -->
+  <circle cx="340" cy="370" r="30" fill="#ffffff" stroke="#2563eb" stroke-width="2.2"/>
+  <text x="340" y="376" class="label" text-anchor="middle">B</text>
+
+  <!-- Node C -->
+  <circle cx="540" cy="370" r="30" fill="#ffffff" stroke="#2563eb" stroke-width="2.2"/>
+  <text x="540" y="376" class="label" text-anchor="middle">C</text>
+
+  <!-- Node D -->
+  <circle cx="740" cy="370" r="30" fill="#ffffff" stroke="#2563eb" stroke-width="2.2"/>
+  <text x="740" y="376" class="label" text-anchor="middle">D</text>
+
+  <!-- Node E -->
+  <circle cx="280" cy="500" r="26" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="280" y="506" class="label" text-anchor="middle">E</text>
+
+  <!-- Node F -->
+  <circle cx="460" cy="500" r="26" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="460" y="506" class="label" text-anchor="middle">F</text>
+
+  <!-- Node G -->
+  <circle cx="740" cy="500" r="26" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="740" y="506" class="label" text-anchor="middle">G</text>
+
+
+  <!-- === child arrows (blue, straight down) === -->
+  <!-- A.child -> B -->
+  <line x1="474" y1="252" x2="356" y2="346" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="392" y="290" class="hint" fill="#2563eb">child</text>
+
+  <!-- B.child -> E -->
+  <line x1="324" y1="398" x2="292" y2="478" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="286" y="442" class="hint" fill="#2563eb">child</text>
+
+  <!-- D.child -> G -->
+  <line x1="740" y1="400" x2="740" y2="474" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="750" y="442" class="hint" fill="#2563eb">child</text>
+
+
+  <!-- === sibling arrows (slate, horizontal) === -->
+  <!-- B.sibling -> C -->
+  <line x1="370" y1="370" x2="510" y2="370" stroke="#475569" stroke-width="2" marker-end="url(#arr-slate)"/>
+  <text x="420" y="362" class="hint" fill="#475569">sibling</text>
+
+  <!-- C.sibling -> D -->
+  <line x1="570" y1="370" x2="710" y2="370" stroke="#475569" stroke-width="2" marker-end="url(#arr-slate)"/>
+  <text x="620" y="362" class="hint" fill="#475569">sibling</text>
+
+  <!-- E.sibling -> F -->
+  <line x1="306" y1="500" x2="434" y2="500" stroke="#475569" stroke-width="2" marker-end="url(#arr-slate)"/>
+  <text x="350" y="492" class="hint" fill="#475569">sibling</text>
+
+
+  <!-- === return arrows (orange, curved arcs) === -->
+  <!-- 所有 return 箭头紧贴节点外侧，控制曲线幅度在方框内 -->
+
+  <!-- B.return -> A：从 B 左上沿左侧弧线到 A 左下 -->
+  <path d="M 318,346 C 310,310 380,260 468,246" stroke="#ea580c" stroke-width="1.8" fill="none" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="330" y="290" class="hint" fill="#ea580c">return</text>
+
+  <!-- C.return -> A：从 C 上方短弧到 A 底部 -->
+  <path d="M 536,340 C 530,300 520,270 512,258" stroke="#ea580c" stroke-width="1.8" fill="none" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="544" y="296" class="hint" fill="#ea580c">return</text>
+
+  <!-- D.return -> A：从 D 上方沿右侧弧线到 A 右下，控制点不超出方框 -->
+  <path d="M 762,346 C 770,310 620,256 534,246" stroke="#ea580c" stroke-width="1.8" fill="none" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="700" y="286" class="hint" fill="#ea580c">return</text>
+
+  <!-- E.return -> B：从 E 上方紧贴到 B 下方 -->
+  <path d="M 264,480 C 256,450 290,420 324,398" stroke="#ea580c" stroke-width="1.8" fill="none" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="252" y="446" class="hint" fill="#ea580c">return</text>
+
+  <!-- F.return -> B：从 F 左上直接弧线到 B 右下 -->
+  <path d="M 440,482 C 410,450 380,420 358,398" stroke="#ea580c" stroke-width="1.8" fill="none" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="404" y="438" class="hint" fill="#ea580c">return</text>
+
+  <!-- G.return -> D：从 G 上方紧贴到 D 下方 -->
+  <path d="M 726,478 C 720,454 724,430 734,404" stroke="#ea580c" stroke-width="1.8" fill="none" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="706" y="446" class="hint" fill="#ea580c">return</text>
+
+
+  <!-- === Pointer explanation box (right side) === -->
+  <rect x="1100" y="120" width="452" height="460" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" class="shadow"/>
+  <text x="1132" y="160" class="heading">指针说明</text>
+
+  <!-- child explanation -->
+  <rect x="1132" y="180" width="390" height="90" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="1156" y="206" class="label" fill="#2563eb">child (蓝色)</text>
+  <text x="1156" y="226" class="body">每个 Fiber 只有 1 个 child 指针，指向第一个子节点。</text>
+  <text x="1156" y="246" class="hint">A.child = B (不是 B + C + D)</text>
+  <text x="1156" y="260" class="hint">其余子节点通过 sibling 链到达。</text>
+
+  <!-- sibling explanation -->
+  <rect x="1132" y="286" width="390" height="80" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <text x="1156" y="312" class="label" fill="#475569">sibling (灰色)</text>
+  <text x="1156" y="332" class="body">兄弟节点形成单向链表：B.sibling = C, C.sibling = D。</text>
+  <text x="1156" y="352" class="hint">最后一个 sibling 的 sibling 为 null。</text>
+
+  <!-- return explanation -->
+  <rect x="1132" y="382" width="390" height="80" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="1156" y="408" class="label" fill="#ea580c">return (橙色虚线)</text>
+  <text x="1156" y="428" class="body">指向父节点，所有兄弟的 return 指向同一父 Fiber。</text>
+  <text x="1156" y="448" class="hint">B.return = C.return = D.return = A</text>
+
+  <!-- key insight -->
+  <rect x="1132" y="480" width="390" height="80" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="1156" y="506" class="label" fill="#16a34a">为什么用链表而非数组？</text>
+  <text x="1156" y="526" class="body">链表结构让 React 可以 O(1) 增删子节点，</text>
+  <text x="1156" y="546" class="body">无需重排整个 children 数组。</text>
+
+
+  <!-- ================================================================
+       MIDDLE LAYER: Field groups (y=600 ~ 880)
+       ================================================================ -->
+  <text x="48" y="616" class="heading">Fiber 节点的四组核心字段</text>
+
+  <!-- Card 1: 树链接 -->
+  <rect x="48" y="636" width="350" height="220" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="80" y="668" class="label" fill="#2563eb">树链接</text>
+  <text x="80" y="696" class="mono">child</text>
+  <text x="170" y="696" class="hint">指向第一个子 Fiber</text>
+  <text x="80" y="720" class="mono">sibling</text>
+  <text x="170" y="720" class="hint">指向下一个兄弟 Fiber</text>
+  <text x="80" y="744" class="mono">return</text>
+  <text x="170" y="744" class="hint">指向父 Fiber</text>
+  <text x="80" y="776" class="body">三指针替代 JS 调用栈，</text>
+  <text x="80" y="796" class="body">让 render 可随时暂停 / 恢复。</text>
+  <text x="80" y="824" class="hint">child 只指向第一个子节点，其余走 sibling 链。</text>
+  <text x="80" y="842" class="hint">所有兄弟的 return 都指向同一个父节点。</text>
+
+  <!-- Card 2: 输入缓存 -->
+  <rect x="420" y="636" width="350" height="220" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="452" y="668" class="label" fill="#ea580c">输入缓存</text>
+  <text x="452" y="696" class="mono">pendingProps</text>
+  <text x="580" y="696" class="hint">本次新传入的 props</text>
+  <text x="452" y="720" class="mono">memoizedProps</text>
+  <text x="580" y="720" class="hint">上次 render 记住的 props</text>
+  <text x="452" y="744" class="mono">memoizedState</text>
+  <text x="580" y="744" class="hint">上次 render 记住的 state</text>
+  <text x="452" y="776" class="body">这次输入是什么、上次记住了什么，</text>
+  <text x="452" y="796" class="body">都挂在 Fiber 上而非组件实例。</text>
+  <text x="452" y="824" class="hint">bailout 优化：pendingProps === memoizedProps</text>
+  <text x="452" y="842" class="hint">时可跳过该 Fiber 的 re-render。</text>
+
+  <!-- Card 3: 工作标记 -->
+  <rect x="792" y="636" width="350" height="220" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="824" y="668" class="label" fill="#7c3aed">工作标记</text>
+  <text x="824" y="696" class="mono">flags</text>
+  <text x="920" y="696" class="hint">当前节点的副作用标记</text>
+  <text x="824" y="720" class="mono">subtreeFlags</text>
+  <text x="950" y="720" class="hint">子树中存在的副作用汇总</text>
+  <text x="824" y="776" class="body">render 阶段沿路给节点打上标记，</text>
+  <text x="824" y="796" class="body">commit 阶段按标记执行 DOM 操作。</text>
+  <text x="824" y="824" class="hint">常见 flags: Placement, Update, Deletion</text>
+  <text x="824" y="842" class="hint">subtreeFlags 让 commit 可快速跳过无变更子树。</text>
+
+  <!-- Card 4: 双树配对 -->
+  <rect x="1164" y="636" width="388" height="220" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="1196" y="668" class="label" fill="#16a34a">双树配对</text>
+  <text x="1196" y="696" class="mono">alternate</text>
+  <text x="1300" y="696" class="hint">指向另一棵树中的对应 Fiber</text>
+  <text x="1196" y="776" class="body">同一逻辑节点有 current 和</text>
+  <text x="1196" y="796" class="body">workInProgress 两份 Fiber，</text>
+  <text x="1196" y="816" class="body">通过 alternate 互相引用。</text>
+  <text x="1196" y="842" class="hint">current.alternate === workInProgress</text>
+
+
+  <!-- ================================================================
+       LOWER LAYER: beginWork / completeWork (y=900 ~ 1060)
+       ================================================================ -->
+  <text x="48" y="892" class="heading">Work Loop：beginWork 向下推进，completeWork 向上回退</text>
+
+  <!-- beginWork box -->
+  <rect x="48" y="908" width="710" height="150" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+  <text x="80" y="938" class="label" fill="#2563eb">beginWork（向下推进）</text>
+  <text x="80" y="966" class="mono">let next = beginWork(current, unitOfWork, lanes);</text>
+  <text x="80" y="990" class="body">返回 child → 继续向下深入（下一个 workInProgress = child）</text>
+  <text x="80" y="1010" class="body">返回 null  → 该分支到底，切换到 completeWork</text>
+  <text x="80" y="1038" class="hint">beginWork 是"向下走"的入口，每次只处理一个 Fiber（最小工作单元）。</text>
+
+  <!-- completeWork box -->
+  <rect x="842" y="908" width="710" height="150" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="1.8"/>
+  <text x="874" y="938" class="label" fill="#ea580c">completeWork（向上回退）</text>
+  <text x="874" y="966" class="mono">completeUnitOfWork(unitOfWork);</text>
+  <text x="874" y="990" class="body">有 sibling → 把 sibling 交给 beginWork（横向移动）</text>
+  <text x="874" y="1010" class="body">无 sibling → 沿 return 向上回退（继续 completeWork）</text>
+  <text x="874" y="1038" class="hint">completeWork 收束子树结果并冒泡 subtreeFlags，直到回到 HostRoot。</text>
+
+  <!-- Cycle arrows between beginWork and completeWork -->
+  <!-- beginWork -> completeWork: "返回 null" -->
+  <path d="M 758,960 L 842,960" stroke="#2563eb" stroke-width="2.4" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="780" y="952" class="hint">null</text>
+
+  <!-- completeWork -> beginWork: "有 sibling" -->
+  <path d="M 842,1000 L 758,1000" stroke="#ea580c" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
+  <text x="778" y="1018" class="hint">sibling</text>
+
+  <!-- completeWork self-loop: "沿 return 向上" -->
+  <path d="M 1480,955 C 1512,955 1512,1025 1480,1025" stroke="#ea580c" stroke-width="2.4" fill="none" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="1470" y="996" class="hint" text-anchor="end" fill="#ea580c">return ↑</text>
+
+  <!-- ================================================================
+       BOTTOM: Legend + Summary
+       ================================================================ -->
+  <!-- Legend box -->
+  <rect x="1320" y="1068" width="232" height="76" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="1336" y="1086" class="hint" font-weight="700">箭头图例</text>
+  <line x1="1336" y1="1100" x2="1368" y2="1100" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="1376" y="1104" class="hint">child 指针（蓝色·向下）</text>
+  <line x1="1336" y1="1116" x2="1368" y2="1116" stroke="#475569" stroke-width="2" marker-end="url(#arr-slate)"/>
+  <text x="1376" y="1120" class="hint">sibling 指针（灰色·横向）</text>
+  <line x1="1336" y1="1132" x2="1368" y2="1132" stroke="#ea580c" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="1376" y="1136" class="hint">return 指针（橙色虚线·向上）</text>
+
+  <!-- Summary bar -->
+  <rect x="48" y="1082" width="1150" height="40" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="623" y="1108" class="sub" text-anchor="middle">一句话总结：Fiber 既是树节点，也是工作节点；child/sibling/return 三指针让 render 能按最小单位推进、暂停和回退。</text>
+
+</svg>

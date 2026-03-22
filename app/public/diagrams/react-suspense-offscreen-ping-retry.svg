@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <style><![CDATA[
+      .title   { font: 700 26px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .sub     { font: 400 13px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .heading { font: 700 16px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .label   { font: 700 13px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .body    { font: 400 13px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #0f172a; }
+      .hint    { font: 400 11px 'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; fill: #475569; }
+      .mono    { font: 600 12px 'JetBrains Mono','Fira Code','SFMono-Regular',monospace; fill: #0f172a; }
+      .shadow  { filter: url(#shadow-filter); }
+    ]]></style>
+    <filter id="shadow-filter" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(15,23,42,0.06)"/>
+    </filter>
+    <marker id="arr-blue"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7c3aed"/></marker>
+    <marker id="arr-green"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#16a34a"/></marker>
+    <marker id="arr-red"    viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#be123c"/></marker>
+    <marker id="arr-slate"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker>
+    <marker id="arr-teal"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f766e"/></marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="1000" fill="#f8fafc"/>
+
+  <!-- Title area -->
+  <text x="50" y="50" class="title">Suspense / Offscreen / ping / retry 闭环图</text>
+  <text x="50" y="76" class="sub">render 卡住时，React 如何让 fallback 出场、把主内容转入 hidden Offscreen，并在 wakeable resolve 后重新进入 root 调度体系。</text>
+
+  <!-- Badge -->
+  <rect x="1300" y="28" width="252" height="28" rx="14" fill="#fee2e2"/>
+  <text x="1426" y="47" class="hint" text-anchor="middle" style="fill:#0f172a; font-weight:600">M6 核心图 -- 阻塞与恢复闭环</text>
+
+  <!-- Main panel (shadow container) -->
+  <rect x="30" y="96" width="1540" height="580" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" class="shadow"/>
+
+  <!-- ================================================================ -->
+  <!-- ROW 1  y=180   left -> right                                     -->
+  <!-- ================================================================ -->
+  <text x="60" y="160" class="hint" style="font-weight:700; fill:#94a3b8; letter-spacing:0.5px">ROW 1 --- render / suspend / fallback</text>
+
+  <!-- Step 1 -->
+  <rect x="80" y="180" width="280" height="110" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="100" y="210" class="label" style="fill:#2563eb">1.</text>
+  <text x="118" y="210" class="label">尝试 render 主内容</text>
+  <text x="100" y="232" class="hint">沿 workInProgress 继续当前子树</text>
+  <text x="100" y="254" class="mono" style="fill:#2563eb">beginWork(wip)</text>
+
+  <!-- Step 2 -->
+  <rect x="420" y="180" width="280" height="110" rx="14" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="440" y="210" class="label" style="fill:#dc2626">2.</text>
+  <text x="458" y="210" class="label">子树 suspend</text>
+  <text x="440" y="232" class="hint">throw wakeable / thenable</text>
+  <text x="440" y="254" class="mono" style="fill:#dc2626">throw thenable</text>
+
+  <!-- Step 3 -->
+  <rect x="760" y="180" width="280" height="110" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="780" y="210" class="label" style="fill:#ea580c">3.</text>
+  <text x="798" y="210" class="label">boundary 捕获</text>
+  <text x="780" y="232" class="hint">最近 Suspense boundary</text>
+  <text x="780" y="248" class="hint">切到 fallback 路径</text>
+
+  <!-- Step 4 -->
+  <rect x="1100" y="180" width="280" height="110" rx="14" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/>
+  <text x="1120" y="210" class="label" style="fill:#ca8a04">4.</text>
+  <text x="1138" y="210" class="label">fallback 出场</text>
+  <text x="1120" y="232" class="hint">当前可提交结果改为 fallback 分支</text>
+  <text x="1120" y="254" class="mono" style="fill:#ca8a04">commit(fallback)</text>
+
+  <!-- Row 1 arrows: 1->2 blue, 2->3 red, 3->4 orange -->
+  <path d="M360 235 L420 235" stroke="#2563eb" stroke-width="2.4" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M700 235 L760 235" stroke="#be123c" stroke-width="2.4" fill="none" marker-end="url(#arr-red)"/>
+  <path d="M1040 235 L1100 235" stroke="#b45309" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
+
+  <!-- ================================================================ -->
+  <!-- ROW 2  y=370   left -> right  (5 left, 6 center, 7 right) -->
+  <!-- ================================================================ -->
+  <text x="60" y="350" class="hint" style="font-weight:700; fill:#94a3b8; letter-spacing:0.5px">ROW 2 --- offscreen / lanes / wakeable resolve</text>
+
+  <!-- Step 5: hidden Offscreen -->
+  <rect x="620" y="370" width="280" height="110" rx="14" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="640" y="400" class="label" style="fill:#16a34a">5.</text>
+  <text x="658" y="400" class="label">hidden Offscreen</text>
+  <text x="640" y="422" class="hint">主内容不是删除，而是隐藏保留</text>
+  <text x="640" y="444" class="mono" style="fill:#16a34a">mode = hidden</text>
+
+  <!-- Step 6: 记录 suspendedLanes -->
+  <rect x="1000" y="370" width="280" height="110" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="1020" y="400" class="label" style="fill:#7c3aed">6.</text>
+  <text x="1038" y="400" class="label">记录 suspendedLanes</text>
+  <text x="1020" y="422" class="hint">这批工作先别当成现在能推进的候选</text>
+  <text x="1020" y="444" class="mono" style="fill:#7c3aed">root.suspendedLanes |= lanes</text>
+
+  <!-- Step 7: wakeable resolve (far right, trigger point) -->
+  <rect x="1340" y="370" width="200" height="110" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="1360" y="400" class="label" style="fill:#16a34a">7.</text>
+  <text x="1378" y="400" class="label">wakeable resolve</text>
+  <text x="1360" y="422" class="hint">条件满足，promise settled</text>
+  <text x="1360" y="444" class="mono" style="fill:#16a34a">then(ping)</text>
+
+  <!-- Arrow 4->5: green, route leftward above the row and land on step 5 -->
+  <path d="M1240 290 L1240 320 Q1240 340 1220 340 L760 340 Q760 340 760 360 L760 370"
+        stroke="#16a34a" stroke-width="2.4" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Arrow 5->6: purple, going right -->
+  <path d="M900 425 L1000 425" stroke="#7c3aed" stroke-width="2.4" fill="none" marker-end="url(#arr-purple)"/>
+
+  <!-- Annotation: async wait gap between step 5/6 and step 7 -->
+  <!-- Keep the label above the row so it reads as a state marker, not as step 5 content -->
+  <rect x="1258" y="344" width="104" height="22" rx="11" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <text x="1310" y="359" class="hint" text-anchor="middle" style="fill:#64748b; font-weight:600">异步等待</text>
+  <line x1="1310" y1="370" x2="1310" y2="458" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <text x="1310" y="474" class="hint" text-anchor="middle" style="fill:#94a3b8; font-size:9px">(wakeable)</text>
+
+  <!-- ================================================================ -->
+  <!-- ROW 3  y=560   right -> left, then loop back                     -->
+  <!-- ================================================================ -->
+  <text x="60" y="540" class="hint" style="font-weight:700; fill:#94a3b8; letter-spacing:0.5px">ROW 3 --- ping / schedule / retry</text>
+
+  <!-- Step 8: pingSuspendedRoot -->
+  <rect x="1000" y="560" width="280" height="110" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="1020" y="590" class="label" style="fill:#ea580c">8.</text>
+  <text x="1038" y="590" class="label">pingSuspendedRoot</text>
+  <text x="1020" y="612" class="hint">markRootPinged(root, lanes)</text>
+  <text x="1020" y="634" class="mono" style="fill:#ea580c">pingedLanes |= lanes</text>
+
+  <!-- Step 9: ensureRootIsScheduled -->
+  <rect x="620" y="560" width="280" height="110" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="640" y="590" class="label" style="fill:#2563eb">9.</text>
+  <text x="658" y="590" class="label">ensureRootIsScheduled</text>
+  <text x="640" y="612" class="hint">重新给 root 安排一次执行机会</text>
+  <text x="640" y="634" class="mono" style="fill:#2563eb">scheduleCallback()</text>
+
+  <!-- Step 10: retry 主内容 render -->
+  <rect x="240" y="560" width="280" height="110" rx="14" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="260" y="590" class="label" style="fill:#16a34a">10.</text>
+  <text x="284" y="590" class="label">retry 主内容 render</text>
+  <text x="260" y="612" class="hint">退出 fallback，重新尝试主内容</text>
+  <text x="260" y="634" class="mono" style="fill:#16a34a">renderRootSync/Concurrent()</text>
+
+  <!-- Arrow 7->8: orange, land on the top edge of step 8 instead of the top-right corner -->
+  <path d="M1440 480 L1440 520 Q1440 540 1420 540 L1160 540 Q1140 540 1140 550 L1140 560"
+        stroke="#b45309" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
+
+  <!-- Arrow 8->9: orange, going left -->
+  <path d="M1000 615 L900 615" stroke="#b45309" stroke-width="2.4" fill="none" marker-end="url(#arr-orange)"/>
+
+  <!-- Arrow 9->10: blue, going left -->
+  <path d="M620 615 L520 615" stroke="#2563eb" stroke-width="2.4" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- ================================================================ -->
+  <!-- CLOSED LOOP: 10 -> 1  green arrow up along left edge             -->
+  <!-- ================================================================ -->
+  <path d="M240 615 L60 615 Q46 615 46 600 L46 250 Q46 235 60 235 L80 235"
+        stroke="#0f766e" stroke-width="2.4" fill="none" stroke-dasharray="8 4" marker-end="url(#arr-teal)"/>
+  <!-- Loop label -->
+  <text x="22" y="460" class="hint" style="fill:#0f766e; font-weight:700" transform="rotate(-90,22,460)">retry loop</text>
+
+  <!-- ================================================================ -->
+  <!-- KEY TAKEAWAYS BOX  y=710                                         -->
+  <!-- ================================================================ -->
+  <rect x="30" y="710" width="1540" height="150" rx="20" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="60" y="742" class="heading">图中最关键的三条口径</text>
+
+  <text x="60" y="772" class="body">1. fallback 出现时，主内容往往不是直接消失，而是进入 hidden Offscreen：隐藏，但保留。</text>
+  <text x="60" y="800" class="body">2. ping / retry 不是魔法恢复；它们会重新回到 lanes + root scheduler 体系，由 root 再次安排下一轮工作。</text>
+  <text x="60" y="828" class="body">3. Suspense 首先是 render 协调与恢复机制，不只是"显示 loading 的组件 API"。</text>
+
+  <!-- ================================================================ -->
+  <!-- LEGEND + SUMMARY  y=880                                          -->
+  <!-- ================================================================ -->
+  <rect x="30" y="880" width="1540" height="46" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <g transform="translate(276 0)">
+    <text x="52" y="900" class="hint" style="font-weight:700">图例</text>
+    <!-- Blue -->
+    <line x1="100" y1="898" x2="130" y2="898" stroke="#2563eb" stroke-width="2.4" marker-end="url(#arr-blue)"/>
+    <text x="138" y="903" class="hint">正常推进</text>
+    <!-- Red -->
+    <line x1="220" y1="898" x2="250" y2="898" stroke="#be123c" stroke-width="2.4" marker-end="url(#arr-red)"/>
+    <text x="258" y="903" class="hint">throw / suspend</text>
+    <!-- Orange -->
+    <line x1="370" y1="898" x2="400" y2="898" stroke="#b45309" stroke-width="2.4" marker-end="url(#arr-orange)"/>
+    <text x="408" y="903" class="hint">fallback + ping</text>
+    <!-- Green -->
+    <line x1="520" y1="898" x2="550" y2="898" stroke="#16a34a" stroke-width="2.4" marker-end="url(#arr-green)"/>
+    <text x="558" y="903" class="hint">Offscreen / retry</text>
+    <!-- Purple -->
+    <line x1="680" y1="898" x2="710" y2="898" stroke="#7c3aed" stroke-width="2.4" marker-end="url(#arr-purple)"/>
+    <text x="718" y="903" class="hint">suspendedLanes</text>
+    <!-- Dashed -->
+    <line x1="840" y1="898" x2="870" y2="898" stroke="#0f766e" stroke-width="2.4" stroke-dasharray="8 4" marker-end="url(#arr-teal)"/>
+    <text x="878" y="903" class="hint">闭环回路 (retry loop)</text>
+  </g>
+
+  <!-- One-line summary -->
+  <rect x="30" y="940" width="1540" height="38" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <text x="800" y="964" class="sub" text-anchor="middle">一句话总结：主内容挂起时，边界先让 fallback 稳定出场；条件恢复后，再把原工作重新送回 root 的调度闭环。</text>
+</svg>
