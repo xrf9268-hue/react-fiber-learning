@@ -118,6 +118,10 @@ Before calling a module "ready", check:
 ### D2 + ELK 引擎注意事项
 
 - **编译验证**：每次修改 `.d2` 后必须编译并检查 `viewBox` 尺寸比例，确认布局合理后再提交。
+- **theme.d2 是共享主题**：修改 `theme.d2` 后必须运行 `bash docs/diagrams/build.sh` 重编译**全部** D2 图，不能只编译当前正在改的那一张，否则会导致图表间样式不一致。
+- **手动坐标调整会被覆盖**：如果某些 SVG 在编译后做过手动间距压缩（Python 脚本修改坐标），重编译会覆盖这些调整，需要在编译后重新应用。
+- **外边距控制**：使用 `--pad N`（默认 100）控制编译后 SVG 四周的像素边距。推荐 `--pad 20`。
+- **节点间距不可直接配置**：D2 不暴露 ELK 的 `spacing.nodeNode` 等属性。如需压缩节点间距，需在编译后手动调整 SVG 坐标（Python 脚本批量替换）。
 - **ELK direction 限制**：`direction: down/right` 仅对有边连接的节点生效。断开的顶层节点需用隐形边（`stroke-width: 0`）强制布局方向。
 - **Grid 与边互斥**：`grid-columns`/`grid-rows` 容器内不能定义边，否则 grid 布局失效回退为普通布局。边必须放到容器外部，或改用文本标注顺序。
 - **中文文本不自动换行**：D2 不对中文做 word-wrap，必须手动用 `\n` 控制每行宽度。Markdown 块（`|md ... |`）会忽略 `width` 约束，纯文本标签配合 `width` 更可控。

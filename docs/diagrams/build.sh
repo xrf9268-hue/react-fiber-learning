@@ -22,7 +22,7 @@ for f in "${SRC_DIR}"/*.d2; do
   [ "$(basename "$f")" = "theme.d2" ] && continue
   name=$(basename "$f" .d2)
   echo "Building ${name}.svg ..."
-  cat "$THEME" "$f" | d2 --layout elk --theme 0 - "${OUT_DIR}/${name}.svg"
+  cat "$THEME" "$f" | d2 --layout elk --theme 0 --pad 20 - "${OUT_DIR}/${name}.svg"
   count=$((count + 1))
 done
 

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.6.9" preserveAspectRatio="xMinYMin meet" viewBox="0 0 496 652"><svg class="d2-2816237357 d2-svg" width="496" height="652" viewBox="-13 -13 496 652"><rect x="-13.000000" y="-13.000000" width="496.000000" height="652.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css"><![CDATA[
-.d2-2816237357 .text-bold {
-	font-family: "d2-2816237357-font-bold";
+<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-d2-version="v0.6.9" preserveAspectRatio="xMinYMin meet" viewBox="0 0 547 677"><svg class="d2-288872929 d2-svg" width="547" height="677" viewBox="-9 -9 547 677"><rect x="-9.000000" y="-9.000000" width="547.000000" height="677.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css"><![CDATA[
+.d2-288872929 .text-bold {
+	font-family: "d2-288872929-font-bold";
 }
 @font-face {
-	font-family: d2-2816237357-font-bold;
+	font-family: d2-288872929-font-bold;
 	src: url("data:application/font-woff;base64,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");
 }]]></style><style type="text/css"><![CDATA[.shape {
   shape-rendering: geometricPrecision;
@@ -18,85 +18,85 @@
   opacity: 0.5;
 }
 
-		.d2-2816237357 .fill-N1{fill:#0A0F25;}
-		.d2-2816237357 .fill-N2{fill:#676C7E;}
-		.d2-2816237357 .fill-N3{fill:#9499AB;}
-		.d2-2816237357 .fill-N4{fill:#CFD2DD;}
-		.d2-2816237357 .fill-N5{fill:#DEE1EB;}
-		.d2-2816237357 .fill-N6{fill:#EEF1F8;}
-		.d2-2816237357 .fill-N7{fill:#FFFFFF;}
-		.d2-2816237357 .fill-B1{fill:#0D32B2;}
-		.d2-2816237357 .fill-B2{fill:#0D32B2;}
-		.d2-2816237357 .fill-B3{fill:#E3E9FD;}
-		.d2-2816237357 .fill-B4{fill:#E3E9FD;}
-		.d2-2816237357 .fill-B5{fill:#EDF0FD;}
-		.d2-2816237357 .fill-B6{fill:#F7F8FE;}
-		.d2-2816237357 .fill-AA2{fill:#4A6FF3;}
-		.d2-2816237357 .fill-AA4{fill:#EDF0FD;}
-		.d2-2816237357 .fill-AA5{fill:#F7F8FE;}
-		.d2-2816237357 .fill-AB4{fill:#EDF0FD;}
-		.d2-2816237357 .fill-AB5{fill:#F7F8FE;}
-		.d2-2816237357 .stroke-N1{stroke:#0A0F25;}
-		.d2-2816237357 .stroke-N2{stroke:#676C7E;}
-		.d2-2816237357 .stroke-N3{stroke:#9499AB;}
-		.d2-2816237357 .stroke-N4{stroke:#CFD2DD;}
-		.d2-2816237357 .stroke-N5{stroke:#DEE1EB;}
-		.d2-2816237357 .stroke-N6{stroke:#EEF1F8;}
-		.d2-2816237357 .stroke-N7{stroke:#FFFFFF;}
-		.d2-2816237357 .stroke-B1{stroke:#0D32B2;}
-		.d2-2816237357 .stroke-B2{stroke:#0D32B2;}
-		.d2-2816237357 .stroke-B3{stroke:#E3E9FD;}
-		.d2-2816237357 .stroke-B4{stroke:#E3E9FD;}
-		.d2-2816237357 .stroke-B5{stroke:#EDF0FD;}
-		.d2-2816237357 .stroke-B6{stroke:#F7F8FE;}
-		.d2-2816237357 .stroke-AA2{stroke:#4A6FF3;}
-		.d2-2816237357 .stroke-AA4{stroke:#EDF0FD;}
-		.d2-2816237357 .stroke-AA5{stroke:#F7F8FE;}
-		.d2-2816237357 .stroke-AB4{stroke:#EDF0FD;}
-		.d2-2816237357 .stroke-AB5{stroke:#F7F8FE;}
-		.d2-2816237357 .background-color-N1{background-color:#0A0F25;}
-		.d2-2816237357 .background-color-N2{background-color:#676C7E;}
-		.d2-2816237357 .background-color-N3{background-color:#9499AB;}
-		.d2-2816237357 .background-color-N4{background-color:#CFD2DD;}
-		.d2-2816237357 .background-color-N5{background-color:#DEE1EB;}
-		.d2-2816237357 .background-color-N6{background-color:#EEF1F8;}
-		.d2-2816237357 .background-color-N7{background-color:#FFFFFF;}
-		.d2-2816237357 .background-color-B1{background-color:#0D32B2;}
-		.d2-2816237357 .background-color-B2{background-color:#0D32B2;}
-		.d2-2816237357 .background-color-B3{background-color:#E3E9FD;}
-		.d2-2816237357 .background-color-B4{background-color:#E3E9FD;}
-		.d2-2816237357 .background-color-B5{background-color:#EDF0FD;}
-		.d2-2816237357 .background-color-B6{background-color:#F7F8FE;}
-		.d2-2816237357 .background-color-AA2{background-color:#4A6FF3;}
-		.d2-2816237357 .background-color-AA4{background-color:#EDF0FD;}
-		.d2-2816237357 .background-color-AA5{background-color:#F7F8FE;}
-		.d2-2816237357 .background-color-AB4{background-color:#EDF0FD;}
-		.d2-2816237357 .background-color-AB5{background-color:#F7F8FE;}
-		.d2-2816237357 .color-N1{color:#0A0F25;}
-		.d2-2816237357 .color-N2{color:#676C7E;}
-		.d2-2816237357 .color-N3{color:#9499AB;}
-		.d2-2816237357 .color-N4{color:#CFD2DD;}
-		.d2-2816237357 .color-N5{color:#DEE1EB;}
-		.d2-2816237357 .color-N6{color:#EEF1F8;}
-		.d2-2816237357 .color-N7{color:#FFFFFF;}
-		.d2-2816237357 .color-B1{color:#0D32B2;}
-		.d2-2816237357 .color-B2{color:#0D32B2;}
-		.d2-2816237357 .color-B3{color:#E3E9FD;}
-		.d2-2816237357 .color-B4{color:#E3E9FD;}
-		.d2-2816237357 .color-B5{color:#EDF0FD;}
-		.d2-2816237357 .color-B6{color:#F7F8FE;}
-		.d2-2816237357 .color-AA2{color:#4A6FF3;}
-		.d2-2816237357 .color-AA4{color:#EDF0FD;}
-		.d2-2816237357 .color-AA5{color:#F7F8FE;}
-		.d2-2816237357 .color-AB4{color:#EDF0FD;}
-		.d2-2816237357 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-2816237357);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-2816237357);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-2816237357);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-2816237357);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-2816237357);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-2816237357);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-2816237357);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-2816237357);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-2816237357);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-2816237357);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-2816237357);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-2816237357);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-2816237357);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-2816237357);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-2816237357);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-2816237357);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-2816237357);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-2816237357);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}]]></style><g class="dGl0bGU="><g class="shape" ><rect x="81.000000" y="12.000000" width="323.000000" height="73.000000" stroke="#f8fafc" fill="#f8fafc" style="stroke-width:2;" /></g><text x="242.500000" y="56.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:22px">React Fiber 学习路线总图</text></g><g class="cm9hZG1hcA=="><g class="shape" ><rect x="12.000000" y="110.000000" width="462.000000" height="406.000000" stroke="#ffffff" fill="#ffffff" style="stroke-width:2;" /></g></g><g class="aGludA== note"><g class="shape" ><rect x="88.000000" y="541.000000" width="310.000000" height="73.000000" rx="14.000000" stroke="#cbd5e1" fill="#f8fafc" style="stroke-width:1;" /></g><text x="243.000000" y="575.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:12px"><tspan x="243.000000" dy="0.000000">学习顺序：M1 → M2 → M3 → M4 → M5 → M6</tspan><tspan x="243.000000" dy="14.000000">从问题意识到阻塞恢复机制的连续解释链</tspan></text></g><g class="cm9hZG1hcC5NMQ== emphasis-cyan"><g class="shape" ><rect x="28.000000" y="126.000000" width="216.000000" height="114.000000" rx="14.000000" stroke="#06b6d4" fill="#ecfeff" style="stroke-width:2;" /></g><text x="136.000000" y="161.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:13px"><tspan x="136.000000" dy="0.000000">M1 为什么需要 Fiber</tspan><tspan x="136.000000" dy="13.800000">问题：旧同步渲染</tspan><tspan x="136.000000" dy="13.800000">为什么不够？</tspan><tspan x="136.000000" dy="13.800000">结论：把渲染改造成</tspan><tspan x="136.000000" dy="13.800000">可调度的工作系统</tspan></text></g><g class="cm9hZG1hcC5NMg== emphasis-blue"><g class="shape" ><rect x="28.000000" y="256.000000" width="216.000000" height="114.000000" rx="14.000000" stroke="#2563eb" fill="#eff6ff" style="stroke-width:2;" /></g><text x="136.000000" y="291.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:13px"><tspan x="136.000000" dy="0.000000">M2 Fiber 节点与遍历</tspan><tspan x="136.000000" dy="13.800000">问题：工作单元</tspan><tspan x="136.000000" dy="13.800000">长什么样？</tspan><tspan x="136.000000" dy="13.800000">结论：child/sibling/return</tspan><tspan x="136.000000" dy="13.800000">拆成显式工作节点</tspan></text></g><g class="cm9hZG1hcC5NMw== emphasis-orange"><g class="shape" ><rect x="28.000000" y="386.000000" width="216.000000" height="114.000000" rx="14.000000" stroke="#ea580c" fill="#fff7ed" style="stroke-width:2;" /></g><text x="136.000000" y="421.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:13px"><tspan x="136.000000" dy="0.000000">M3 双树与 render/commit</tspan><tspan x="136.000000" dy="13.800000">问题：如何准备下一版</tspan><tspan x="136.000000" dy="13.800000">又保持界面稳定？</tspan><tspan x="136.000000" dy="13.800000">结论：current 与 WIP 分工</tspan><tspan x="136.000000" dy="13.800000">commit 统一切换</tspan></text></g><g class="cm9hZG1hcC5NNA== emphasis-purple"><g class="shape" ><rect x="260.000000" y="126.000000" width="198.000000" height="114.000000" rx="14.000000" stroke="#7c3aed" fill="#f5f3ff" style="stroke-width:2;" /></g><text x="359.000000" y="161.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:13px"><tspan x="359.000000" dy="0.000000">M4 一次更新全链路</tspan><tspan x="359.000000" dy="13.800000">问题：setState 怎样</tspan><tspan x="359.000000" dy="13.800000">走到 render/commit？</tspan><tspan x="359.000000" dy="13.800000">结论：先登记</tspan><tspan x="359.000000" dy="13.800000">再调度，再提交</tspan></text></g><g class="cm9hZG1hcC5NNQ== emphasis-green"><g class="shape" ><rect x="260.000000" y="256.000000" width="198.000000" height="114.000000" rx="14.000000" stroke="#16a34a" fill="#f0fdf4" style="stroke-width:2;" /></g><text x="359.000000" y="291.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:13px"><tspan x="359.000000" dy="0.000000">M5 lanes 与 scheduler</tspan><tspan x="359.000000" dy="13.800000">问题：多批更新时</tspan><tspan x="359.000000" dy="13.800000">先做什么？</tspan><tspan x="359.000000" dy="13.800000">结论：lane 归类</tspan><tspan x="359.000000" dy="13.800000">root 选批次</tspan></text></g><g class="cm9hZG1hcC5NNg== emphasis-red"><g class="shape" ><rect x="260.000000" y="386.000000" width="198.000000" height="114.000000" rx="14.000000" stroke="#dc2626" fill="#fee2e2" style="stroke-width:2;" /></g><text x="359.000000" y="421.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:13px"><tspan x="359.000000" dy="0.000000">M6 Suspense/Offscreen</tspan><tspan x="359.000000" dy="13.800000">问题：做不下去时</tspan><tspan x="359.000000" dy="13.800000">怎么处理？</tspan><tspan x="359.000000" dy="13.800000">结论：suspend→fallback</tspan><tspan x="359.000000" dy="13.800000">→ping→retry</tspan></text></g><g class="KHRpdGxlIC0mZ3Q7IHJvYWRtYXApWzBd"><marker id="mk-d2-2816237357-469228098" markerWidth="10.000000" markerHeight="12.000000" refX="10.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#ffffff" class="connection" stroke-width="0" /> </marker><path d="M 243.000000 86.000000 L 243.000000 109.000000" stroke="#ffffff" fill="none" class="connection" style="stroke-width:0;" marker-end="url(#mk-d2-2816237357-469228098)" mask="url(#d2-2816237357)" /></g><g class="KHJvYWRtYXAgLSZndDsgaGludClbMF0="><path d="M 243.000000 517.000000 L 243.000000 540.500000" stroke="#ffffff" fill="none" class="connection" style="stroke-width:0;" marker-end="url(#mk-d2-2816237357-469228098)" mask="url(#d2-2816237357)" /></g><mask id="d2-2816237357" maskUnits="userSpaceOnUse" x="-13" y="-13" width="496" height="652">
-<rect x="-13" y="-13" width="496" height="652" fill="white"></rect>
-<rect x="103.500000" y="34.500000" width="278" height="28" fill="rgba(0,0,0,0.75)"></rect>
-<rect x="110.500000" y="563.500000" width="265" height="28" fill="rgba(0,0,0,0.75)"></rect>
-<rect x="62.000000" y="148.500000" width="148" height="69" fill="rgba(0,0,0,0.75)"></rect>
-<rect x="55.500000" y="278.500000" width="161" height="69" fill="rgba(0,0,0,0.75)"></rect>
-<rect x="50.500000" y="408.500000" width="171" height="69" fill="rgba(0,0,0,0.75)"></rect>
-<rect x="290.000000" y="148.500000" width="138" height="69" fill="rgba(0,0,0,0.75)"></rect>
-<rect x="293.500000" y="278.500000" width="131" height="69" fill="rgba(0,0,0,0.75)"></rect>
-<rect x="282.500000" y="408.500000" width="153" height="69" fill="rgba(0,0,0,0.75)"></rect>
+		.d2-288872929 .fill-N1{fill:#0A0F25;}
+		.d2-288872929 .fill-N2{fill:#676C7E;}
+		.d2-288872929 .fill-N3{fill:#9499AB;}
+		.d2-288872929 .fill-N4{fill:#CFD2DD;}
+		.d2-288872929 .fill-N5{fill:#DEE1EB;}
+		.d2-288872929 .fill-N6{fill:#EEF1F8;}
+		.d2-288872929 .fill-N7{fill:#FFFFFF;}
+		.d2-288872929 .fill-B1{fill:#0D32B2;}
+		.d2-288872929 .fill-B2{fill:#0D32B2;}
+		.d2-288872929 .fill-B3{fill:#E3E9FD;}
+		.d2-288872929 .fill-B4{fill:#E3E9FD;}
+		.d2-288872929 .fill-B5{fill:#EDF0FD;}
+		.d2-288872929 .fill-B6{fill:#F7F8FE;}
+		.d2-288872929 .fill-AA2{fill:#4A6FF3;}
+		.d2-288872929 .fill-AA4{fill:#EDF0FD;}
+		.d2-288872929 .fill-AA5{fill:#F7F8FE;}
+		.d2-288872929 .fill-AB4{fill:#EDF0FD;}
+		.d2-288872929 .fill-AB5{fill:#F7F8FE;}
+		.d2-288872929 .stroke-N1{stroke:#0A0F25;}
+		.d2-288872929 .stroke-N2{stroke:#676C7E;}
+		.d2-288872929 .stroke-N3{stroke:#9499AB;}
+		.d2-288872929 .stroke-N4{stroke:#CFD2DD;}
+		.d2-288872929 .stroke-N5{stroke:#DEE1EB;}
+		.d2-288872929 .stroke-N6{stroke:#EEF1F8;}
+		.d2-288872929 .stroke-N7{stroke:#FFFFFF;}
+		.d2-288872929 .stroke-B1{stroke:#0D32B2;}
+		.d2-288872929 .stroke-B2{stroke:#0D32B2;}
+		.d2-288872929 .stroke-B3{stroke:#E3E9FD;}
+		.d2-288872929 .stroke-B4{stroke:#E3E9FD;}
+		.d2-288872929 .stroke-B5{stroke:#EDF0FD;}
+		.d2-288872929 .stroke-B6{stroke:#F7F8FE;}
+		.d2-288872929 .stroke-AA2{stroke:#4A6FF3;}
+		.d2-288872929 .stroke-AA4{stroke:#EDF0FD;}
+		.d2-288872929 .stroke-AA5{stroke:#F7F8FE;}
+		.d2-288872929 .stroke-AB4{stroke:#EDF0FD;}
+		.d2-288872929 .stroke-AB5{stroke:#F7F8FE;}
+		.d2-288872929 .background-color-N1{background-color:#0A0F25;}
+		.d2-288872929 .background-color-N2{background-color:#676C7E;}
+		.d2-288872929 .background-color-N3{background-color:#9499AB;}
+		.d2-288872929 .background-color-N4{background-color:#CFD2DD;}
+		.d2-288872929 .background-color-N5{background-color:#DEE1EB;}
+		.d2-288872929 .background-color-N6{background-color:#EEF1F8;}
+		.d2-288872929 .background-color-N7{background-color:#FFFFFF;}
+		.d2-288872929 .background-color-B1{background-color:#0D32B2;}
+		.d2-288872929 .background-color-B2{background-color:#0D32B2;}
+		.d2-288872929 .background-color-B3{background-color:#E3E9FD;}
+		.d2-288872929 .background-color-B4{background-color:#E3E9FD;}
+		.d2-288872929 .background-color-B5{background-color:#EDF0FD;}
+		.d2-288872929 .background-color-B6{background-color:#F7F8FE;}
+		.d2-288872929 .background-color-AA2{background-color:#4A6FF3;}
+		.d2-288872929 .background-color-AA4{background-color:#EDF0FD;}
+		.d2-288872929 .background-color-AA5{background-color:#F7F8FE;}
+		.d2-288872929 .background-color-AB4{background-color:#EDF0FD;}
+		.d2-288872929 .background-color-AB5{background-color:#F7F8FE;}
+		.d2-288872929 .color-N1{color:#0A0F25;}
+		.d2-288872929 .color-N2{color:#676C7E;}
+		.d2-288872929 .color-N3{color:#9499AB;}
+		.d2-288872929 .color-N4{color:#CFD2DD;}
+		.d2-288872929 .color-N5{color:#DEE1EB;}
+		.d2-288872929 .color-N6{color:#EEF1F8;}
+		.d2-288872929 .color-N7{color:#FFFFFF;}
+		.d2-288872929 .color-B1{color:#0D32B2;}
+		.d2-288872929 .color-B2{color:#0D32B2;}
+		.d2-288872929 .color-B3{color:#E3E9FD;}
+		.d2-288872929 .color-B4{color:#E3E9FD;}
+		.d2-288872929 .color-B5{color:#EDF0FD;}
+		.d2-288872929 .color-B6{color:#F7F8FE;}
+		.d2-288872929 .color-AA2{color:#4A6FF3;}
+		.d2-288872929 .color-AA4{color:#EDF0FD;}
+		.d2-288872929 .color-AA5{color:#F7F8FE;}
+		.d2-288872929 .color-AB4{color:#EDF0FD;}
+		.d2-288872929 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-288872929);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-288872929);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-288872929);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-288872929);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-288872929);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-288872929);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-288872929);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-288872929);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-288872929);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-288872929);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-288872929);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-288872929);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-288872929);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-288872929);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-288872929);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-288872929);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-288872929);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-288872929);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}]]></style><g class="dGl0bGU="><g class="shape" ><rect x="103.000000" y="12.000000" width="323.000000" height="73.000000" stroke="#f8fafc" fill="#f8fafc" style="stroke-width:2;" /></g><text x="264.500000" y="56.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:22px">React Fiber 学习路线总图</text></g><g class="cm9hZG1hcA=="><g class="shape" ><rect x="12.000000" y="110.000000" width="505.000000" height="436.000000" stroke="#ffffff" fill="#ffffff" style="stroke-width:2;" /></g></g><g class="aGludA== note"><g class="shape" ><rect x="85.000000" y="571.000000" width="358.000000" height="77.000000" rx="14.000000" stroke="#cbd5e1" fill="#f8fafc" style="stroke-width:1;" /></g><text x="264.000000" y="607.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:14px"><tspan x="264.000000" dy="0.000000">学习顺序：M1 → M2 → M3 → M4 → M5 → M6</tspan><tspan x="264.000000" dy="16.000000">从问题意识到阻塞恢复机制的连续解释链</tspan></text></g><g class="cm9hZG1hcC5NMQ== emphasis-cyan"><g class="shape" ><rect x="28.000000" y="126.000000" width="238.000000" height="124.000000" rx="14.000000" stroke="#06b6d4" fill="#ecfeff" style="stroke-width:2;" /></g><text x="147.000000" y="163.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:15px"><tspan x="147.000000" dy="0.000000">M1 为什么需要 Fiber</tspan><tspan x="147.000000" dy="15.800000">问题：旧同步渲染</tspan><tspan x="147.000000" dy="15.800000">为什么不够？</tspan><tspan x="147.000000" dy="15.800000">结论：把渲染改造成</tspan><tspan x="147.000000" dy="15.800000">可调度的工作系统</tspan></text></g><g class="cm9hZG1hcC5NMg== emphasis-blue"><g class="shape" ><rect x="28.000000" y="266.000000" width="238.000000" height="124.000000" rx="14.000000" stroke="#2563eb" fill="#eff6ff" style="stroke-width:2;" /></g><text x="147.000000" y="303.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:15px"><tspan x="147.000000" dy="0.000000">M2 Fiber 节点与遍历</tspan><tspan x="147.000000" dy="15.800000">问题：工作单元</tspan><tspan x="147.000000" dy="15.800000">长什么样？</tspan><tspan x="147.000000" dy="15.800000">结论：child/sibling/return</tspan><tspan x="147.000000" dy="15.800000">拆成显式工作节点</tspan></text></g><g class="cm9hZG1hcC5NMw== emphasis-orange"><g class="shape" ><rect x="28.000000" y="406.000000" width="238.000000" height="124.000000" rx="14.000000" stroke="#ea580c" fill="#fff7ed" style="stroke-width:2;" /></g><text x="147.000000" y="443.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:15px"><tspan x="147.000000" dy="0.000000">M3 双树与 render/commit</tspan><tspan x="147.000000" dy="15.800000">问题：如何准备下一版</tspan><tspan x="147.000000" dy="15.800000">又保持界面稳定？</tspan><tspan x="147.000000" dy="15.800000">结论：current 与 WIP 分工</tspan><tspan x="147.000000" dy="15.800000">commit 统一切换</tspan></text></g><g class="cm9hZG1hcC5NNA== emphasis-purple"><g class="shape" ><rect x="282.000000" y="126.000000" width="219.000000" height="124.000000" rx="14.000000" stroke="#7c3aed" fill="#f5f3ff" style="stroke-width:2;" /></g><text x="391.500000" y="163.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:15px"><tspan x="391.500000" dy="0.000000">M4 一次更新全链路</tspan><tspan x="391.500000" dy="15.800000">问题：setState 怎样</tspan><tspan x="391.500000" dy="15.800000">走到 render/commit？</tspan><tspan x="391.500000" dy="15.800000">结论：先登记</tspan><tspan x="391.500000" dy="15.800000">再调度，再提交</tspan></text></g><g class="cm9hZG1hcC5NNQ== emphasis-green"><g class="shape" ><rect x="282.000000" y="266.000000" width="219.000000" height="124.000000" rx="14.000000" stroke="#16a34a" fill="#f0fdf4" style="stroke-width:2;" /></g><text x="391.500000" y="303.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:15px"><tspan x="391.500000" dy="0.000000">M5 lanes 与 scheduler</tspan><tspan x="391.500000" dy="15.800000">问题：多批更新时</tspan><tspan x="391.500000" dy="15.800000">先做什么？</tspan><tspan x="391.500000" dy="15.800000">结论：lane 归类</tspan><tspan x="391.500000" dy="15.800000">root 选批次</tspan></text></g><g class="cm9hZG1hcC5NNg== emphasis-red"><g class="shape" ><rect x="282.000000" y="406.000000" width="219.000000" height="124.000000" rx="14.000000" stroke="#dc2626" fill="#fee2e2" style="stroke-width:2;" /></g><text x="391.500000" y="443.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:15px"><tspan x="391.500000" dy="0.000000">M6 Suspense/Offscreen</tspan><tspan x="391.500000" dy="15.800000">问题：做不下去时</tspan><tspan x="391.500000" dy="15.800000">怎么处理？</tspan><tspan x="391.500000" dy="15.800000">结论：suspend→fallback</tspan><tspan x="391.500000" dy="15.800000">→ping→retry</tspan></text></g><g class="KHRpdGxlIC0mZ3Q7IHJvYWRtYXApWzBd"><marker id="mk-d2-288872929-469228098" markerWidth="10.000000" markerHeight="12.000000" refX="10.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#ffffff" class="connection" stroke-width="0" /> </marker><path d="M 264.500000 86.000000 L 264.500000 109.000000" stroke="#ffffff" fill="none" class="connection" style="stroke-width:0;" marker-end="url(#mk-d2-288872929-469228098)" mask="url(#d2-288872929)" /></g><g class="KHJvYWRtYXAgLSZndDsgaGludClbMF0="><path d="M 264.500000 547.000000 L 264.500000 570.500000" stroke="#ffffff" fill="none" class="connection" style="stroke-width:0;" marker-end="url(#mk-d2-288872929-469228098)" mask="url(#d2-288872929)" /></g><mask id="d2-288872929" maskUnits="userSpaceOnUse" x="-9" y="-9" width="547" height="677">
+<rect x="-9" y="-9" width="547" height="677" fill="white"></rect>
+<rect x="125.500000" y="34.500000" width="278" height="28" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="107.500000" y="593.500000" width="313" height="32" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="65.000000" y="148.500000" width="164" height="79" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="55.000000" y="288.500000" width="184" height="79" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="50.500000" y="428.500000" width="193" height="79" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="312.500000" y="148.500000" width="158" height="79" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="318.000000" y="288.500000" width="147" height="79" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="304.500000" y="428.500000" width="174" height="79" fill="rgba(0,0,0,0.75)"></rect>
 </mask></svg></svg>
