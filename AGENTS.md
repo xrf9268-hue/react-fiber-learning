@@ -200,15 +200,16 @@ reconciler 核心文件采用 `.old.js` / `.new.js` 双版本 fork 机制。**�
 
 本项目有两类内容资产，**同步策略不同**：
 
-| 资产 | 唯一源 | 站点使用 | 同步方式 |
+| 资产 | 创作源 | 站点使用 | 同步方式 |
 |------|--------|----------|----------|
 | SVG 图表 | `docs/diagrams/*.svg` | `app/public/diagrams/`（纯复制品） | `npm run build` 自动执行 `sync:diagrams`（`cp`） |
-| 文本教程 | `app/src/content/*.mdx` | 同左（MDX 即源文件） | 无需同步 — MDX 已做 web 适配（路由链接等） |
+| 文本教程 | `docs/modules/*-draft.md` | `app/src/content/*.mdx`（链接适配后的派生版本） | 目前手动同步（需改 docs/ 后再更新 MDX 中的链接） |
 
 关键规则：
 - **图表只改 `docs/diagrams/`**（D2 源或手工 SVG），不要直接改 `app/public/diagrams/`，否则下次构建会被覆盖。
-- **`docs/modules/*-draft.md` 是历史草稿/归档**，不是站点内容源。站点 MDX 中的内部链接已改为路由路径（如 `/learn/01-why-fiber`），与 `docs/` 中的文件路径引用不同，两者不应自动同步。
-- 如果教程内容需要修改，直接改 `app/src/content/*.mdx`；如果需要同步回 `docs/`，手动处理。
+- **`docs/modules/*-draft.md` 是教程内容的原始创作源**。`app/src/content/*.mdx` 是站点重建时从 `docs/` 派生的版本，做了链接适配（如文件路径 → 路由路径 `/learn/01-why-fiber`）。
+- 如果教程内容需要修改，**先改 `docs/modules/*-draft.md`，再将变更同步到对应的 MDX 文件**（注意保留 MDX 中已适配的路由链接）。
+- 未来可考虑将文本教程也纳入自动同步（构建时从 `docs/` 转换），但目前因链接适配差异，仍需手动处理。
 
 ## 默认下一步逻辑
 
