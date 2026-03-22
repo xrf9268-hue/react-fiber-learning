@@ -1,9 +1,0 @@
-node_modules/
-.vitepress/cache/
-.vitepress/dist/
-
-# Auto-synced content (generated from docs/)
-modules/*.md
-evidence/
-reference/*.md
-public/diagrams/*.svg
