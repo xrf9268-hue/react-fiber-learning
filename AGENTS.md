@@ -1,112 +1,105 @@
-# AGENTS.md — React Fiber Learning Project
+# AGENTS.md — React Fiber 学习项目
 
-This file defines the project-local execution rules for the long-running React Fiber learning repo.
+本文件定义了本长期 React Fiber 学习仓库的项目级执行规则。
 
-## Project Goal
+## 项目目标
 
-Build a high-quality Chinese study repo for understanding React Fiber from the official React 18/19 codebase, using a concept-first path plus minimal but precise source verification.
+基于 React 18/19 官方源码，构建一套高质量的中文 Fiber 学习资料。采用"概念优先 + 最小但精确的源码验证"路线。
 
-## Canonical State Sources
+## 权威状态来源
 
-Always treat these as the primary continuity objects for this project:
+始终以以下对象作为项目连续性的主要依据：
 
 1. `STATUS.md`
 2. `docs/modules/*.md`
 3. `app/` — 站点源码与部署配置
-4. Git history inside this repo
+4. 本仓库的 Git 历史
 
-Do not rely on chat memory alone for project state.
+不要仅凭对话记忆判断项目状态。
 
-## Learning Baseline
+## 学习基线
 
-- Primary baseline: **React v18.2.0**
-- Delta comparison target: **React main**
-- Learn the stable skeleton first, then compare newer extensions.
+- 主基线：**React v18.2.0**
+- 对比目标：**React main**
+- 先学稳定骨架，再比较新版扩展。
 
-## Local Upstream Source Mirrors
+## 本地上游源码镜像
 
-Prefer local source mirrors over ad-hoc remote browsing when checking React internals:
+查阅 React 内部实现时，优先使用本地镜像，避免临时远程浏览：
 
 - `../tmp/react-upstream/react-v18.2.0`
 - `../tmp/react-upstream/react-main`
 
-If they drift or are missing, refresh them before deep source work.
+如果镜像落后或缺失，先刷新再做深入源码工作。
 
-## Module Execution Rules
+## 模块执行规则
 
-- Work module by module.
-- Keep each work package bounded.
-- Each module should aim to produce, where applicable:
-  - plan
-  - evidence notes
-  - draft
-  - self-review
-  - compare notes or diagram notes
-  - commit-readiness note
+- 逐模块推进。
+- 每个工作包保持有界。
+- 每个模块视情况应产出：
+  - 计划（plan）
+  - 证据笔记（evidence notes）
+  - 正文草稿（draft）
+  - 自审笔记（self-review）
+  - 比对笔记或图表笔记
+  - 提交就绪检查（commit-readiness）
 
-## Hard Continuation Rules
+## 持续推进规则
 
-These rules exist because this project is long-running and must not silently stall.
+这些规则的存在是因为本项目是长期项目，不能静默停滞。
 
-1. **Do not treat a user-facing progress update as continuation.**
-   A short report is not progress by itself.
+1. **不要把进度汇报当成实际推进。** 一段简短报告本身不算进展。
+2. **当一个有界子任务完成、而项目仍未结束时，立即开始下一个具体工作包或审查/提交就绪包。** 在任何简短汇报之前或之后马上执行。
+3. **仅在以下至少一项为真时，才视为项目真正在推进：**
+   - 有专门的 worker 正在运行，或
+   - 近期有实质性项目文件更新，或
+   - 作为实际工作的一部分创建了新的状态更新。
+4. **如果没有活跃 worker 且剩余任务是多步骤的，用专门的 subagent 恢复，而不是试图在主会话中全部完成。**
+5. **如果某模块已达到可提交的里程碑，就提交，不要无限打磨。**
 
-2. **When a bounded subagent work package finishes and the project is still active and unfinished, immediately start the next concrete work package or review/commit-readiness package.**
-   Do this before or immediately after any short update.
+## 进度定义
 
-3. **Treat the project as truly in progress only if at least one of these is true:**
-   - a dedicated worker is active, or
-   - substantive project files were updated recently, or
-   - a new checkpoint/status update was created as part of real work.
+用明确证据衡量，而非意愿。
 
-4. **If there is no active worker and the remaining task is multi-step, resume with a dedicated subagent rather than trying to hold everything in the main session.**
+有效进度信号：
+- `docs/modules/` 中有新增或更新的文件
+- `STATUS.md` 有更新
+- 创建了本地里程碑提交
 
-5. **If a module is ready for a clean local milestone commit, commit it instead of endlessly polishing.**
+无效信号：
+- 只说"我会继续"
+- 只讨论下一步但没有开始
+- 子任务已完成但没有启动下一个工作包
 
-## Progress Definition
+## 提交边界规则
 
-Use explicit evidence, not intention.
+- 优先做干净的本地里程碑提交。
+- 每次提交应对应一个完整的模块里程碑。
+- 不要把半成品的未来模块混入当前里程碑，除非是明确有意为之。
 
-Good signals of progress:
-- new or updated files in `docs/modules/`
-- new or updated `STATUS.md`
-- new or updated `checkpoints/*.md`
-- local milestone commit created
+## 教学风格规则
 
-Bad signals:
-- only saying "I will continue"
-- only discussing next steps without starting them
-- only having completed subagents with no next package started
-
-## Commit Boundary Rules
-
-- Prefer clean local milestone commits.
-- A commit should correspond to a coherent module milestone.
-- Do not mix half-finished future modules into the current milestone unless clearly intentional.
-
-## Teaching Style Rules
-
-- Chinese,书面语、通俗易懂
-- Concept first, evidence oriented
-- Do not drown the learner in source details too early
-- Keep module boundaries clean:
-  - M1 = why Fiber exists
-  - M2 = Fiber node and traversal
+- 中文书面语、通俗易懂
+- 概念优先、证据导向
+- 不要过早用大量源码细节淹没读者
+- 保持模块边界清晰：
+  - M1 = 为什么需要 Fiber
+  - M2 = Fiber 节点与遍历
   - M3 = current / workInProgress / render / commit
-  - M4 = one `setState` trace
-  - M5+ = priority / lanes / scheduler / advanced topics
+  - M4 = 一次 `setState` 全链路
+  - M5+ = 优先级 / lanes / scheduler / 高级主题
 
-## Quality Bar
+## 质量标准
 
-Before calling a module "ready", check:
-- Is the scope still bounded?
-- Are official sources or official source files cited?
-- Is the explanation understandable without reading the whole React repo?
-- Are misconceptions explicitly handled?
-- Is there a self-review note?
-- Is the next action clear: polish, commit, or next module?
+在判定某模块"就绪"之前，检查：
+- 范围是否仍然有界？
+- 是否引用了官方源码或官方源文件？
+- 不读整个 React 仓库也能看懂吗？
+- 是否显式处理了常见误解？
+- 是否有自审笔记？
+- 下一步行动是否明确：打磨、提交、还是进入下一模块？
 
-## Diagram Authoring Rules
+## 图表编写规则
 
 本项目有两类图表，工作流不同：
 
@@ -139,6 +132,11 @@ Before calling a module "ready", check:
 - **箭头曲线**：return/回退箭头使用虚线区分，曲线控制点需保持在容器范围内。
 - **viewBox 比例**：修改后检查整体 viewBox，避免出现极端宽高比（如 12:1）。
 
+### 部署同步
+
+- **不要直接编辑 `app/public/diagrams/`**：该目录是 `docs/diagrams/` 的自动复制品，每次 `npm run build` 会被 `sync:diagrams` 覆盖。
+- **编辑完 `docs/diagrams/` 后无需手动复制**：构建流程会自动同步。但如需本地 dev server 即时预览，可单独运行 `cd app && npm run sync:diagrams`。
+
 ### 通用原则
 
 - **先打开预览确认再提交**：不要仅凭 viewBox 数值判断，实际渲染可能有意外问题。
@@ -149,7 +147,7 @@ Before calling a module "ready", check:
   然后用 Read 工具读取 PNG 进行视觉检查。检查完毕后删除临时 PNG。
 - **图表修改易连锁**：一次布局调整可能引发多处溢出/重叠，修完后全图扫一遍。
 
-## Source Accuracy Rules (Lessons from 2026-03-20 Review)
+## 源码准确性规则（2026-03-20 审查教训）
 
 本项目曾因以下问题导致多处严重/中等错误，后续涉及源码引用时务必遵守：
 
@@ -188,21 +186,35 @@ reconciler 核心文件采用 `.old.js` / `.new.js` 双版本 fork 机制。**�
 
 描述触发场景时，不得使用不存在的 API 名称（如 `useIdleCallback`）。如果不确定，先查证源码。
 
-## Site / Deployment
+## 站点与部署
 
 - 技术栈：Vite 8 + React 19 + TanStack Router + MDX
 - 域名：`fiber.aixie.de`（Cloudflare Workers 自定义域名）
 - 源码目录：`app/`
 - 内容源：`app/src/content/`（modules / evidence / reference / guide）
-- 构建：`cd app && npm run build`（tsc + vite，输出 `app/dist/`）
+- 构建：`cd app && npm run build`（sync:diagrams → tsc → vite，输出 `app/dist/`）
 - 部署：`cd app && npm run deploy`（wrangler deploy）
 - 配置文件：`app/wrangler.jsonc`、`app/vite.config.ts`、`app/package.json`
 
-## Default Next-Step Logic
+### 内容与图表的源与派生关系
 
-When unsure what to do next, prefer this order:
-1. finish the current module package
-2. produce commit-readiness
-3. create local milestone commit if ready
-4. plan the next module
-5. execute the next module
+本项目有两类内容资产，**同步策略不同**：
+
+| 资产 | 唯一源 | 站点使用 | 同步方式 |
+|------|--------|----------|----------|
+| SVG 图表 | `docs/diagrams/*.svg` | `app/public/diagrams/`（纯复制品） | `npm run build` 自动执行 `sync:diagrams`（`cp`） |
+| 文本教程 | `app/src/content/*.mdx` | 同左（MDX 即源文件） | 无需同步 — MDX 已做 web 适配（路由链接等） |
+
+关键规则：
+- **图表只改 `docs/diagrams/`**（D2 源或手工 SVG），不要直接改 `app/public/diagrams/`，否则下次构建会被覆盖。
+- **`docs/modules/*-draft.md` 是历史草稿/归档**，不是站点内容源。站点 MDX 中的内部链接已改为路由路径（如 `/learn/01-why-fiber`），与 `docs/` 中的文件路径引用不同，两者不应自动同步。
+- 如果教程内容需要修改，直接改 `app/src/content/*.mdx`；如果需要同步回 `docs/`，手动处理。
+
+## 默认下一步逻辑
+
+不确定下一步做什么时，按以下优先级：
+1. 完成当前模块的工作包
+2. 产出提交就绪检查
+3. 如果就绪，创建本地里程碑提交
+4. 规划下一个模块
+5. 执行下一个模块
